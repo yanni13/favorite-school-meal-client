@@ -1,0 +1,31 @@
+.container{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 390px;
+    height: 64px;
+    background: #9DC08B;
+}
+
+
+.profile_img{
+    width: 44.88px;
+    height: 43.689px;
+    background-color: grey;
+    border-radius: 45px;
+    margin-right: 13px;
+    
+}
+
+.profile_title{
+    width: 51px;
+    height: 11.591px;
+}
+
+.menu_button{
+    background-color: transparent;
+    border: none;
+    margin: 15px;
+}
+
