@@ -17,21 +17,21 @@ export default function MiniMap() {
         useEffect(()=>{
             const container = document.getElementById('map');
             const options = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667),
+                center: new kakao.maps.LatLng(35.8361601, 128.7528893),
                 level: 3
             };
             const map = new kakao.maps.Map(container, options);
         }, [])
 
         return(
-            <>
+            <div className={styles.map_box}>
                 <div id="map" style={{
-                    width: '500px',
-                    height: '500px'
+                    width: '348px',
+                    height: '296px'
                 }}>
                     
                 </div>
-            </>
+            </div>
         );
     }
 
