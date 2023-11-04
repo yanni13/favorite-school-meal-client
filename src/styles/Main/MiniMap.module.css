@@ -5,3 +5,9 @@
     justify-content: left;
     margin-left: 21px;
 }
+
+.map_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
