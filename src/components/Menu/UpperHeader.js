@@ -1,28 +1,41 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import close_button from '../../media/Menu/close_button.svg';
 
 function UpperHeader() {
-    let wrapper = styled.div`
+    let UpperHeaderWrapper = styled.div`
         display: flex;
-        align-items: center;
         justify-content: space-between;
         width: 390px;
-        height: 64px;
+        height: 44px;
         background: #9DC08B;
     `
 
-    let title = styled.a`
+    let UpperheaderTitle = styled.a`
         color: #1C1C1C;
         font-family: Noto Sans KR;
         font-size: 22px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        margin-left: 20px;
+        margin-top: 12px;
         `
+
+    let CloseButton = styled.img`
+        margin-right: 14px;
+        margin-top: 12px;
+    `
+    
     return (
         <>
-            <wrapper>
-                <title>바로가기</title>
-            </wrapper>
+            <UpperHeaderWrapper>
+                <UpperheaderTitle>바로가기</UpperheaderTitle>
+                <Link to='/'>
+                    <CloseButton src={close_button}/>
+                </Link>
+            
+            </UpperHeaderWrapper>
         </>
     );
 }
