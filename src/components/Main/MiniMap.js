@@ -8,7 +8,15 @@ export default function MiniMap() {
         return(
             <div className={styles.title}>
                 <img src={MapLogo}/>
-                <h3>지도</h3>
+                <h3 style={{
+                    color: '#1C1C1C',
+                    fontFamily: 'Noto Sans KR',
+                    fontSize: '22px',
+                    fontStyle: 'normal',
+                    fontWeight: '700',
+                    lineHeight: 'normal',
+                    margin: '18.72, 0, 18.72, 0'
+                }}>지도</h3>
             </div>
         );
     }
