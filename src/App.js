@@ -18,7 +18,7 @@ function App() {
           <Routes>
             <Route path = "/" element={<MainPage/>}></Route>
             <Route path = "/JoinPage" element={<JoinPage/>}></Route>
-            
+            <Route path = "/MenuPage" element={<MenuPage/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>
