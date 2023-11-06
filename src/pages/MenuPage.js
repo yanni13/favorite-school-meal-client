@@ -1,6 +1,7 @@
 import UpperHeader from "../components/Menu/UpperHeader";
 import LowerHeader from "../components/Menu/LowerHeader";
 import AlarmBoard from "../components/Menu/AlarmBoard";
+import MenuButton from "../components/Menu/MenuButton";
 import styled from 'styled-components';
 
 const MenuPage = () => {
@@ -22,6 +23,7 @@ const MenuPage = () => {
             <S.AlarmWrapper>
                 <AlarmBoard/>
             </S.AlarmWrapper>
+            <MenuButton/>
         </>
     );
 }
