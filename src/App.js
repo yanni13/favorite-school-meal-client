@@ -6,6 +6,7 @@ import MainPage from "./pages/MainPage"
 import JoinForm from "./components/Auth/JoinForm"
 import JoinPage from "./pages/JoinPage"
 import MenuPage from "./pages/MenuPage"
+import MapPage from "./pages/MapPage"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -19,6 +20,7 @@ function App() {
             <Route path = "/" element={<MainPage/>}></Route>
             <Route path = "/JoinPage" element={<JoinPage/>}></Route>
             <Route path = "/MenuPage" element={<MenuPage/>}></Route>
+            <Route path = "/MapPage" element={<MapPage/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>
