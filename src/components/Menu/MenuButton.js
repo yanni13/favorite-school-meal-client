@@ -66,11 +66,11 @@ function MenuButton() {
                     </S.ButtonBox>
                     <S.ButtonTitle>친구</S.ButtonTitle>
                 </S.ButtonWrapper>
-            
                 
+            
             </S.Wrapper>
-        </>
+        </> 
     );
 }
-
+// 관리자 버튼은 유저정보 받아와서 유저정보가 관리자면 보이게 하기
 export default MenuButton;
