@@ -33,7 +33,9 @@ function TitledHeader(props){
         <>
             <S.Container>
                 <S.BackButton>
-                    <img src={back_button}></img>
+                    <Link to="/">
+                        <img src={back_button}/>
+                    </Link>
                 </S.BackButton>
                 <S.Title>{props.title}</S.Title>
             </S.Container>       
