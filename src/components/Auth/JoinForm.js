@@ -1,8 +1,7 @@
-import React, {useCallback, useState} from "react";
-import { useEffect } from "react";
+import React, {useCallback, useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { SignInForm } from "../../styles/Login.styled";
+import { SignInForm } from "../../styles/Login/Login.styled";
 
 const JoinForm = () => {
 
@@ -17,17 +16,10 @@ const JoinForm = () => {
     });
     
     const [data, updataData] = useState(initData);
-    //const [name, updataName] = useState(initData.name);
-
-    //const [email, updataEmail] = useState(initData.email);
-    //const [id, updataId] = useState(initData.id);
-    //const [pswd, setPswd] = useState(initData.pswd);//비밀번호
     const [checkPswd, setCheckPswd] = useState(initData.setCheckPswd);
 
-    //const [pswdMessage, setPswdMessage] = useState("");
     const [checkPswdMessage, setCheckPswdMessage] = useState("");//비밀번호오류메세지 상태
 
-    //const [isPswd, setIsPswd] = useState(false);
     const [isCheckPswd, setIsCheckPswd] = useState(false);//비밀번호 유효성 검사
     const [color, updataColor] = useState("#b8e8ff")
 
@@ -35,9 +27,9 @@ const JoinForm = () => {
         if( data.id.length > 0 && data.name.length > 0 &&
             data.email.length > 0 && data.pswd.length > 0 &&
             data.checkPswd.length > 0) {
-            updataColor("#95DDFF");
+            updataColor("#609966");
         } else {
-            updataColor("#b8e8ff");
+            updataColor("#A4D0A9");
         }
     }, [data])
 
@@ -55,7 +47,6 @@ const JoinForm = () => {
         })
         .then((res) => { //요청 성공했을 때
             console.log(res.data)
-            //localStorage.setItem("Token", res.headers.authorization);
             if(res.status === 201) {
                 alert("환영합니다!");
                 navigate("/LoginPage");
