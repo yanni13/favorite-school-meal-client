@@ -1,10 +1,11 @@
 import './App.css';
-import * as React from 'react'
-import { Reset } from "styled-reset"
-import MainPage from "./pages/MainPage"
+import * as React from 'react';
+import { Reset } from "styled-reset";
+import MainPage from "./pages/MainPage";
 import LoginPage from './pages/LoginPage';
-import JoinPage from "./pages/JoinPage"
-import MenuPage from "./pages/MenuPage"
+import JoinPage from "./pages/JoinPage";
+import MenuPage from "./pages/MenuPage";
+import MapPage from "./pages/MapPage";
 import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
 import FindIdPage from './pages/FindIdPage';
