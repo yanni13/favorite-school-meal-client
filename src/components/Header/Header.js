@@ -7,9 +7,12 @@ function Header(){
     return (
         <>
             <div className={styles.container}>
-                <a className={styles.menu_button}>
-                    <img src={menu_button}/>
-                </a>
+                <Link to='/MenuPage'>
+                    <a className={styles.menu_button}>
+                        <img src={menu_button}/>
+                    </a>
+                </Link>
+                
                 <Logo/>
                 <div className={styles.profile_img}>hi</div>
             </div>

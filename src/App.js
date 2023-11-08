@@ -1,18 +1,20 @@
 import './App.css';
-import * as React from 'react'
-import { Reset } from "styled-reset"
-import MainPage from "./pages/MainPage"
+import * as React from 'react';
+import { Reset } from "styled-reset";
+import MainPage from "./pages/MainPage";
 import LoginPage from './pages/LoginPage';
-import JoinPage from "./pages/JoinPage"
-import FindIdPage from './pages/FindIdPage';
-import ResetPwPage from './pages/ResetPwPage';
-
-//import MenuPage from "./pages/MenuPage"
-
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import JoinPage from "./pages/JoinPage";
+import MenuPage from "./pages/MenuPage";
+import MapPage from "./pages/MapPage";
 import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
+import FindIdPage from './pages/FindIdPage';
+//import MenuPage from "./pages/MenuPage"
+import ResetPwPage from './pages/ResetPwPage';
 import ModifyInfoPage from './pages/ModifyInfoPage';
+
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+
 
 function App() {
   return (
@@ -23,7 +25,8 @@ function App() {
           <Routes>
             <Route path = "/" element={<MainPage/>}></Route>
             <Route path = "/JoinPage" element={<JoinPage/>}></Route>
-            <Route path = "/LoginPage" element={<LoginPage/>}></Route>
+            <Route path = "/MenuPage" element={<MenuPage/>}></Route>
+            <Route path = "/MapPage" element={<MapPage/>}></Route>            <Route path = "/LoginPage" element={<LoginPage/>}></Route>
             <Route path = "/SearchIdPage" element={<SearchIdPage/>}></Route>
             <Route path = "/FindIdPage" element={<FindIdPage/>}></Route>
             <Route path = "/SearchPwPage" element={<SearchPwPage/>}></Route>
