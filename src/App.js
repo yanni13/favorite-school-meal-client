@@ -9,6 +9,7 @@ import MapPage from "./pages/MapPage";
 import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
 import FindIdPage from './pages/FindIdPage';
+import MapComponent from './components/Map/TestMap';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -23,10 +24,12 @@ function App() {
             <Route path = "/" element={<MainPage/>}></Route>
             <Route path = "/JoinPage" element={<JoinPage/>}></Route>
             <Route path = "/MenuPage" element={<MenuPage/>}></Route>
-            <Route path = "/MapPage" element={<MapPage/>}></Route>            <Route path = "/LoginPage" element={<LoginPage/>}></Route>
+            <Route path = "/MapPage" element={<MapPage/>}></Route>
+            <Route path = "/LoginPage" element={<LoginPage/>}></Route>
             <Route path = "/SearchIdPage" element={<SearchIdPage/>}></Route>
             <Route path = "/FindIdPage" element={<FindIdPage/>}></Route>
             <Route path = "/SearchPwPage" element={<SearchPwPage/>}></Route>
+            <Route path = "/Test" element={<MapComponent/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>

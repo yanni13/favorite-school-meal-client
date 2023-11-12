@@ -17,11 +17,22 @@ const S = {
 		bottom: 25px;
 		left: 33px;
 		z-index: 1;
-
 	`
 }
-function MainMap(){
-	const [isOpen, setIsOpen] = useState(false);
+
+const MainMap = () => {
+	//1. 우리 서비스에서 제공하는 식당 {식당id, 위치{경도,위도}} 요 딕셔너리 리스트 GET API
+    //2. 식당 id를 기반으로 해당 식당의 식당 이미지, 이름, 운영시간, 메뉴정보 GET API
+	const [isOpen, setIsOpen] = useState(false); // InfoBox의 열림/닫힘 상태
+	const [markerPosition, setMarkerPosition] = useState(null);
+	const [restrauntInfo, setRestrauntInfo] = useState(null);
+
+	const handleMarkerClick = (marker, mouseEvent) => {
+		setIsOpen(true);
+		const markerPosition = marker.getPosition();
+		
+		setMarkerPosition(markerPosition);
+	}
 
 	return (
 		<>
@@ -29,21 +40,27 @@ function MainMap(){
 			center={{ lat: 35.8361601, lng: 128.7528893 }} 
 			style={{ width: '390px', height: '844px' }}
 			level={3} 
+			onClick={() => {
+				setIsOpen(false);
+			}}
 			>
 				{locations.map((loc, idx) => (
 					<MapMarker
 						clickable={true}
-						onClick={() => setIsOpen(true)}
+						onClick={handleMarkerClick}
 						position={loc.latlng}
 						image={{
 							src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
 							size: { width: 24, height: 35 },
 						}}
 						title={loc.title}
-					/>
+						syoon={"안성윤"}
+					>
+					</MapMarker>
+
 				))}
 				<S.InfoWrapper>
-					<MapInfo/>
+					{isOpen && <MapInfo latlng={markerPosition}/>}
 				</S.InfoWrapper>
 			</Map>
 		</>
