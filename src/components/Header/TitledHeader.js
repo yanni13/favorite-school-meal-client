@@ -5,23 +5,29 @@ import back_button from '../../media/Header/back_button.svg';
 
 const S = {
     Container : styled.div`
-        display: flex;
-        align-items: center;
-        width: 390px;
-        height: 56px;
+        position: relative;
+        width: 100%;
         height: 64px;
         background: #9DC08B;
     `,
     Title : styled.a`
+        position: absolute;
+        left: 50%; 
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
         color: #000;
         font-family: Noto Sans KR;
         font-size: 20px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        margin-left: 99px;
+        margin: 0 auto;
     `,
     BackButton : styled.a`
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
         width: 26px;
         height: 26px;
         margin-left: 10px;
