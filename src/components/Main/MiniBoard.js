@@ -8,12 +8,13 @@ const S = {
     Wrapper: styled.div`
         display: flex;
         flex-direction: column;
-        align-items: center;
+        justify-content: flex-start;
         width: 348px;
         height: 356px;
         border-radius: 30px;
         background: #FFF;
         margin-left: 21px;
+        padding-top : 5px;
     `,
     DetailButton: styled.a`
         color: #A1A1A1;
@@ -55,6 +56,11 @@ export default function MiniBoard() {
         <>
             <BoardTitle/>
             <S.Wrapper>
+                <PostTable/>
+                <PostTable/>
+                <PostTable/>
+                <PostTable/>
+                <PostTable/>
                 <PostTable/>
             </S.Wrapper>
         </>

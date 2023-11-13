@@ -15,7 +15,8 @@ const S = {
 		display: flex;
 		position : fixed;
 		bottom: 25px;
-		left: 33px;
+		left: 50%;
+		transform: translateX(-50%);
 		z-index: 1;
 	`
 }
@@ -29,9 +30,11 @@ const MainMap = () => {
 
 	const handleMarkerClick = (marker, mouseEvent) => {
 		setIsOpen(true);
-		const markerPosition = marker.getPosition();
+		const markerPosition = marker.latlng;
+		const markerTitle = marker.title;
 		
 		setMarkerPosition(markerPosition);
+		setRestrauntInfo(markerTitle);
 	}
 
 	return (
@@ -47,20 +50,19 @@ const MainMap = () => {
 				{locations.map((loc, idx) => (
 					<MapMarker
 						clickable={true}
-						onClick={handleMarkerClick}
+						onClick={(mouseEvent) => handleMarkerClick(loc, mouseEvent)}
 						position={loc.latlng}
 						image={{
 							src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
 							size: { width: 24, height: 35 },
 						}}
 						title={loc.title}
-						syoon={"안성윤"}
 					>
 					</MapMarker>
 
 				))}
 				<S.InfoWrapper>
-					{isOpen && <MapInfo latlng={markerPosition}/>}
+					{isOpen && <MapInfo latlng={markerPosition} title={restrauntInfo}/>}
 				</S.InfoWrapper>
 			</Map>
 		</>

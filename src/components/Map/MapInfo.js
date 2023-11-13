@@ -73,7 +73,10 @@ const S = {
     `
 }
 
-const MapInfo= ({latlng}) => {
+// 추후에는 마커클릭시 위치 기반으로 식당 id를 받아오고, 그 id를 props로 전달.
+// axios로 id를 기반으로 식당 정보를 받아오는 API를 호출.
+// 해당 데이터 활용해 완성.
+const MapInfo= ({latlng, title}) => {
     const [data, setData] = useState({
         title : "식당이름", 
         type : "식당타입", 
@@ -87,7 +90,7 @@ const MapInfo= ({latlng}) => {
     return (
         <S.InfoBox>
             <S.Wrapper>
-                <S.TitleText>{data.title}</S.TitleText>
+                <S.TitleText>{title}</S.TitleText>
                 <S.TypeText>{data.type}</S.TypeText>
                 <S.RestrauntImage></S.RestrauntImage>
                 <S.LowerWrapper>
@@ -97,6 +100,9 @@ const MapInfo= ({latlng}) => {
                         <S.TimeText>{data.time}</S.TimeText>
                     </S.TimeWrapper>
                     <S.DetailButton>
+                        {
+                        // 여기같은 경우에는 식당 id를 기반으로 식당 상세페이지로 이동하는 링크를 걸어야 함.
+                        }
                         <Link to='/' style={{ 
                             textDecoration: "none",
                             fontFamily: "Noto Sans KR",
