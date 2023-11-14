@@ -16,7 +16,7 @@ const S = {
         margin-left: 21px;
         padding-top : 5px;
     `,
-    DetailButton: styled.a`
+    DetailButton: styled.button`
         color: #A1A1A1;
         font-family: Noto Sans KR;
         font-size: 10px;

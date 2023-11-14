@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const { kakao } = window;
 
 const S = {
-    DetailButton: styled.a`
+    DetailButton: styled.button`
         color: #A1A1A1;
         font-family: Noto Sans KR;
         font-size: 10px;

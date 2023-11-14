@@ -8,10 +8,12 @@ function Header(){
     return (
         <>
             <div className={styles.container}>
-                <Link to='/MenuPage'>
-                    <a className={styles.menu_button}>
+                <Link to='/MenuPage' style={{
+                    margin: '15px'
+                }}>
+                    
                         <img src={menu_button}/>
-                    </a>
+                    
                 </Link>
                 
                 <Logo/>
