@@ -9,9 +9,10 @@ import MapPage from "./pages/MapPage";
 import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
 import FindIdPage from './pages/FindIdPage';
-import MapComponent from './components/Map/TestMap';
+import RestrauntInfoPage from './pages/RestrauntInfoPage';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
     <>
       <Reset/>
       <div className="App">
-          <BrowserRouter>
+        <BrowserRouter>
           <Routes>
             <Route path = "/" element={<MainPage/>}></Route>
             <Route path = "/JoinPage" element={<JoinPage/>}></Route>
@@ -29,7 +30,8 @@ function App() {
             <Route path = "/SearchIdPage" element={<SearchIdPage/>}></Route>
             <Route path = "/FindIdPage" element={<FindIdPage/>}></Route>
             <Route path = "/SearchPwPage" element={<SearchPwPage/>}></Route>
-            <Route path = "/Test" element={<MapComponent/>}></Route>
+            <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
+            {/* <Route path = "/Test" element={<MapComponent/>}></Route> */}
           </Routes>
         </BrowserRouter>
       </div>
