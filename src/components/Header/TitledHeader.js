@@ -41,11 +41,9 @@ function TitledHeader(props){
         <>
             <S.Container>
                 <S.BackButton>
-                
                         <img src={back_button} onClick={() => {
                             navigate(-1);
                         }}/>
-                    
                 </S.BackButton>
                 <S.Title>{props.title}</S.Title>
             </S.Container>       

@@ -23,7 +23,7 @@ const S = {
         border-radius: 30px;
         background: #FFF;
         padding-top : 5px;
-    `,
+    `, 
     SubtitleText : styled.a`
         text-align: left;
         color: #000;
@@ -54,6 +54,7 @@ const RestrauntInfoPage = () => {
                     type={""}
                     />
                 <div style={{height : "19px"}}></div>
+                {/* 이부분 컴포넌트로 분리할 필요 있어보임.*/}
                 <S.PostWrapper>
                     <S.SubtitleText>학식메이트  게시판</S.SubtitleText>
                     <PostTable/>

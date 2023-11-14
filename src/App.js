@@ -10,6 +10,7 @@ import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
 import FindIdPage from './pages/FindIdPage';
 import RestrauntInfoPage from './pages/RestrauntInfoPage';
+import PostPage from './pages/PostPage';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -31,6 +32,7 @@ function App() {
             <Route path = "/FindIdPage" element={<FindIdPage/>}></Route>
             <Route path = "/SearchPwPage" element={<SearchPwPage/>}></Route>
             <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
+            <Route path = "/PostPage" element={<PostPage/>}></Route>
             {/* <Route path = "/Test" element={<MapComponent/>}></Route> */}
           </Routes>
         </BrowserRouter>

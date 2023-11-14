@@ -44,7 +44,7 @@ export default function MiniBoard() {
                     margin: '18.72, 0, 18.72, 0',
                     whiteSpace: 'nowrap'
                 }}>게시판</span>
-                <Link to='/MapPage' style={{ textDecoration: "none", marginTop: '20px'}}>
+                <Link to='/PostPage' style={{ textDecoration: "none", marginTop: '20px'}}>
                 <S.DetailButton>자세히 보기</S.DetailButton>
                 </Link>
             </div>
