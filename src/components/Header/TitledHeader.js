@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import back_button from '../../media/Header/back_button.svg';
@@ -35,13 +35,17 @@ const S = {
 }
 
 function TitledHeader(props){
+    const navigate = useNavigate();
+
     return (
         <>
             <S.Container>
                 <S.BackButton>
-                    <Link to="/">
-                        <img src={back_button}/>
-                    </Link>
+                
+                        <img src={back_button} onClick={() => {
+                            navigate(-1);
+                        }}/>
+                    
                 </S.BackButton>
                 <S.Title>{props.title}</S.Title>
             </S.Container>       
