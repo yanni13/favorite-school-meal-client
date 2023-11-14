@@ -25,6 +25,7 @@ const S = {
         line-height: normal;
         margin: 0 0 0 180px;
         white-space: nowrap;
+        border: none;
     `
 }   
 

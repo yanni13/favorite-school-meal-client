@@ -16,6 +16,7 @@ const S = {
         line-height: normal;
         margin: 0 0 0 160px;
         white-space: nowrap;
+        border: none;
     `
 }
 
@@ -59,7 +60,6 @@ export default function MiniMap() {
                     borderRadius: '20px',
                     border: '1px solid #D9D9D9'
                 }}>
-                    
                 </div>
             </div>
         );
@@ -67,8 +67,8 @@ export default function MiniMap() {
 
     return(
         <>
-                <MapTitle/>
-                <MapContent/>
+            <MapTitle/>
+            <MapContent/>
         </>
 
     );
