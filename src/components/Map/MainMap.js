@@ -4,10 +4,10 @@ import MapInfo from './MapInfo';
 import styled from 'styled-components';
 
 const locations = [
-	{ title: '다이소', latlng: { lat: 35.83612503877446, lng: 128.7527715858539 } },
-	{ title: '아틀리에빈', latlng: { lat: 35.83642690671568, lng: 128.752617763627 } },
-	{ title: '텃밭', latlng: { lat: 33.450879, lng: 126.56994 } },
-	{ title: '근린공원', latlng: { lat: 33.451393, lng: 126.570738 } },
+	{ id: 1, title: '다이소', latlng: { lat: 35.83612503877446, lng: 128.7527715858539 } },
+	{ id: 2, title: '아틀리에빈', latlng: { lat: 35.83642690671568, lng: 128.752617763627 } },
+	{ id: 3, title: '텃밭', latlng: { lat: 33.450879, lng: 126.56994 } },
+	{ id: 4, title: '근린공원', latlng: { lat: 33.451393, lng: 126.570738 } },
 ];
 
 const S = {
@@ -27,12 +27,15 @@ const MainMap = () => {
 	const [isOpen, setIsOpen] = useState(false); // InfoBox의 열림/닫힘 상태
 	const [markerPosition, setMarkerPosition] = useState(null);
 	const [restrauntInfo, setRestrauntInfo] = useState(null);
+	const [restrauntId, setRestrauntId] = useState(null);
 
-	const handleMarkerClick = (marker, mouseEvent) => {
+	const handleMarkerClick = (loc, mouseEvent, marker) => {
 		setIsOpen(true);
-		const markerPosition = marker.latlng;
-		const markerTitle = marker.title;
+		const markerPosition = loc.latlng;
+		const markerTitle = loc.title;
+		const markerId = loc.id;
 		
+		setRestrauntId(markerId);
 		setMarkerPosition(markerPosition);
 		setRestrauntInfo(markerTitle);
 	}
@@ -62,7 +65,7 @@ const MainMap = () => {
 
 				))}
 				<S.InfoWrapper>
-					{isOpen && <MapInfo latlng={markerPosition} title={restrauntInfo}/>}
+					{isOpen && <MapInfo latlng={markerPosition} title={restrauntInfo} id={restrauntId}/>}
 				</S.InfoWrapper>
 			</Map>
 		</>
