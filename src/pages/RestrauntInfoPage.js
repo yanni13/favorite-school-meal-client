@@ -5,6 +5,7 @@ import TitledHeader from "../components/Header/TitledHeader";
 import MapInfo from "../components/Map/MapInfo";
 import PostTable from "../components/Post/PostTable"
 
+
 const S = {
     Wrapper : styled.div`
         display: flex;
@@ -18,11 +19,21 @@ const S = {
         flex-direction: column;
         justify-content: flex-start;
         width: 348px;
-        height: 356px;
+        height: 513px;
         border-radius: 30px;
         background: #FFF;
         padding-top : 5px;
     `,
+    SubtitleText : styled.a`
+        text-align: left;
+        color: #000;
+        font-family: Noto Sans KR;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin: 12px 0 12px 20px;
+    `
 }
 
 const RestrauntInfoPage = () => {
@@ -39,12 +50,18 @@ const RestrauntInfoPage = () => {
                 <MapInfo 
                     latlng={{}} 
                     title={"기본값"} 
-                    id={1} 
+                    id={routerParams} 
                     type={""}
                     />
                 <div style={{height : "19px"}}></div>
                 <S.PostWrapper>
-
+                    <S.SubtitleText>학식메이트  게시판</S.SubtitleText>
+                    <PostTable/>
+                    <PostTable/>
+                    <PostTable/>
+                    <PostTable/>
+                    <PostTable/>
+                    <PostTable/>
                 </S.PostWrapper>
             </S.Wrapper>
         </>
