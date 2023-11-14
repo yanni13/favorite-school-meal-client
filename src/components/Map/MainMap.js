@@ -65,7 +65,7 @@ const MainMap = () => {
 
 				))}
 				<S.InfoWrapper>
-					{isOpen && <MapInfo latlng={markerPosition} title={restrauntInfo} id={restrauntId}/>}
+					{isOpen && <MapInfo latlng={markerPosition} title={restrauntInfo} id={restrauntId} pageType={"Map"}/>}
 				</S.InfoWrapper>
 			</Map>
 		</>
