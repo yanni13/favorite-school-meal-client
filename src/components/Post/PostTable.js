@@ -1,65 +1,119 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import comment_logo from '../../media/Post/comment_logo.svg';
 
-function PostTable(props){
-    const { Title, Time, Content } = props;
+const S = {
+    Wrapper : styled.div`
+        display : flex;
+        flex-direction : row;
+        justify-content : flex-start;  
+    `,
+    ProfileImage : styled.div`
+        width : 40px;
+        height : 40px;
+        background-color: grey;
+        border-radius: 50%;
+        margin-left : 13px;
+    `,
+    MiddleWrapper : styled.div`
+        display : flex;
+        width: 235px;
+        flex-direction: column;
+        justify-content : flex-start;
+        text-align : left;
+        margin-left : 10px;
+    `,
+    TitleText : styled.a`
+        text-overflow: ellipsis;
+        color: #000;
+        font-family: Noto Sans KR;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+`,
+    ContentText : styled.a`
+        white-space: nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        color: #A1A1A1;
+        font-family: Noto Sans KR;
+        font-size: 7px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin: 3px 0 3px 0;
+    `, 
+    TimeText : styled.a`
+        color: #A1A1A1;
+        font-family: Noto Sans KR;
+        font-size: 7px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    `,
+    RightWrapper : styled.div`
+        display : flex;
+        flex-direction : column;
+    `,
+    StatusBox : styled.div`
+        width: 30px;
+        height: 10px;
+        border-radius: 5px;
+        border: 0.5px solid #609966;
+        background-color: #609966;
+        color: #FFF;
+        font-family: Noto Sans KR;
+        font-size: 7px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    `,
+    CommentWrapper : styled.div`
+        display : flex;
+        margin: 20px 0 0 17px;
+    `,
 
-    const S = {
-        Wrapper: styled.div`
-            display: block;
-            border-bottom: 1px solid #DADADA;
-            width: 322px;
-            margin-top: 5px;
-        `,
-        TitleBox: styled.div`
-            display: flex;
-            justify-content: space-between;
-            overflow:hidden;
-            text-overflow: ellipsis;
-        `,
-        TitleText: styled.a`
-            color: #000;
-            font-family: Noto Sans KR;
-            font-size: 15px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-        `,
-        TimeText: styled.a`
-            color: #A1A1A1;
-            font-family: Noto Sans KR;
-            font-size: 10px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-        `,
-        ContentBox: styled.div`
-            display: flex;
-            margin : 3px 0px 3px 0px;
-        `,
-        ContentText: styled.a`
-            color: #A1A1A1;
-            font-family: Noto Sans KR;
-            font-size: 10px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-        `,
-    }
 
-    return(
-        <>
+}
+
+const PostTable = () => {
+    const [data, setData] = useState({
+        title : "글제목 입니다.",
+        content : "글내용 입니다. 하지만 글내용을 이렇게 많이넣었을때는  ellipsis를 통해  점점점 처리를 해버릴겁니다."
+    });
+
+    return (
+        <div style={{
+            display : 'flex',
+            flexDirection : 'column',
+            justifyContent : 'center',
+            marginTop : '5px'
+        }}>
             <S.Wrapper>
-                <S.TitleBox>
-                    <S.TitleText>식사 신청이 승인되었습니다!</S.TitleText>
-                    <S.TimeText>30분전</S.TimeText>
-                </S.TitleBox>
-                <S.ContentBox>
-                    <S.ContentText>“이도앞 자연계 식당 밥먹을 분 아무나...” 글의 신청이 승인 되었습니다.</S.ContentText>
-                </S.ContentBox>
+                <S.ProfileImage/>
+                <S.MiddleWrapper>
+                    <S.TitleText>{data.title}</S.TitleText>
+                    <S.ContentText>{data.content}</S.ContentText>
+                    <S.TimeText>15분전</S.TimeText>
+                </S.MiddleWrapper>
+                <S.RightWrapper>
+                        <S.StatusBox>status</S.StatusBox>
+                        <S.CommentWrapper>
+                            <S.TimeText>3</S.TimeText>     
+                            <img src={comment_logo}/>
+                        </S.CommentWrapper>
+                    </S.RightWrapper>
             </S.Wrapper>
-        </>
-    );
+            <div style={{
+                width : '315px',
+                height : '1px',
+                background: '#A1A1A1',
+                margin: '7px 0 0 13px',
+                }}/>
+        </div>
+    )
+
 }
 
 export default PostTable;
