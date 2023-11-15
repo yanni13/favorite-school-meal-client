@@ -12,6 +12,7 @@ import FindIdPage from './pages/FindIdPage';
 //import MenuPage from "./pages/MenuPage"
 import ResetPwPage from './pages/ResetPwPage';
 import ModifyInfoPage from './pages/ModifyInfoPage';
+import MyPage from './pages/MyPage';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -32,6 +33,8 @@ function App() {
             <Route path = "/SearchPwPage" element={<SearchPwPage/>}></Route>
             <Route path = "/ResetPwPage" element={<ResetPwPage/>}></Route>
             <Route path = "/ModifyInfoPage" element={<ModifyInfoPage/>}></Route>
+            <Route path = "/MyPage" element={<MyPage/>}></Route>
+
           </Routes>
         </BrowserRouter>
       </div>
