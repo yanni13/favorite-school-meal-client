@@ -45,7 +45,7 @@ const ModifyInfoPage = () => {
 
     return (
         <>
-        <TitledHeader title="회원정보 수정"/>
+        <TitledHeader title="회원정보"/>
         <SignInBox>
             <h2 className="subtitle">회원 정보 수정</h2>
             <ModifyInfoForm/>

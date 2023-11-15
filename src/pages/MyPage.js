@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import MyPageForm from "../components/Auth/MyPageForm";
 import TitledHeader from "../components/Header/TitledHeader";
+import { MyPageBox } from "../styles/Login/MyPage.styled"; 
 
 const MyPage = () => {
 
@@ -11,9 +12,9 @@ const MyPage = () => {
     return (
         <>
             <TitledHeader title="마이 페이지"/>
-            <MyPage>
+            <MyPageBox>
                <MyPageForm/> 
-            </MyPage>
+            </MyPageBox>
         </>
        
     )

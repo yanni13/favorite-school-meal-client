@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MyPage = styled.div`
+const MyPageBox = styled.div`
     .block {
         width: 151px;
         height: 53px;
@@ -12,4 +12,4 @@ const MyPage = styled.div`
 
 `;
 
-export {MyPage};
+export {MyPageBox};
