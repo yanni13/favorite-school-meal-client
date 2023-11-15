@@ -1,16 +1,74 @@
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useState } from 'react';
+import MapInfo from './MapInfo';
+import styled from 'styled-components';
 
+const locations = [
+	{ id: 1, title: '다이소', latlng: { lat: 35.83612503877446, lng: 128.7527715858539 } },
+	{ id: 2, title: '아틀리에빈', latlng: { lat: 35.83642690671568, lng: 128.752617763627 } },
+	{ id: 3, title: '텃밭', latlng: { lat: 33.450879, lng: 126.56994 } },
+	{ id: 4, title: '근린공원', latlng: { lat: 33.451393, lng: 126.570738 } },
+];
 
+const S = {
+	InfoWrapper: styled.div`
+		display: flex;
+		position : fixed;
+		bottom: 25px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 1;
+	`
+}
 
-function MainMap(){
+const MainMap = () => {
+	//1. 우리 서비스에서 제공하는 식당 {식당id, 위치{경도,위도}} 요 딕셔너리 리스트 GET API
+    //2. 식당 id를 기반으로 해당 식당의 식당 이미지, 이름, 운영시간, 메뉴정보 GET API
+	const [isOpen, setIsOpen] = useState(false); // InfoBox의 열림/닫힘 상태
+	const [markerPosition, setMarkerPosition] = useState(null);
+	const [restrauntInfo, setRestrauntInfo] = useState(null);
+	const [restrauntId, setRestrauntId] = useState(null);
+
+	const handleMarkerClick = (loc, mouseEvent, marker) => {
+		setIsOpen(true);
+		const markerPosition = loc.latlng;
+		const markerTitle = loc.title;
+		const markerId = loc.id;
+		
+		setRestrauntId(markerId);
+		setMarkerPosition(markerPosition);
+		setRestrauntInfo(markerTitle);
+	}
+
 	return (
-		<Map 
-          center={{ lat: 35.8361601, lng: 128.7528893 }} 
-          style={{ width: '100%', height: '100%' }}
-          level={5} 
-        >
-			<MapMarker position={{ lat:  35.83658135778566, lng: 128.75299465624974 }}> </MapMarker> // 마커 좌표
-		</Map>
+		<>
+			<Map 
+			center={{ lat: 35.8361601, lng: 128.7528893 }} 
+			style={{ width: '390px', height: '844px' }}
+			level={3} 
+			onClick={() => {
+				setIsOpen(false);
+			}}
+			>
+				{locations.map((loc, idx) => (
+					<MapMarker
+						clickable={true}
+						onClick={(mouseEvent) => handleMarkerClick(loc, mouseEvent)}
+						position={loc.latlng}
+						image={{
+							src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
+							size: { width: 24, height: 35 },
+						}}
+						title={loc.title}
+					>
+					</MapMarker>
+
+				))}
+				<S.InfoWrapper>
+					{isOpen && <MapInfo latlng={markerPosition} title={restrauntInfo} id={restrauntId} pageType={"Map"}/>}
+				</S.InfoWrapper>
+			</Map>
+		</>
 	);
 }
 

@@ -9,8 +9,11 @@ import MapPage from "./pages/MapPage";
 import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
 import FindIdPage from './pages/FindIdPage';
+import RestrauntInfoPage from './pages/RestrauntInfoPage';
+import PostPage from './pages/PostPage';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+
 
 
 function App() {
@@ -18,15 +21,19 @@ function App() {
     <>
       <Reset/>
       <div className="App">
-          <BrowserRouter>
+        <BrowserRouter>
           <Routes>
             <Route path = "/" element={<MainPage/>}></Route>
             <Route path = "/JoinPage" element={<JoinPage/>}></Route>
             <Route path = "/MenuPage" element={<MenuPage/>}></Route>
-            <Route path = "/MapPage" element={<MapPage/>}></Route>            <Route path = "/LoginPage" element={<LoginPage/>}></Route>
+            <Route path = "/MapPage" element={<MapPage/>}></Route>
+            <Route path = "/LoginPage" element={<LoginPage/>}></Route>
             <Route path = "/SearchIdPage" element={<SearchIdPage/>}></Route>
             <Route path = "/FindIdPage" element={<FindIdPage/>}></Route>
             <Route path = "/SearchPwPage" element={<SearchPwPage/>}></Route>
+            <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
+            <Route path = "/PostPage" element={<PostPage/>}></Route>
+            {/* <Route path = "/Test" element={<MapComponent/>}></Route> */}
           </Routes>
         </BrowserRouter>
       </div>

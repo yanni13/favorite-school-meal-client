@@ -8,14 +8,15 @@ const S = {
     Wrapper: styled.div`
         display: flex;
         flex-direction: column;
-        align-items: center;
+        justify-content: flex-start;
         width: 348px;
         height: 356px;
         border-radius: 30px;
         background: #FFF;
         margin-left: 21px;
+        padding-top : 5px;
     `,
-    DetailButton: styled.a`
+    DetailButton: styled.button`
         color: #A1A1A1;
         font-family: Noto Sans KR;
         font-size: 10px;
@@ -24,6 +25,7 @@ const S = {
         line-height: normal;
         margin: 0 0 0 180px;
         white-space: nowrap;
+        border: none;
     `
 }   
 
@@ -42,7 +44,7 @@ export default function MiniBoard() {
                     margin: '18.72, 0, 18.72, 0',
                     whiteSpace: 'nowrap'
                 }}>게시판</span>
-                <Link to='/MapPage' style={{ textDecoration: "none", marginTop: '20px'}}>
+                <Link to='/PostPage' style={{ textDecoration: "none", marginTop: '20px'}}>
                 <S.DetailButton>자세히 보기</S.DetailButton>
                 </Link>
             </div>
@@ -55,6 +57,11 @@ export default function MiniBoard() {
         <>
             <BoardTitle/>
             <S.Wrapper>
+                <PostTable/>
+                <PostTable/>
+                <PostTable/>
+                <PostTable/>
+                <PostTable/>
                 <PostTable/>
             </S.Wrapper>
         </>
