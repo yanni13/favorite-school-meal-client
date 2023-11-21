@@ -3,13 +3,10 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
 import { FindPage, SignInBox } from "../styles/Login/Login.styled";
 import TitledHeader from "../components/Header/TitledHeader";
+import SocialLoginForm from "../components/Auth/SocialLoginForm";
 
 const LoginPage = () => {
 
-    
-    //const REST_API_KEY = '';
-    //const REDIRECT_URL = '';
-    //const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     const navigate = useNavigate();
 
     return (
@@ -45,6 +42,8 @@ const LoginPage = () => {
                 }}>
                     <span style={{ background: "#F5F5F5", padding: "0 10px" }}>소셜 로그인</span>
                 </div>
+                
+                <SocialLoginForm/>
 
                 <FindPage>
                 <p>계정이 없으신가요? 
