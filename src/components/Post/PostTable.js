@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import comment_logo from '../../media/Post/comment_logo.svg';
 
 const S = {
@@ -23,7 +24,7 @@ const S = {
         text-align : left;
         margin-left : 10px;
     `,
-    TitleText : styled.a`
+    TitleText : styled.div`
         text-overflow: ellipsis;
         color: #000;
         font-family: Noto Sans KR;
@@ -73,8 +74,6 @@ const S = {
         display : flex;
         margin: 20px 0 0 17px;
     `,
-
-
 }
 
 const PostTable = () => {
@@ -93,7 +92,7 @@ const PostTable = () => {
             <S.Wrapper>
                 <S.ProfileImage/>
                 <S.MiddleWrapper>
-                    <S.TitleText>{data.title}</S.TitleText>
+                    <S.TitleText><Link to="PostDetailPage/1" style={{ textDecoration : "none"}}>{data.title}</Link></S.TitleText>
                     <S.ContentText>{data.content}</S.ContentText>
                     <S.TimeText>15분전</S.TimeText>
                 </S.MiddleWrapper>

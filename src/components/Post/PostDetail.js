@@ -6,7 +6,7 @@ import comment_logo from '../../media/Post/comment_logo.svg';
 import clock_logo from '../../media/Map/clock_logo.svg';
 import Divider from '../Divider';
 import CommentForm from '../Comment/CommentForm';
-import AlarmTable from '../Alarm/AlarmTable';
+import CommentTable from '../Comment/CommentTable';
 
 const S = {
     Wrapper : styled.div`
@@ -83,6 +83,7 @@ const S = {
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+        word-wrap : break-word;
     `,
     UnderBarWrapper : styled.div` 
         width: 100%;
@@ -148,6 +149,7 @@ const PostDetail= ({ id }) => {
                     
                 </S.UnderBarWrapper> 
                 <Divider/>
+                <CommentTable/>
 
             </S.Wrapper>
             <S.CommentFormWrapper>
