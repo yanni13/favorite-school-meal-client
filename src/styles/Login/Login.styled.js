@@ -8,6 +8,7 @@ const SignInBox = styled.div`
     justify-content: center;
     flex-direction: column;
     gap: 36px;
+    
     .bottom-signup {
         font-size: 14px;
         display: flex;
@@ -17,9 +18,23 @@ const SignInBox = styled.div`
     .title {
         font-size: 30px;
         font-weight: bold;
+        color: #000;
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
     }
     .subtitle {
         font-size: 23px;
+    }
+    .second-font{
+        text-align: left;
+        color: #000;
+        font-family: Noto Sans KR;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
     }
 `;
 
@@ -57,6 +72,13 @@ const SignInForm = styled.form`
 
         box-shadow: 0px 2px 12px -3px rgba(0, 0, 0, 0.1);
         margin-top: 16px;    
+    }
+
+    .SocialLoginBtn {
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+        border-radius: 30px;
     }
 `;
 
