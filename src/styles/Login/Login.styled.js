@@ -39,6 +39,12 @@ const SignInForm = styled.form`
         padding-left: 20px;
     }
 
+    .textBtn {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
     .submitBtn {
         width: 295px;
         height: 56px;
