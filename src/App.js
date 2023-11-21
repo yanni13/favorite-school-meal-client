@@ -43,7 +43,7 @@ function App() {
             <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
-            <Route path = "PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>
+            <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>
             {/* <Route path = "/Test" element={<MapComponent/>}></Route> */}
           </Routes>
         </BrowserRouter>
