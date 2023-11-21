@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const SignInBox = styled.div`
     height: 100vh;
-    background-color: #F5F5F5;
+    background-color: #F1F1F1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,19 +27,10 @@ const SignInBox = styled.div`
     .subtitle {
         font-size: 23px;
     }
-    .second-font{
-        text-align: left;
-        color: #000;
-        font-family: Noto Sans KR;
-        font-size: 26px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
 `;
 
 const SignInForm = styled.form`
-    background-color: #F5F5F5; 
+    background-color: ##F1F1F1; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,10 +39,16 @@ const SignInForm = styled.form`
 
     input {
         border: 1px solid grey;
-        width: 275px;
+        width: 300px;
         height: 48px;
         border-radius: 3px;
         padding-left: 20px;
+    }
+
+    textarea {
+        width: 320px;
+        border: 0px;
+        resize: none;
     }
 
     .textBtn {
@@ -61,7 +58,7 @@ const SignInForm = styled.form`
     }
 
     .submitBtn {
-        width: 295px;
+        width: 327px;
         height: 56px;
         font-size: 16px;
         font-weight: 500;
@@ -70,7 +67,6 @@ const SignInForm = styled.form`
         border-radius: 3px;
         background-color: ${(props) => props.color  || "#C9C9C9"};
 
-        box-shadow: 0px 2px 12px -3px rgba(0, 0, 0, 0.1);
         margin-top: 16px;    
     }
 
@@ -113,6 +109,17 @@ const FindPage = styled.form`
         cursor: pointer;
         text-decoration: underline;
         padding: 10px 30px;
+    }
+
+    .modify-font {
+        text-align: left;
+        color: #000;
+        font-family: Noto Sans KR;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin:16px;
     }
 `;
 

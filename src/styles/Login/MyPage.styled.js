@@ -11,13 +11,24 @@ const MyPageBox = styled.div`
     margin: 26px;
 `;
 
+const SelfIntroductionBox = styled.div`
+    display: flex;
+    width: 320px;
+    height: 173px;
+    margin: 15px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    border: 1px solid rgba(151, 151, 151, 0.80);
+    background: #FFF;
+    padding: 5px;
+`;
+
 const ProfileSection = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 3px;
+    
     width: 122.664px;
     height: 125px;
-    flex-shrink: 0;
     justify-content: center;
 `;
 
@@ -32,13 +43,10 @@ const ProfileDetails = styled.div`
 const ProfilePicture = styled.div`
     width: 122.664px;
     height: 125px;
-    flex-shrink: 0;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
+    
 
     .profile-image {
         width: 100%;
@@ -57,20 +65,20 @@ const ButtonSection = styled.div`
     display: flex;
     align-items: center;
     justify-content: right;
-    margin: 28px;
+    margin: auto;
    
-
     button + button {
         margin-left:31px;
     }
 
     .block {
-        width: 151px;
-        height: 53px;
+        
+        width: 144px;
+        height: 39px;
         flex-shrink: 0;
         border-radius: 10px;
-        background: #D9D9D9;
-        border: none;
+        background: #EDF1D6;
+        border: 1px solid gray;
         font-family: Noto Sans KR;
         font-size: 20px;
         font-style: normal;
@@ -79,4 +87,4 @@ const ButtonSection = styled.div`
     }
 `;
 
-export {MyPageBox, ProfileSection, ProfileDetails, ProfilePicture, ButtonSection};
+export {MyPageBox, SelfIntroductionBox, ProfileSection, ProfileDetails, ProfilePicture, ButtonSection};

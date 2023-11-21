@@ -16,7 +16,7 @@ import MyPage from './pages/MyPage';
 import RestrauntInfoPage from './pages/RestrauntInfoPage';
 import PostPage from './pages/PostPage';
 import ModifyProfile from './pages/ModifyProfile';
-
+import UserPage from './pages/UserPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 
@@ -42,6 +42,7 @@ function App() {
             <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
+            <Route path = "/UserPage" element={<UserPage/>}></Route>
 
             {/* <Route path = "/Test" element={<MapComponent/>}></Route> */}
           </Routes>

@@ -7,7 +7,7 @@ const JoinForm = () => {
 
     const navigate = useNavigate();
 
-    const initData = Object.freeze({// freeze-객체를 동결하기 위해서
+    const initData = Object.freeze({
         id:'',
         name: '',
         email: '',
