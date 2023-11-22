@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const DefaultWrapper = styled.div`
+const DefaultParentWrapper = styled.div`
     display : flex;
     flex-direction: column;     
     width: 100%;
@@ -9,7 +9,7 @@ const DefaultWrapper = styled.div`
     align-items: center;
 `;
 
-const PostWrapper = styled.div`
+const DefaultContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -18,7 +18,7 @@ const PostWrapper = styled.div`
     border-radius: 30px;
     background: #FFF;
     margin-top: 15px;
-    padding-top : 5px;
+    padding : 5px;
 `
 
-export { DefaultWrapper, PostWrapper };
+export { DefaultParentWrapper, DefaultContentWrapper };

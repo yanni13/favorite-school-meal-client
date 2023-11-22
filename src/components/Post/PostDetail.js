@@ -15,11 +15,11 @@ const S = {
         width: 89%;
         justify-content: flex-start;
         align-items: flex-start;
-        padding : 19px;
         overflow: scroll;
         &::-webkit-scrollbar {
             display: none;
         }
+        padding: 19px;
     `,
     ProfileWrapper : styled.div`
         display : flex;
