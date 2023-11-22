@@ -21,7 +21,6 @@ import UserPage from './pages/UserPage';
 import ChatPage from './pages/ChatPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-
 function App() {
   return (
     <>
@@ -43,14 +42,18 @@ function App() {
             <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
-            <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>            <Route path = "/UserPage" element={<UserPage/>}></Route>
-            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
-
+            <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>            
+            <Route path = "/UserPage" element={<UserPage/>}></Route>
             <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
+            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>
+
+      
+      
     </>
+    
   )
 }
 
