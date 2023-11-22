@@ -48,9 +48,7 @@ const S = {
         font-weight: 400;
         line-height: normal;
     `,
-
 }
-
 
 const CommentTable = () => {
     const [data, setData] = useState({
@@ -76,7 +74,6 @@ const CommentTable = () => {
             </S.Wrapper>
         </>
     )
-
 }
 
 export default CommentTable;
