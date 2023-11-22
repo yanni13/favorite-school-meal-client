@@ -33,11 +33,10 @@ const JoinForm = () => {
         }
     }, [data])
 
-
     const SignUpDB = (e) => {//회원가입 api 호출
         e.preventDefault();
 
-        axios.post("/users/", {
+        axios.post("/api/v1/auth/sign-up", {
             
             "user_name": data.name,
             "email": data.email,

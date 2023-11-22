@@ -40,7 +40,7 @@ const LoginPage = () => {
                     lineHeight: "0.1em",
                     margin: "10px 0 20px",
                 }}>
-                    <span style={{ background: "#F5F5F5", padding: "0 10px" }}>소셜 로그인</span>
+                    <span style={{ background: "#F1F1F1", padding: "0 10px" }}>소셜 로그인</span>
                 </div>
                 
                 <SocialLoginForm/>

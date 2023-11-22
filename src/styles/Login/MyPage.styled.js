@@ -26,7 +26,6 @@ const SelfIntroductionBox = styled.div`
 const ProfileSection = styled.div`
     display: flex;
     align-items: center;
-    
     width: 122.664px;
     height: 125px;
     justify-content: center;
@@ -65,7 +64,7 @@ const ButtonSection = styled.div`
     display: flex;
     align-items: center;
     justify-content: right;
-    margin: auto;
+    
    
     button + button {
         margin-left:31px;

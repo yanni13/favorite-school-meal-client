@@ -5,7 +5,7 @@ const SignInBox = styled.div`
     background-color: #F1F1F1;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 36px;
     

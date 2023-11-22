@@ -17,8 +17,8 @@ import RestrauntInfoPage from './pages/RestrauntInfoPage';
 import PostPage from './pages/PostPage';
 import ModifyProfile from './pages/ModifyProfile';
 import UserPage from './pages/UserPage';
+import ChatPage from './pages/ChatPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-
 
 
 function App() {
@@ -43,6 +43,7 @@ function App() {
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
             <Route path = "/UserPage" element={<UserPage/>}></Route>
+            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
 
             {/* <Route path = "/Test" element={<MapComponent/>}></Route> */}
           </Routes>
