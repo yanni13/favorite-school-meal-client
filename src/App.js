@@ -9,13 +9,14 @@ import MapPage from "./pages/MapPage";
 import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
 import FindIdPage from './pages/FindIdPage';
-//import MenuPage from "./pages/MenuPage"
 import ResetPwPage from './pages/ResetPwPage';
 import ModifyInfoPage from './pages/ModifyInfoPage';
 import MyPage from './pages/MyPage';
 import RestrauntInfoPage from './pages/RestrauntInfoPage';
 import PostPage from './pages/PostPage';
 import ModifyProfile from './pages/ModifyProfile';
+import PostDetailPage from './pages/PostDetailPage';
+import PostAddPage from './pages/PostAddPage';
 import UserPage from './pages/UserPage';
 import ChatPage from './pages/ChatPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
@@ -42,10 +43,10 @@ function App() {
             <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
-            <Route path = "/UserPage" element={<UserPage/>}></Route>
+            <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>            <Route path = "/UserPage" element={<UserPage/>}></Route>
             <Route path = "/ChatPage" element={<ChatPage/>}></Route>
 
-            {/* <Route path = "/Test" element={<MapComponent/>}></Route> */}
+            <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>
