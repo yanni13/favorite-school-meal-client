@@ -5,7 +5,6 @@ import TitledHeader from "../components/Header/TitledHeader";
 import MapInfo from "../components/Map/MapInfo";
 import PostTable from "../components/Post/PostTable"
 
-
 const S = {
     Wrapper : styled.div`
         display: flex;
