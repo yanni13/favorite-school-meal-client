@@ -2,6 +2,7 @@ import React, {useCallback, useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { SignInForm } from "../../styles/Login/Login.styled";
+import {set, usewatch} from "react-hook-form";
 
 const JoinForm = () => {
 
@@ -10,6 +11,7 @@ const JoinForm = () => {
     const initData = Object.freeze({
         id:'',
         name: '',
+        num: '',
         email: '',
         pswd: '',
         checkPswd: '',
@@ -17,16 +19,15 @@ const JoinForm = () => {
     
     const [data, updataData] = useState(initData);
     const [checkPswd, setCheckPswd] = useState(initData.setCheckPswd);
-
+    const [registrationNumber, setRegistrationNumber] = useState("");//주민등록번호 
     const [checkPswdMessage, setCheckPswdMessage] = useState("");//비밀번호오류메세지 상태
-
     const [isCheckPswd, setIsCheckPswd] = useState(false);//비밀번호 유효성 검사
     const [color, updataColor] = useState("#b8e8ff")
 
     useEffect(() => {
         if( data.id.length > 0 && data.name.length > 0 &&
-            data.email.length > 0 && data.pswd.length > 0 &&
-            data.checkPswd.length > 0) {
+            data.num.length > 0 && data.email.length > 0 &&
+            data.pswd.length > 0 && data.checkPswd.length > 0) {
             updataColor("#609966");
         } else {
             updataColor("#A4D0A9");
@@ -38,7 +39,8 @@ const JoinForm = () => {
 
         axios.post("/api/v1/auth/sign-up", {
             
-            "user_name": data.name,
+            "user_name": data.name, //실명
+            "num": data.num, //주민등록번호
             "email": data.email,
             "id": data.id,
             "password": data.pswd
@@ -95,9 +97,19 @@ const JoinForm = () => {
         updataData({
             ...data, [e.target.name] : e.target.value
         })
- 
     }
 
+    const maskingNum = (e) => {
+        const input = e.target.value.replace(/[^0-9]/g, ''); 
+
+        if (input.length <= 6) {
+            setRegistrationNumber(input);
+        } else {
+            const maskedNumber = input.substring(0, 6) + '-' + input.substring(6, 7) + '*******';
+                setRegistrationNumber(maskedNumber);
+        }
+    };
+    
 
     return (
         <SignInForm color={color}>
@@ -115,6 +127,14 @@ const JoinForm = () => {
              value={data.id}
              required 
              onChange={handleChange}/>
+             <input
+             type="text" 
+             name="num" 
+             placeholder="주민등록번호" 
+             value={registrationNumber}
+             maxLength={14}
+             required 
+             onChange={maskingNum}/>
             <input
              type="email" 
              name="email" 
