@@ -10,8 +10,8 @@ const PostAddPage = () => {
 
     return(
         <>
-            <DefaultParentWrapper>
-                <TitledHeader title="글 작성"/>
+            <TitledHeader title="글 작성"/>
+            <DefaultParentWrapper>   
                 <DefaultContentWrapper>
                     <PostAdd/>
                 </DefaultContentWrapper>
