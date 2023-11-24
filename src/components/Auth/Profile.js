@@ -1,17 +1,21 @@
 //마이페이지(남)
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { ButtonSection, ProfileDetails, ProfilePicture } from "../../styles/Login/MyPage.styled";
+import { PRBox, ButtonSection, ProfileDetails, ProfilePicture } from "../../styles/Login/MyPage.styled";
 import axios from "axios";
 import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
 import { SignInBox } from "../../styles/Login/Login.styled";
+import PostTable from "../Post/PostTable";
+import PostDetail from "../Post/PostDetail";
+import PostList from "../Post/PostList";
 
 const Profile = () => {
     const navigate = useNavigate();
 
     const [users, setUsers] = useState();
-    
+    const [isRequesting, setIsRequseting] = useState(false);
+
     useEffect(()=>{
         axios.get('',
             {
@@ -30,6 +34,23 @@ const Profile = () => {
 
     }, []);
 
+    const handleFriendRequest = async () => {
+        try {
+            setIsRequseting(true);
+
+            const requestData = {
+
+            };
+
+            //const responseData = await sendFriendRequest(requestData);
+            alert('친구 신청이 성공적으로 완료되었습니다.');
+        }  catch(err) {
+            console.err('Error handling friend request:', err.message);
+        } finally {
+            setIsRequseting(false);
+        }
+    };
+
     return (
         <SignInBox>
         
@@ -47,19 +68,19 @@ const Profile = () => {
                         <p>친구:{users?.friend}</p>
                         <p>매칭횟수:{users?.count}</p>
                 </ProfileDetails>
-                <ButtonSection>
-                
-                    <button className="block" type="submit" onClick={()=>navigate}>친구신청</button>
+
+                <ButtonSection> 
+                    <button className="block" type="submit" onClick={handleFriendRequest} disabled={isRequesting}>{isRequesting ? '신청 중...' : '친구 신청'}</button>
                     <button className="block" type="submit" onClick={()=>navigate}>회원신고</button>
-
-
                 </ButtonSection>
 
-                
-
-                
-
-        
+                <PRBox>
+                    {/*닉네임, 자기소개, 나이, 성별 */}
+                </PRBox>
+                <h3 className="subtitle">최근에 작성한 게시글</h3>
+                <PRBox>
+                    
+                </PRBox>
         </SignInBox>
     )
 

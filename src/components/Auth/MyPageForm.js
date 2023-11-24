@@ -5,7 +5,7 @@ import axios from "axios";
 import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
 import { ProfileSection, ProfileDetails, ProfilePicture, ButtonSection } from "../../styles/Login/MyPage.styled";
-import { SignInBox } from "../../styles/Login/Login.styled";
+import { MyPageContainer } from "../../styles/Login/MyPage.styled";
 
 const MyPageForm = () => {
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ const MyPageForm = () => {
     }, []);
 
     return (
-        <SignInBox>
+        <MyPageContainer>
             <ProfileSection>
                 <ProfilePicture imageUrl={users?.profileImage}>
                     {users?.profileImage ? (
@@ -53,7 +53,7 @@ const MyPageForm = () => {
                         <button className="block" type="submit" onClick={() => navigate("/ModifyInfoPage")}>회원정보 수정</button>
                     
                 </ButtonSection>
-        </SignInBox>
+                </MyPageContainer>
     )
 }
 

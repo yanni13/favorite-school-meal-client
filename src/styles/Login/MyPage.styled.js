@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+
+const MyPageContainer = styled.div`
+    justify-content: flex-start;
+`;
 const MyPageBox = styled.div`
     display:flex;   
     align-items: center;
@@ -31,6 +35,32 @@ const ProfileSection = styled.div`
     justify-content: center;
 `;
 
+const RecentPostForm = styled.div`
+    display:grid;
+    height: 55px;
+    background: #609966;
+
+    .underline {
+        weight: 100%;
+        height: 1px;
+        float: left;
+        text-decoration: underline;
+        text-underline-position: under;
+        background: #DADADA;
+    }
+`
+
+const PRBox = styled.div`
+    display: inline-flex;
+    height: 50px;
+    padding: 0px 159px 100px;
+    flex-shrink: 0;
+    float: left;
+    border-radius: 7px;
+    background: #FFF;
+    margin-top: -20px;
+`;
+
 const ProfileDetails = styled.div`
     flex-grow: 1;
     display: flex;
@@ -45,7 +75,6 @@ const ProfilePicture = styled.div`
     border-radius: 50%;
     overflow: hidden;
     display: flex;
-    
 
     .profile-image {
         width: 100%;
@@ -63,15 +92,14 @@ const ProfilePicture = styled.div`
 const ButtonSection = styled.div`
     display: flex;
     align-items: center;
-    justify-content: right;
-    
-   
+    justify-content: center;
+    margin: 20px;
+
     button + button {
         margin-left:31px;
     }
 
     .block {
-        
         width: 144px;
         height: 39px;
         flex-shrink: 0;
@@ -86,4 +114,4 @@ const ButtonSection = styled.div`
     }
 `;
 
-export {MyPageBox, SelfIntroductionBox, ProfileSection, ProfileDetails, ProfilePicture, ButtonSection};
+export {MyPageContainer,MyPageBox, SelfIntroductionBox, ProfileSection,PRBox,ProfileDetails, ProfilePicture, ButtonSection, RecentPostForm};

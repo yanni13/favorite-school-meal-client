@@ -19,6 +19,7 @@ import PostDetailPage from './pages/PostDetailPage';
 import PostAddPage from './pages/PostAddPage';
 import UserPage from './pages/UserPage';
 import ChatPage from './pages/ChatPage';
+import NaverLoginPage from './pages/NaverLoginPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
@@ -43,9 +44,10 @@ function App() {
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
             <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>            
+            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
             <Route path = "/UserPage" element={<UserPage/>}></Route>
             <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
-            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
+            <Route path = "/NaverLoginPage" element={<NaverLoginPage/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>

@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
 const SignInBox = styled.div`
-    height: 100vh;
     background-color: #F1F1F1;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: column;
-    gap: 36px;
-    
+    gap: 30px;
+    margin: 50px;
     .bottom-signup {
         font-size: 14px;
         display: flex;
@@ -123,4 +122,8 @@ const FindPage = styled.form`
     }
 `;
 
-export {SignInBox, SignInForm, FindPage};
+const SocialLoginContainer = styled.div`
+    height: 50px;
+`;
+
+export {SignInBox, SignInForm, FindPage, SocialLoginContainer};
