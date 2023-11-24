@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import comment_logo from '../../media/Post/comment_logo.svg';
+import { Link } from 'react-router-dom';
 
 const S = {
     Wrapper : styled.div`
@@ -74,9 +74,12 @@ const S = {
         display : flex;
         margin: 20px 0 0 17px;
     `,
+
+
 }
 
-const PostTable = () => {
+const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTime}) => {
+    // 유저 프로필사진 + 게시글 댓글수 가져오는 axios
     const [data, setData] = useState({
         title : "글제목 입니다.",
         content : "글내용 입니다. 하지만 글내용을 이렇게 많이넣었을때는  ellipsis를 통해  점점점 처리를 해버릴겁니다."
@@ -91,9 +94,11 @@ const PostTable = () => {
         }}>
             <S.Wrapper>
                 <S.ProfileImage/>
-                <S.MiddleWrapper>
-                    <S.TitleText><Link to="PostDetailPage/1" style={{ textDecoration : "none"}}>{data.title}</Link></S.TitleText>
-                    <S.ContentText>{data.content}</S.ContentText>
+                <S.MiddleWrapper>    
+                <S.TitleText>
+                    <Link to="/PostDetailPage/1" style={{ textDecoration : "none"}}>{data.title}</Link>
+                </S.TitleText>
+                <S.ContentText>{ data.content }</S.ContentText>
                     <S.TimeText>15분전</S.TimeText>
                 </S.MiddleWrapper>
                 <S.RightWrapper>

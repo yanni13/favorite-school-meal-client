@@ -11,8 +11,9 @@ const PostDetailPage = () => {
     // {routerParams(id)값을 활용한 axios 요청으로 데이터 들고오자}
     return(
         <>
-            <DefaultParentWrapper>
             <TitledHeader title="게시판"></TitledHeader>
+            <DefaultParentWrapper>
+            
                 <DefaultContentWrapper>
                     <PostDetail id={routerParams}/>
                 </DefaultContentWrapper>
