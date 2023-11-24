@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import styled from "styled-components";
 import clock_logo from '../../media/Map/clock_logo.svg';
 import { Link } from 'react-router-dom';
@@ -91,32 +92,50 @@ const S = {
 // 추후에는 마커클릭시 위치 기반으로 식당 id를 받아오고, 그 id를 props로 전달.
 // axios로 id를 기반으로 식당 정보를 받아오는 API를 호출.
 // 해당 데이터 활용해 완성.
-const MapInfo= ({latlng, title, id, pageType}) => {
+const MapInfo= ({id, pageType}) => {
     const [data, setData] = useState({
-        title : "식당이름", 
-        type : "식당타입", 
-        img : "식당이미지", 
-        time : "운영시간",
+        title : "기본 식당 이름", 
         isOnCampus : true,
+        category : "기본 식당 카테고리", 
+        thumbnail_url : "기본 식당이미지", 
+        businessHours : "기본 식당 운영시간",
+        
     })
+
+    useEffect(() => {
+        axios.get('/restaurants/' + id).then((res) => {
+            console.log(res.data.data);
+            const restaurant = res.data.data;
+            const formattedData = {
+                    title : restaurant.name,
+                    isOnCampus : restaurant.isOnCampus,
+                    category : restaurant.category,
+                    thumbnail_url : restaurant.thumbnail_url,
+                    businessHours : restaurant.businessHours,
+            };
+            console.log(formattedData);
+            setData(formattedData);
+        })
+    },[id]);
+
     // pageType 의 종류는 아래와 같다.
     // pageType = "Map" or "Detail"
     
-    if (!latlng) {
+    if (!id) {
         return null;
     }
 
     return (
         <S.InfoBox>
             <S.Wrapper>
-                <S.TitleText>{title}</S.TitleText>
-                <S.TypeText>{data.type}</S.TypeText>
-                <S.RestrauntImage></S.RestrauntImage>
+                <S.TitleText>{data.title}</S.TitleText>
+                <S.TypeText>{data.category}</S.TypeText>
+                <S.RestrauntImage><img src={data.thumbnail_url}/></S.RestrauntImage>
                 <S.LowerWrapper>
                     <img src={clock_logo}/>
                     <S.TimeWrapper>
-                        <S.TimeText>{data.time}</S.TimeText>
-                        <S.TimeText>{data.time}</S.TimeText>
+                        <S.TimeText>{data.businessHours}</S.TimeText>
+                        {/* <S.TimeText>{data.businessHours}</S.TimeText> */}
                     </S.TimeWrapper>
                     {console.log(pageType)}
                     {

@@ -37,7 +37,7 @@ const S = {
 
 const RestrauntInfoPage = () => {
     const routerParams = useParams();
-
+    console.log(routerParams.RestrauntId);
     //axios 요청으로 데이터 들고오자
     
     // 여기 인라인 스타일 적용이 안됨...
@@ -47,10 +47,8 @@ const RestrauntInfoPage = () => {
             <S.Wrapper>
                 <div style={{height : "19px"}}></div>
                 <MapInfo 
-                    latlng={{}} 
-                    title={"기본값"} 
-                    id={routerParams} 
-                    type={""}
+                    id={routerParams.RestrauntId}
+                    pageType={""}
                     />
                 <div style={{height : "19px"}}></div>
                 {/* 이부분 컴포넌트로 분리할 필요 있어보임.*/}
