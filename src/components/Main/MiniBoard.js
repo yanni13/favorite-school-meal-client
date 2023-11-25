@@ -16,17 +16,6 @@ const S = {
         margin-left: 21px;
         padding-top : 5px;
     `,
-    DetailButton: styled.button`
-        color: #A1A1A1;
-        font-family: Noto Sans KR;
-        font-size: 10px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        margin: 0 0 0 180px;
-        white-space: nowrap;
-        border: none;
-    `
 }   
 
 export default function MiniBoard() {
@@ -44,8 +33,15 @@ export default function MiniBoard() {
                     margin: '18.72, 0, 18.72, 0',
                     whiteSpace: 'nowrap'
                 }}>게시판</span>
-                <Link to='/PostPage' style={{ textDecoration: "none", marginTop: '20px'}}>
-                <S.DetailButton>자세히 보기</S.DetailButton>
+                <Link to='/PostPage' style={{ 
+                    textDecoration: "none",
+                    marginTop: '10px',
+                    marginLeft: '175px',
+                    color: '#A1A1A1',
+                    fontFamily: "Noto Sans KR",
+                    fontSize: "10px"
+                }}>
+                    자세히 보기
                 </Link>
             </div>
         );

@@ -61,7 +61,7 @@ export default function MiniMap() {
                     fontFamily: "Noto Sans KR",
                     fontSize: "10px"
                 }}>
-                자세히보기
+                자세히 보기
                 </Link>
             </div>
         );
