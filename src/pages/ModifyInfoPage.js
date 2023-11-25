@@ -46,14 +46,14 @@ const ModifyInfoPage = () => {
     return (
         <>
         <TitledHeader title="회원정보"/>
-        <SignInBox>
-            <h2 className="subtitle">회원 정보 수정</h2>
+        <FindPage>
+            <h2 className="modify-font">회원 정보 수정</h2>
+        </FindPage>
             <ModifyInfoForm/>
 
-            <FindPage>
-                <button className="titleBtn" type="submit" onClick={deleteMember}>회원 탈퇴하기</button>
-            </FindPage>
-        </SignInBox>
+            
+        
+        
         </>
     )
 }

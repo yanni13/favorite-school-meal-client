@@ -25,8 +25,8 @@ const LoginForm = () => {
     const loginDB = (e) => { //로그인 api 호출
         e.preventDefault();
 
-        axios.post("/users/login/tokens/", {
-            "id": data.id,
+        axios.post("https://f684-58-126-218-174.ngrok-free.app/api/v1/auth/sign-in", {
+            "username": data.id,
             "password": data.password 
         })      
         .then(res => {//요청 성공했을 경우

@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
-import { FindPage, SignInBox } from "../styles/Login/Login.styled";
+import { FindPage, SignInBox, SocialLoginContainer } from "../styles/Login/Login.styled";
 import TitledHeader from "../components/Header/TitledHeader";
-import SocialLoginForm from "../components/Auth/SocialLoginForm";
+import NaverLoginForm from "../components/SocialLogin/NaverLoginForm";
+import KakaoLoginForm from "../components/SocialLogin/KakaoLoginForm";
 
 const LoginPage = () => {
 
@@ -12,6 +13,7 @@ const LoginPage = () => {
     return (
         <>
         <TitledHeader title="로그인"/>
+        <br/>
             <SignInBox>
                 <h2 className="title">최애의 학식</h2>
             
@@ -40,17 +42,20 @@ const LoginPage = () => {
                     lineHeight: "0.1em",
                     margin: "10px 0 20px",
                 }}>
-                    <span style={{ background: "#F5F5F5", padding: "0 10px" }}>소셜 로그인</span>
+                    <span style={{ background: "#F1F1F1", padding: "0 10px" }}>소셜 로그인</span>
                 </div>
+                </SignInBox>
                 
-                <SocialLoginForm/>
+                <SocialLoginContainer>
+                    <KakaoLoginForm/> 
+                    <NaverLoginForm/>
 
                 <FindPage>
                 <p>계정이 없으신가요? 
                 <button className="underline" onClick={() => navigate("/JoinPage")}>가입하기</button>
                 </p>
                 </FindPage>
-            </SignInBox>
+            </SocialLoginContainer>
         </>
     );
 }
