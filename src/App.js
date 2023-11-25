@@ -17,6 +17,7 @@ import PostPage from './pages/PostPage';
 import ModifyProfile from './pages/ModifyProfile';
 import PostDetailPage from './pages/PostDetailPage';
 import PostAddPage from './pages/PostAddPage';
+import ReportModal from './components/Modal/ReportModal';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -45,6 +46,7 @@ function App() {
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
             <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>
             <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
+            <Route path = "/Test" element={<ReportModal/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>
