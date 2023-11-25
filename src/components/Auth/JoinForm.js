@@ -11,6 +11,7 @@ const JoinForm = () => {
     const initData = Object.freeze({
         id:'',
         name: '',
+        nickname: '',
         num: '',
         email: '',
         pswd: '',
@@ -26,23 +27,25 @@ const JoinForm = () => {
 
     useEffect(() => {
         if( data.id.length > 0 && data.name.length > 0 &&
+            data.nickname.length > 0 &&
             data.num.length > 0 && data.email.length > 0 &&
             data.pswd.length > 0 && data.checkPswd.length > 0) {
             updataColor("#609966");
         } else {
             updataColor("#A4D0A9");
         }
-    }, [data])
+    }, [data]);
 
     const SignUpDB = (e) => {//회원가입 api 호출
         e.preventDefault();
 
-        axios.post("/api/v1/auth/sign-up", {
+        axios.post("https://f684-58-126-218-174.ngrok-free.app/api/v1/auth/sign-up", {
             
-            "user_name": data.name, //실명
-            "num": data.num, //주민등록번호
+            "username": data.id, //아이디
+            "fullname": data.name, //실명
+            "nickname" :data.nickname,
+            "personalNumber": data.num, //주민등록번호
             "email": data.email,
-            "id": data.id,
             "password": data.pswd
               
         })
@@ -125,6 +128,13 @@ const JoinForm = () => {
              name="id" 
              placeholder="아이디" 
              value={data.id}
+             required 
+             onChange={handleChange}/>
+             <input
+             type="text" 
+             name="nickname" 
+             placeholder="닉네임" 
+             value={data.nickname}
              required 
              onChange={handleChange}/>
              <input

@@ -20,18 +20,21 @@ const NaverLoginForm = () => {
     let state = params.get("state");
 
     const naverloginHandler = (e) => {
+        const {naver} = window
+
         window.location.href = link;
 
-        axios.post(`http://localhost:3000/NaverLoginPage//api/v1/oauth/sign/{Naver}?code=${code}&state=${state}`, {
+        axios.post(`https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=xQ6XMGVRxbFRU3GgqKaW&client_secret=jEBGQNJqQL&code=9CBGNgAlbnXwnDKnZN&state=1234`)
+
+        axios.post(`http://localhost:3000/NaverLoginPage/api/v1/oauth/sign/{Naver}?code=${code}&state=${state}`, {
             "oauthSignUpRequest": {
                   "fullname": data.fullname,
                   "personalNumber": data.personalNumber
                 },
-            "oauthSignInRequest": {
+                "oauthSignInRequest": {
                   "authorizeCode": code,
                 }
-              }
-        )
+            })
         .then(res => {
             const result = res.data;
             console.log("result", result);
@@ -39,7 +42,7 @@ const NaverLoginForm = () => {
         .catch(err => {
             console.log("error", err);
         });  
-    }
+    };
 
     const getCode = () => { //인가코드 추출
         if(code) {
@@ -51,13 +54,13 @@ const NaverLoginForm = () => {
     
     useEffect(() => {
         getCode();
-    }, [])
+    }, []);
 
     return (
         <SignInBox>
-            <button type = 'button' onClick={naverloginHandler}>네이버로그인</button>
+            <button type = 'button' onClick={() => naverloginHandler(code)}>네이버로그인</button>
         </SignInBox>
-    )
-}
+    );
+};
  
 export default NaverLoginForm;

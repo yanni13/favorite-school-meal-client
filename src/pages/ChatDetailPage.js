@@ -7,11 +7,12 @@ import TitledHeader from '../components/Header/TitledHeader';
 import "../styles/Chat/styles.css"
 import CustomizedApp from '../components/Chat/CustomizedApp';
 import SendbirdProvider from '@sendbird/uikit-react/SendbirdProvider';
+import Chat from '../components/Chat/Chat';
 
 const APP_ID = '6C749CB7-B9D9-40AE-B9D8-9AB18215B1CA';
 const USER_ID = 'Demo user';
 
-function ChatPage() {
+function ChatDetailPage() {
   const [sb, setSb] = useState(null);
 
   useEffect(() => {
@@ -50,20 +51,16 @@ function ChatPage() {
 
   return (
     <>
-    <TitledHeader title="채팅방 목록"/>
+    <TitledHeader title="채팅방"/>
     <div className='app-wraapper'>
       <SendbirdProvider appId={APP_ID} userId={USER_ID}>
-        <CustomizedApp/>
+        <Chat/>
       </SendbirdProvider>
-      {/* <SendbirdApp appId={APP_ID} userId={USER_ID} /> */}
-      {/* <ChannelList
-        onChannelSelect={(channel: GroupChannel) => setUrl()}
-      ></ChannelList> */}
-      {/* Your chat components go here */}
+
       
     </div>
     </>
   );
 }
 
-export default ChatPage;
+export default ChatDetailPage;

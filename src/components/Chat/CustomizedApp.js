@@ -3,6 +3,7 @@ import SBChannelList from '@sendbird/uikit-react/ChannelList';
 import SBConversation from '@sendbird/uikit-react/Channel';
 import SBChannelSettings from '@sendbird/uikit-react/ChannelSettings';
 import withSendBird from '@sendbird/uikit-react/withSendbird';
+import ChatDetailPage from '../../pages/ChatDetailPage';
 
 function CustomizedAppHOC(props) {
     const {
@@ -28,9 +29,10 @@ function CustomizedAppHOC(props) {
                 <SBChannelList
                 onChannelSelect={(channel) => {
                     setCurrentChannelUrl(channel.url);
+                    //navigator(ChatDetailPage);
                 }}
-                />
-      </div>
+            />
+        </div>
       </div>
     );
 }

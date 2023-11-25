@@ -1,14 +1,12 @@
 //마이페이지(남)
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { PRBox, ButtonSection, ProfileDetails, ProfilePicture } from "../../styles/Login/MyPage.styled";
+import { PRBox, PostBox, ButtonSection, ProfileDetails, ProfilePicture } from "../../styles/Login/MyPage.styled";
 import axios from "axios";
 import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
 import { SignInBox } from "../../styles/Login/Login.styled";
 import PostTable from "../Post/PostTable";
-import PostDetail from "../Post/PostDetail";
-import PostList from "../Post/PostList";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -17,7 +15,7 @@ const Profile = () => {
     const [isRequesting, setIsRequseting] = useState(false);
 
     useEffect(()=>{
-        axios.get('',
+        axios.get('', //프로필 정보 가져오는 axios
             {
                 headers: {
                 Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
@@ -34,7 +32,7 @@ const Profile = () => {
 
     }, []);
 
-    const handleFriendRequest = async () => {
+    const handleFriendRequest = async () => { //친구신청 정보 백엔드에 넘겨줌
         try {
             setIsRequseting(true);
 
@@ -50,6 +48,12 @@ const Profile = () => {
             setIsRequseting(false);
         }
     };
+
+    const handleMemberReport = (e) => { //회원신고 axios
+
+    }
+
+    
 
     return (
         <SignInBox>
@@ -71,16 +75,18 @@ const Profile = () => {
 
                 <ButtonSection> 
                     <button className="block" type="submit" onClick={handleFriendRequest} disabled={isRequesting}>{isRequesting ? '신청 중...' : '친구 신청'}</button>
-                    <button className="block" type="submit" onClick={()=>navigate}>회원신고</button>
+                    <button className="block" type="submit" onClick={handleMemberReport}>회원신고</button>
                 </ButtonSection>
 
                 <PRBox>
                     {/*닉네임, 자기소개, 나이, 성별 */}
                 </PRBox>
+
                 <h3 className="subtitle">최근에 작성한 게시글</h3>
-                <PRBox>
-                    
-                </PRBox>
+
+                <PostBox>
+                    <PostTable/>
+                </PostBox>
         </SignInBox>
     )
 

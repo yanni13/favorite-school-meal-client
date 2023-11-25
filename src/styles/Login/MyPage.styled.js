@@ -5,6 +5,8 @@ const MyPageContainer = styled.div`
     justify-content: flex-start;
 `;
 const MyPageBox = styled.div`
+    flex-direction: column;
+    justify-content: flex-start;
     display:flex;   
     align-items: center;
     width: 339px;
@@ -49,16 +51,31 @@ const RecentPostForm = styled.div`
         background: #DADADA;
     }
 `
-
 const PRBox = styled.div`
     display: inline-flex;
     height: 50px;
-    padding: 0px 159px 100px;
+    padding: 0px 169px 100px;
     flex-shrink: 0;
     float: left;
     border-radius: 7px;
     background: #FFF;
     margin-top: -20px;
+    flex-direction: column;
+    justify-content: flex-start;  
+    align-items: center;
+`;
+const PostBox = styled.div`
+    display: inline-flex;
+    height: 50px;
+    padding: 0px 5px 100px;
+    flex-shrink: 0;
+    float: left;
+    border-radius: 7px;
+    background: #FFF;
+    margin-top: -20px;
+    flex-direction: column;
+    justify-content: flex-start;  
+    align-items: center;
 `;
 
 const ProfileDetails = styled.div`
@@ -114,4 +131,4 @@ const ButtonSection = styled.div`
     }
 `;
 
-export {MyPageContainer,MyPageBox, SelfIntroductionBox, ProfileSection,PRBox,ProfileDetails, ProfilePicture, ButtonSection, RecentPostForm};
+export {MyPageContainer,MyPageBox, SelfIntroductionBox, ProfileSection,PRBox,PostBox,ProfileDetails, ProfilePicture, ButtonSection, RecentPostForm};
