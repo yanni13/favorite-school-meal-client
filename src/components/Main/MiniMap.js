@@ -1,27 +1,10 @@
 import styles from "../../styles/Main/MiniMap.module.css";
-import styled from "styled-components";
 import MapLogo from "../../media/Main/MapLogo.svg";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import axios from "axios";
 import { useState } from "react";
-
-const { kakao } = window;
-
-const S = {
-    DetailButton: styled.button`
-        color: #A1A1A1;
-        font-family: Noto Sans KR;
-        font-size: 10px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        margin: 0 0 0 160px;
-        white-space: nowrap;
-        border: none;
-    `
-}
 
 export default function MiniMap() {
 
@@ -70,8 +53,15 @@ export default function MiniMap() {
                     margin: '18.72, 0, 18.72, 0',
                     whiteSpace: 'nowrap'
                 }}>학교지도</span>
-                <Link to='/MapPage' style={{ textDecoration: "none", marginTop: '20px'}}>
-                <S.DetailButton>자세히 보기</S.DetailButton>
+                <Link to='/MapPage' style={{ 
+                    textDecoration: "none",
+                    marginTop: '10px',
+                    marginLeft: '160px',
+                    color: '#A1A1A1',
+                    fontFamily: "Noto Sans KR",
+                    fontSize: "10px"
+                }}>
+                자세히보기
                 </Link>
             </div>
         );

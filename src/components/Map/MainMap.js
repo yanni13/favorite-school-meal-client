@@ -32,6 +32,7 @@ const MainMap = () => {
       const [data, setData] = useState({});
       useEffect(() => {
          axios.get('/restaurants').then((res) => {
+			console.log(res.data.data);
 			const formattedData = res.data.data.map(restaurant => ({
 				id: restaurant.id,
 				location: {
@@ -57,7 +58,7 @@ const MainMap = () => {
             title={item.title}
          />
       ));
-	  
+
       return item;
    }
 
