@@ -89,13 +89,13 @@ const S = {
         width: 100%;
         display : flex;
         justify-content : space-between;
+        align-items : center;
         margin-top: 6px;
     `,
-    StatusBox : styled.div`
+    OpenStatusBox : styled.div`
         width: 45px;
         height: 15px;
         border-radius: 5px;
-        border: 0.5px solid #609966;
         background: #609966;
         color: #FFF;
         font-family: Noto Sans KR;
@@ -115,46 +115,61 @@ const S = {
         border-radius : 30px;
     `
 }
+const CloseStatusBox = styled(S.OpenStatusBox)`
+    background: #FF0000;
+`;
 
-const PostDetail= ({ id }) => {
-    const [data, setData] = useState( {} );
+const PostDetail= () => {
+    const id = useParams();
+    const [data, setData] = useState();
+    const [userData, setUserData] = useState();  
 
-    // useEffect(() => {
-    //     axios.get('' + id).then((response) => {
-    //         setData(response.data);
-    //     })
-    // },[]);
-
+    useEffect(() => {
+        axios.get('/posts/' + id.PostId).then((response) => {
+            console.log(response.data.data);
+            setData(response.data.data);
+        });
+    }, []);
 
     return(
         <>
+        {data && 
+            <>
             <S.Wrapper>
                 <S.ProfileWrapper>
                     <S.ProfileImage/>
                     <S.ProfileMiddleWrapper>
-                        <S.ProfileName>사용자</S.ProfileName>
-                        <S.TimeText>2021.09.01</S.TimeText>
+                        
+                        <S.ProfileName>{data.memberId}</S.ProfileName>
+                        <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
                     <S.RequestButton>요청</S.RequestButton>
                 </S.ProfileWrapper>
-                <S.TitleText>제목 입니다</S.TitleText>
-                <S.ContentText>내용 입니다</S.ContentText>
-
-                <S.UnderBarWrapper>
+                <S.TitleText>{data.title}</S.TitleText>
+                <S.ContentText>{data.content}</S.ContentText>
+                
+                <S.UnderBarWrapper> 
                     <img src={comment_logo} alt="comment_logo" style={{width: "20px", height: "20px", marginRight : "5px"}}/>
-                    <S.TimeText>1</S.TimeText>
-                    <S.StatusBox>진행중</S.StatusBox>
+                    <S.TimeText>{data.commentCount}</S.TimeText>
+                    {
+                        (data.matching.matchingStatus === "CLOSED" ? 
+                            <CloseStatusBox>마감</CloseStatusBox>
+                        :   
+                            <S.OpenStatusBox>진행중</S.OpenStatusBox>
+                        )
+                    }
                         <img src={clock_logo} alt="clock_logo" style={{width: "20px", height: "20px", marginRight : "5px", marginLeft : "auto"}}/>
-                        <S.TimeText>11:00 ~ 13:00</S.TimeText>
-                    
+                        <S.TimeText>{data.matching.meetingDateTime}</S.TimeText> 
                 </S.UnderBarWrapper> 
                 <Divider/>
-                <CommentTable/>
-
+                <CommentTable id={data.postId}/>
+            
             </S.Wrapper>
             <S.CommentFormWrapper>
-                    <CommentForm id={id}/>
+                    <CommentForm id={data.postId}/>
             </S.CommentFormWrapper>
+            </>
+        }
         </>
     )
 }
