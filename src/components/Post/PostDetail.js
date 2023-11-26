@@ -127,9 +127,17 @@ const PostDetail= () => {
     const [userData, setUserData] = useState();  
 
     useEffect(() => {
-        axios.get('/posts/' + id.PostId).then((response) => {
-            console.log(response.data.data);
-            setData(response.data.data);
+        axios.get('/posts/' + id.PostId).then((res) => {
+            setData(res.data.data);
+            const memberId = res.data.data.memberId;
+            axios.get(`/members/${memberId}`).then((userDataRes) => {
+                console.log(userDataRes.data.data);
+                setUserData(userDataRes.data.data);
+            }).catch((userDataError) => {
+                console.error(userDataError);
+            });
+        }).catch((error) => {
+            console.error(error);
         });
     }, []);
 
@@ -141,8 +149,7 @@ const PostDetail= () => {
                 <S.ProfileWrapper>
                     <S.ProfileImage/>
                     <S.ProfileMiddleWrapper>
-                        
-                        <S.ProfileName>{data.memberId}</S.ProfileName>
+                        {userData && <S.ProfileName>{userData.nickname}</S.ProfileName>}
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
                     <S.RequestButton>요청</S.RequestButton>
