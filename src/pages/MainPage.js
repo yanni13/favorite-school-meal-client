@@ -5,6 +5,7 @@ import MiniMap from '../components/Main/MiniMap';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getCookie } from '../Cookies';
 
 const S = {
     Wrapper: styled.div`
@@ -20,11 +21,16 @@ const S = {
 const MainPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [userInfo, setUserInfo] = useState();
+    const token = getCookie("ACCESS_TOKEN");
 
     useEffect(() => {
-        const responseData = axios.get('/').then((res) => {
+        const responseData = axios.get('/members',{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).then((res) => {
             setIsLogin(true);
-            setUserInfo(res.data.data);            
+            setUserInfo(res.data.data);
         })
         .catch((e)=> {
             setIsLogin(false);
@@ -41,8 +47,9 @@ const MainPage = () => {
                 alignItems: "center",
                 backgroundColor: "#00000",
             }}>
+                {/* userInfo 값내부에 profileimage 사용하기 */}
                 {isLogin 
-                ? <LoggedInHeader userInfo={userInfo}/> 
+                ? <LoggedInHeader userInfo={userInfo}/>  
                 : <GuestHeader/>
                 }
                 <MiniMap/>

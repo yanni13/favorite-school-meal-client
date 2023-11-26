@@ -1,5 +1,6 @@
 import styles from "../../styles/Main/MiniMap.module.css";
 import MapLogo from "../../media/Main/MapLogo.svg";
+import marker_logo from "../../media/Map/marker_logo.svg"
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
@@ -30,7 +31,7 @@ export default function MiniMap() {
               clickable={true}
               position={item.location}
               image={{
-                 src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
+                 src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
                  size: { width: 24, height: 35 },
               }}
               title={item.title}

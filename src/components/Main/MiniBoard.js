@@ -53,7 +53,7 @@ export default function MiniBoard() {
     const size = 6;
         useEffect(() => {
             axios.get(`/posts?size=${size}`).then((res) => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 const formattedData = (res.data.data.content).map(post => ({
                     PostId: post.postId,
                     WriterId: post.writerId,
