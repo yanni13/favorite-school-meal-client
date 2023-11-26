@@ -6,45 +6,44 @@ import post_logo from '../../media/Menu/post_logo.svg';
 import friend_logo from '../../media/Menu/friend_logo.svg';
 import chat_logo from '../../media/Menu/chat_logo.svg';
 
+const S = {
+    Wrapper : styled.div`
+        display: flex;
+        justify-content: space-between;
+        width: 390px;
+        height: 210px;
+    `,
+    ButtonWrapper : styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    `,
+    ButtonBox : styled.div`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 65px;
+        height: 65px;
+        border-radius: 20px;
+        background: #609966;
+    `,
+    ButtonImg : styled.img`
+        width: 45px;
+        height: 45px;
+    `,
+    ButtonTitle : styled.a`
+    color: #000;
+    font-family: Noto Sans KR;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 6px;
+    `
+}
 
 function MenuButton() {
-    const S = {
-        Wrapper : styled.div`
-            display: flex;
-            justify-content: space-between;
-            width: 390px;
-            height: 210px;
-        `,
-        ButtonWrapper : styled.div`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        `,
-        ButtonBox : styled.div`
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 65px;
-            height: 65px;
-            border-radius: 20px;
-            background: #609966;
-        `,
-        ButtonImg : styled.img`
-            width: 45px;
-            height: 45px;
-        `,
-        ButtonTitle : styled.a`
-        color: #000;
-        font-family: Noto Sans KR;
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        margin-top: 6px;
-        `
-    }
-
     return(
         <>
             <S.Wrapper>
