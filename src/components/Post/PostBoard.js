@@ -1,5 +1,7 @@
 import PostTable from "./PostTable";
 import styled from "styled-components";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const S = {
     Wrapper : styled.div`
@@ -27,25 +29,43 @@ const S = {
 }
 
 const PostBoard = () => {
+
+    const [data, setData] = useState();
+        useEffect(() => {
+            axios.get(`/posts`).then((res) => {
+                console.log(res.data.data);
+                const formattedData = (res.data.data.content).map(post => ({
+                    PostId: post.postId,
+                    WriterId: post.writerId,
+                    Title : post.title,
+                    Content : post.content,
+                    MatchingState : post.matching.matchingStatus,
+                    CreatedTime : post.createdAt,
+                    CommentCount : post.commentCount
+                }));
+                setData(formattedData);
+            }).catch((err) => {
+                console.log("MiniBoard 에러 발생")
+                console.log(err);
+            });
+        },[]);
+
     return(
         <>
             <S.Wrapper>
                 <S.PostWrapper>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
+                    {data && data.map((item) => (
+                        <PostTable
+                            key={item.PostId} // Add a unique key when rendering lists
+                            PostId={item.PostId}
+                            WriterId={item.WriterId}
+                            Title={item.Title}
+                            Content={item.Content}
+                            MatchingState={item.MatchingState}
+                            CreatedTime={item.CreatedTime}
+                            CommentCount={item.CommentCount}
+                        />
+                    ))}
                 </S.PostWrapper>
             </S.Wrapper>
         </>

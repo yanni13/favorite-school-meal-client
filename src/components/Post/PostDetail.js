@@ -92,19 +92,6 @@ const S = {
         align-items : center;
         margin-top: 6px;
     `,
-    OpenStatusBox : styled.div`
-        width: 45px;
-        height: 15px;
-        border-radius: 5px;
-        background: #609966;
-        color: #FFF;
-        font-family: Noto Sans KR;
-        font-size: 9px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        margin-left : 5px;
-    `,
     CommentFormWrapper : styled.div`
         background-color: white;
         position : absolute;
@@ -115,7 +102,22 @@ const S = {
         border-radius : 30px;
     `
 }
-const CloseStatusBox = styled(S.OpenStatusBox)`
+
+const OpenStatusBox = styled.div`
+    width: 45px;
+    height: 15px;
+    border-radius: 5px;
+    background: #609966;
+    color: #FFF;
+    font-family: Noto Sans KR;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left : 5px;
+`;
+
+const CloseStatusBox = styled(OpenStatusBox)`
     background: #FF0000;
 `;
 
@@ -155,18 +157,18 @@ const PostDetail= () => {
                         (data.matching.matchingStatus === "CLOSED" ? 
                             <CloseStatusBox>마감</CloseStatusBox>
                         :   
-                            <S.OpenStatusBox>진행중</S.OpenStatusBox>
+                            <OpenStatusBox>진행중</OpenStatusBox>
                         )
                     }
                         <img src={clock_logo} alt="clock_logo" style={{width: "20px", height: "20px", marginRight : "5px", marginLeft : "auto"}}/>
-                        <S.TimeText>{data.matching.meetingDateTime}</S.TimeText> 
-                </S.UnderBarWrapper> 
+                        <S.TimeText>{data.matching.meetingDateTime}</S.TimeText>
+                </S.UnderBarWrapper>
                 <Divider/>
                 <CommentTable id={data.postId}/>
             
             </S.Wrapper>
             <S.CommentFormWrapper>
-                    <CommentForm id={data.postId}/>
+                <CommentForm id={data.postId}/>
             </S.CommentFormWrapper>
             </>
         }
@@ -174,4 +176,4 @@ const PostDetail= () => {
     )
 }
 
-export default PostDetail;
+export { PostDetail, OpenStatusBox, CloseStatusBox };

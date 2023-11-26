@@ -8,6 +8,7 @@ const S = {
         display : flex;
         flex-direction : row;
         justify-content : flex-start;  
+        align-items : center;
     `,
     ProfileImage : styled.div`
         width : 40px;
@@ -28,7 +29,7 @@ const S = {
         text-overflow: ellipsis;
         color: #000;
         font-family: Noto Sans KR;
-        font-size: 12px;
+        font-size: 14px;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
@@ -39,16 +40,16 @@ const S = {
         text-overflow: ellipsis;
         color: #A1A1A1;
         font-family: Noto Sans KR;
-        font-size: 7px;
+        font-size: 8px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
-        margin: 3px 0 3px 0;
-    `, 
+        margin: 2px 0 2px 0;
+    `,
     TimeText : styled.a`
         color: #A1A1A1;
         font-family: Noto Sans KR;
-        font-size: 7px;
+        font-size: 8px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
@@ -57,34 +58,34 @@ const S = {
         display : flex;
         flex-direction : column;
     `,
-    StatusBox : styled.div`
-        width: 30px;
-        height: 10px;
-        border-radius: 5px;
-        border: 0.5px solid #609966;
-        background-color: #609966;
-        color: #FFF;
-        font-family: Noto Sans KR;
-        font-size: 7px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-    `,
     CommentWrapper : styled.div`
         display : flex;
         margin: 20px 0 0 17px;
     `,
-
-
 }
 
-const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTime}) => {
-    // 유저 프로필사진 + 게시글 댓글수 가져오는 axios
-    const [data, setData] = useState({
-        title : "글제목 입니다.",
-        content : "글내용 입니다. 하지만 글내용을 이렇게 많이넣었을때는  ellipsis를 통해  점점점 처리를 해버릴겁니다."
-    });
+const OpenStatusBox = styled.div`
+    width: 30px;
+    height: 10px;
+    border-radius: 5px;
+    border: 0.5px solid #609966;
+    background-color: #609966;
+    color: #FFF;
+    font-family: Noto Sans KR;
+    font-size: 7px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+`
 
+const CloseStatusBox = styled.div`
+    background-color: #FF0000;
+`
+
+
+const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTime, CommentCount}) => {
+    // 유저 프로필사진
+    const url = '/PostDetailPage/' + PostId;
     return (
         <div style={{
             display : 'flex',
@@ -96,18 +97,24 @@ const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTim
                 <S.ProfileImage/>
                 <S.MiddleWrapper>    
                 <S.TitleText>
-                    <Link to="/PostDetailPage/1" style={{ textDecoration : "none"}}>{data.title}</Link>
+                    <Link to={url} style={{ textDecoration : "none"}}>{Title}</Link>
                 </S.TitleText>
-                <S.ContentText>{ data.content }</S.ContentText>
-                    <S.TimeText>15분전</S.TimeText>
+                <S.ContentText>{Content}</S.ContentText>
+                    <S.TimeText>{CreatedTime}</S.TimeText>
                 </S.MiddleWrapper>
                 <S.RightWrapper>
-                        <S.StatusBox>status</S.StatusBox>
-                        <S.CommentWrapper>
-                            <S.TimeText>3</S.TimeText>     
-                            <img src={comment_logo}/>
-                        </S.CommentWrapper>
-                    </S.RightWrapper>
+                    {
+                        (MatchingState === "CLOSED" ? 
+                            <CloseStatusBox style={{marginRight: "20px"}}>마감</CloseStatusBox>
+                        :   
+                            <OpenStatusBox>진행중</OpenStatusBox>
+                        )
+                    }
+                    <S.CommentWrapper>
+                        <S.TimeText>{CommentCount}</S.TimeText>     
+                        <img src={comment_logo}/>
+                    </S.CommentWrapper>
+                </S.RightWrapper>
             </S.Wrapper>
             <div style={{
                 width : '315px',

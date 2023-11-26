@@ -3,6 +3,8 @@ import styles from "../../styles/Main/MiniBoard.module.css";
 import BoardLogo from "../../media/Main/BoardLogo.svg";
 import PostTable from "../Post/PostTable";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const S = {
     Wrapper: styled.div`
@@ -47,18 +49,43 @@ export default function MiniBoard() {
         );
     }
 
- 
+    const [data, setData] = useState();
+    const size = 6;
+        useEffect(() => {
+            axios.get(`/posts?size=${size}`).then((res) => {
+                console.log(res.data.data);
+                const formattedData = (res.data.data.content).map(post => ({
+                    PostId: post.postId,
+                    WriterId: post.writerId,
+                    Title : post.title,
+                    Content : post.content,
+                    MatchingState : post.matching.matchingStatus,
+                    CreatedTime : post.createdAt,
+                    CommentCount : post.commentCount
+                }));
+                setData(formattedData);
+            }).catch((err) => {
+                console.log("MiniBoard 에러 발생")
+                console.log(err);
+            });
+        },[]);
 
     return(
         <>
             <BoardTitle/>
             <S.Wrapper>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
+                {data && data.map((item) => (
+                    <PostTable
+                        key={item.PostId} // Add a unique key when rendering lists
+                        PostId={item.PostId}
+                        WriterId={item.WriterId}
+                        Title={item.Title}
+                        Content={item.Content}
+                        MatchingState={item.MatchingState}
+                        CreatedTime={item.CreatedTime}
+                        CommentCount={item.CommentCount}
+                    />
+                ))}
             </S.Wrapper>
         </>
 
