@@ -18,32 +18,33 @@ const JoinForm = () => {
         checkPswd: '',
     });
     
-    const [data, updataData] = useState(initData);
+    const [data, updateData] = useState(initData);
+    const [num, setNum] = useState("");
     const [checkPswd, setCheckPswd] = useState(initData.setCheckPswd);
     const [registrationNumber, setRegistrationNumber] = useState("");//주민등록번호 
     const [checkPswdMessage, setCheckPswdMessage] = useState("");//비밀번호오류메세지 상태
     const [isCheckPswd, setIsCheckPswd] = useState(false);//비밀번호 유효성 검사
-    const [color, updataColor] = useState("#b8e8ff")
+    const [color, updateColor] = useState("#b8e8ff")
 
     useEffect(() => {
         if( data.id.length > 0 && data.name.length > 0 &&
             data.nickname.length > 0 &&
             data.num.length > 0 && data.email.length > 0 &&
             data.pswd.length > 0 && data.checkPswd.length > 0) {
-            updataColor("#609966");
+            updateColor("#609966");
         } else {
-            updataColor("#A4D0A9");
+            updateColor("#A4D0A9");
         }
     }, [data]);
 
     const SignUpDB = (e) => {//회원가입 api 호출
         e.preventDefault();
 
-        axios.post("https://f684-58-126-218-174.ngrok-free.app/api/v1/auth/sign-up", {
+        axios.post("http://49.50.173.247:8080/api/v1/auth/sign-up", {
             
             "username": data.id, //아이디
             "fullname": data.name, //실명
-            "nickname" :data.nickname,
+            "nickname" :data.num, //닉네임
             "personalNumber": data.num, //주민등록번호
             "email": data.email,
             "password": data.pswd
@@ -75,7 +76,7 @@ const JoinForm = () => {
         setCheckPswd(currentPw);
 
         //checkPswd에 값 넣어주기
-        updataData({
+        updateData({
             ...data, "checkPswd" : e.target.value
         })
         
@@ -92,27 +93,30 @@ const JoinForm = () => {
             }
         }       
     }
-
     
     const handleChange = (e) => {
+        
         console.log(e.target.value);
         
-        updataData({
+        updateData({
             ...data, [e.target.name] : e.target.value
         })
     }
 
-    const maskingNum = (e) => {
-        const input = e.target.value.replace(/[^0-9]/g, ''); 
-
+    const maskingNum = (e) => { //주민등록번호 마스킹 처리
+        console.log(data.num)
+        const input = e.target.value.replace(/[^0-9]/g, '');
+        //console.log(data.num) 
+        updateData({
+            ...data, [e.target.name] : e.target.value
+        })
         if (input.length <= 6) {
             setRegistrationNumber(input);
         } else {
-            const maskedNumber = input.substring(0, 6) + '-' + input.substring(6, 7) + '*******';
+            const maskedNumber = input.substring(0, 6) + '-' + input.substring(6, 7) + '******';
                 setRegistrationNumber(maskedNumber);
         }
     };
-    
 
     return (
         <SignInForm color={color}>
@@ -141,7 +145,7 @@ const JoinForm = () => {
              type="text" 
              name="num" 
              placeholder="주민등록번호" 
-             value={registrationNumber}
+             value={data.num}
              maxLength={14}
              required 
              onChange={maskingNum}/>
@@ -169,7 +173,7 @@ const JoinForm = () => {
              onChange={onChangePwConfirm}
              required/>
              <p>{checkPswdMessage}</p>
-             {/*비밀번호확인 입력안됨*/}
+             <p>비밀번호는 8~16자 길이여야 하며 대소문자, 숫자, 특수문자 모두 포함해서 입력해주세요. </p>
 
             <button className="submitBtn" type="submit" onClick={(SignUpDB)}>회원가입</button>
             {/* handleSubmit => navigate("/") */}

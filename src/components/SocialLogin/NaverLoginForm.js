@@ -14,7 +14,6 @@ const NaverLoginForm = () => {
 
     const link = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=xQ6XMGVRxbFRU3GgqKaW&state=1234&redirect_uri=http://localhost:3000/NaverLoginPage`;
 
-    const href = window.location.href;
     let params = new URL(document.location).searchParams;
     let code = params.get("code");
     let state = params.get("state");
@@ -24,9 +23,9 @@ const NaverLoginForm = () => {
 
         window.location.href = link;
 
-        axios.post(`https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=xQ6XMGVRxbFRU3GgqKaW&client_secret=jEBGQNJqQL&code=9CBGNgAlbnXwnDKnZN&state=1234`)
+        axios.post(`https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=xQ6XMGVRxbFRU3GgqKaW&client_secret=jEBGQNJqQL&code=dbenQUCmlAFdXExi6S&state=1234`)//접근토근 발급
 
-        axios.post(`http://localhost:3000/NaverLoginPage/api/v1/oauth/sign/{Naver}?code=${code}&state=${state}`, {
+        axios.post(`http://49.50.173.247:8080/api/v1/oauth/sign/{Naver}?code=${code}&state=${state}`, {
             "oauthSignUpRequest": {
                   "fullname": data.fullname,
                   "personalNumber": data.personalNumber

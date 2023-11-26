@@ -11,6 +11,12 @@ import PostTable from "../Post/PostTable";
 const Profile = () => {
     const navigate = useNavigate();
 
+    const initData = Object.freeze({
+        introduction: '',
+    });
+
+    const [data, updataData] = useState(initData);
+
     const [users, setUsers] = useState();
     const [isRequesting, setIsRequseting] = useState(false);
 
@@ -50,10 +56,24 @@ const Profile = () => {
     };
 
     const handleMemberReport = (e) => { //회원신고 axios
+        e.preventDefault();
 
+        axios.post('http://49.50.173.247:8080/api/v1/reports', {
+
+        })
     }
 
-    
+    const SelfPR = (e) => {
+        axios.put('http://49.50.173.247:8080/api/v1/reports', {
+            "introduction": data.introduction
+        })
+        .then(res => {
+
+        })
+        .catch(err => {
+            
+        })
+    }
 
     return (
         <SignInBox>

@@ -44,18 +44,18 @@ function App() {
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
             <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>            
-            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
             <Route path = "/UserPage" element={<UserPage/>}></Route>
             <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
             <Route path = "/NaverLoginPage" element={<NaverLoginPage/>}></Route>
+            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>
+      
+      
+      
 
-      
-      
     </>
-    
   )
 }
 

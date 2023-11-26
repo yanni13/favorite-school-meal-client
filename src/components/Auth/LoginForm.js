@@ -25,7 +25,7 @@ const LoginForm = () => {
     const loginDB = (e) => { //로그인 api 호출
         e.preventDefault();
 
-        axios.post("https://f684-58-126-218-174.ngrok-free.app/api/v1/auth/sign-in", {
+        axios.post("http://49.50.173.247:8080/api/v1/auth/sign-in", {
             "username": data.id,
             "password": data.password 
         })      
@@ -78,8 +78,6 @@ const LoginForm = () => {
              
             <button className="submitBtn" type="submit" onClick={loginDB}>
                 로그인</button> {/*비밀번호 일치할 경우 메인페이지로 이동하도록 수정*/}
-
-                {/* handleSubmit => navigate("/AfterLoginPage") */}
             
         </SignInForm>
         
