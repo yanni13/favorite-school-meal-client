@@ -29,7 +29,7 @@ const ResetPwForm = () => {
     }, [data])
 
     useEffect(()=>{
-        axios.get('/users/login/auth/',
+        axios.get('',
             {
                 headers: {
                 Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,

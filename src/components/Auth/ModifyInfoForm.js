@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { SignInForm } from "../../styles/Login/Login.styled";
+import { SignInForm, FindPage } from "../../styles/Login/Login.styled";
 
 const ModifyInfoForm = () => {
     const navigate = useNavigate();
@@ -92,8 +92,14 @@ const ModifyInfoForm = () => {
         })
     }
 
+    const deleteMember = (e) => {
+        
+    }
+
     return (
         <SignInForm color={color}>
+            <br/>
+
             <input 
              type="text" 
              name="id" 
@@ -130,7 +136,11 @@ const ModifyInfoForm = () => {
              onChange={onChangePwConfirm}
              required/>
              <p>{checkPswdMessage}</p>
-            
+
+            <FindPage>
+                <button className="textBtn" type="submit" onClick={deleteMember}>회원 탈퇴하기</button>
+            </FindPage>
+            <br/>
             <button className="submitBtn" type="submit" onClick={(handleChange)}>저장</button>
         </SignInForm>
     );

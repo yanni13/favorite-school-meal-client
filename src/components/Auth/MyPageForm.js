@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
-import { MyPageBox, ProfileSection, ProfileDetails, ProfilePicture, ButtonSection } from "../../styles/Login/MyPage.styled";
+import { ProfileSection, ProfileDetails, ProfilePicture, ButtonSection } from "../../styles/Login/MyPage.styled";
+import { MyPageContainer } from "../../styles/Login/MyPage.styled";
 
 const MyPageForm = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const MyPageForm = () => {
     }, []);
 
     return (
-        <>
+        <MyPageContainer>
             <ProfileSection>
                 <ProfilePicture imageUrl={users?.profileImage}>
                     {users?.profileImage ? (
@@ -47,12 +48,12 @@ const MyPageForm = () => {
                     </ProfileDetails>
                 </ProfileSection>
                 <ButtonSection>
-                    <div>
+                    
                         <button className="block" type="submit" onClick={() => navigate("/ModifyProfile")}>프로필 수정</button>
-                        <button className="block" type="submit" onClick={() => navigate("/ModifyInfoForm")}>회원정보 수정</button>
-                    </div>
+                        <button className="block" type="submit" onClick={() => navigate("/ModifyInfoPage")}>회원정보 수정</button>
+                    
                 </ButtonSection>
-        </>
+                </MyPageContainer>
     )
 }
 

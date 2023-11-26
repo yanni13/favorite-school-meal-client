@@ -17,11 +17,15 @@ import PostPage from './pages/PostPage';
 import ModifyProfile from './pages/ModifyProfile';
 import PostDetailPage from './pages/PostDetailPage';
 import PostAddPage from './pages/PostAddPage';
+<<<<<<< HEAD
 import ReportModal from './components/Modal/ReportModal';
 
+=======
+import UserPage from './pages/UserPage';
+import ChatPage from './pages/ChatPage';
+import NaverLoginPage from './pages/NaverLoginPage';
+>>>>>>> 28124a76ce6a3aa2b5af5af5eed7c51f7dbcdc63
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-
-
 
 function App() {
   return (
@@ -44,13 +48,23 @@ function App() {
             <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
-            <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>
+            <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>            
+            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
+            <Route path = "/UserPage" element={<UserPage/>}></Route>
             <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
+<<<<<<< HEAD
             <Route path = "/Test" element={<ReportModal/>}></Route>
+=======
+            <Route path = "/NaverLoginPage" element={<NaverLoginPage/>}></Route>
+>>>>>>> 28124a76ce6a3aa2b5af5af5eed7c51f7dbcdc63
           </Routes>
         </BrowserRouter>
       </div>
+
+      
+      
     </>
+    
   )
 }
 
