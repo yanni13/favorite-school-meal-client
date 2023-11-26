@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import write_logo from '../../media/Post/write_logo.svg';
+import axios from 'axios';
+import { getCookie } from '../../Cookies';
+
 
 const S = {
     Wrapper : styled.div`
@@ -19,13 +22,40 @@ const S = {
 }
 
 const CommentForm = ({ id }) => {
+    // id 기반 댓글 POST 요청하기
+    const [content, setContent] = useState();
+    const url = '/posts/' + id + '/comments';
+
+    const handleCommentSubmit = () => {
+        axios.post(url, {
+            content : content,
+        }, {
+            headers : {
+                Authorization: `bearer ${getCookie("ACCESS_TOKEN")}`,
+            }
+        }).then((res) => {
+            console.log(res.data.data);
+        }).catch((err) => {
+            alert(err);
+        });
+    }
+
     return (
         <>
             <S.Wrapper>
-                <S.CommentInput placeholder="댓글을 입력하세요."/>
-                <Link to="/">
+                <S.CommentInput 
+                value= {content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="댓글을 입력하세요."
+                />
+                <button style={{
+                    border : 'none',
+                    background : 'none',
+                }}
+                onClick={handleCommentSubmit}
+                >
                     <img src={write_logo}/>
-                </Link> 
+                </button> 
             </S.Wrapper>
             
         </>
