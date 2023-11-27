@@ -20,6 +20,7 @@ import PostAddPage from './pages/PostAddPage';
 import UserPage from './pages/UserPage';
 import ChatPage from './pages/ChatPage';
 import NaverLoginPage from './pages/NaverLoginPage';
+import ReportModal from './components/Modal/ReportModal';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
             <Route path = "/UserPage" element={<UserPage/>}></Route>
             <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
             <Route path = "/NaverLoginPage" element={<NaverLoginPage/>}></Route>
+            <Route path = "/Test" element={<ReportModal/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>

@@ -3,6 +3,8 @@ import styles from "../../styles/Main/MiniBoard.module.css";
 import BoardLogo from "../../media/Main/BoardLogo.svg";
 import PostTable from "../Post/PostTable";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const S = {
     Wrapper: styled.div`
@@ -16,17 +18,6 @@ const S = {
         margin-left: 21px;
         padding-top : 5px;
     `,
-    DetailButton: styled.button`
-        color: #A1A1A1;
-        font-family: Noto Sans KR;
-        font-size: 10px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        margin: 0 0 0 180px;
-        white-space: nowrap;
-        border: none;
-    `
 }   
 
 export default function MiniBoard() {
@@ -44,25 +35,57 @@ export default function MiniBoard() {
                     margin: '18.72, 0, 18.72, 0',
                     whiteSpace: 'nowrap'
                 }}>게시판</span>
-                <Link to='/PostPage' style={{ textDecoration: "none", marginTop: '20px'}}>
-                <S.DetailButton>자세히 보기</S.DetailButton>
+                <Link to='/PostPage' style={{ 
+                    textDecoration: "none",
+                    marginTop: '10px',
+                    marginLeft: '175px',
+                    color: '#A1A1A1',
+                    fontFamily: "Noto Sans KR",
+                    fontSize: "10px"
+                }}>
+                    자세히 보기
                 </Link>
             </div>
         );
     }
 
- 
+    const [data, setData] = useState();
+    const size = 6;
+        useEffect(() => {
+            axios.get(`/posts?size=${size}`).then((res) => {
+                // console.log(res.data.data);
+                const formattedData = (res.data.data.content).map(post => ({
+                    PostId: post.postId,
+                    WriterId: post.writerId,
+                    Title : post.title,
+                    Content : post.content,
+                    MatchingState : post.matching.matchingStatus,
+                    CreatedTime : post.createdAt,
+                    CommentCount : post.commentCount
+                }));
+                setData(formattedData);
+            }).catch((err) => {
+                console.log("MiniBoard 에러 발생")
+                console.log(err);
+            });
+        },[]);
 
     return(
         <>
             <BoardTitle/>
             <S.Wrapper>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
-                <PostTable/>
+                {data && data.map((item) => (
+                    <PostTable
+                        key={item.PostId} // Add a unique key when rendering lists
+                        PostId={item.PostId}
+                        WriterId={item.WriterId}
+                        Title={item.Title}
+                        Content={item.Content}
+                        MatchingState={item.MatchingState}
+                        CreatedTime={item.CreatedTime}
+                        CommentCount={item.CommentCount}
+                    />
+                ))}
             </S.Wrapper>
         </>
 

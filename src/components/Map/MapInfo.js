@@ -92,6 +92,9 @@ const S = {
 // 추후에는 마커클릭시 위치 기반으로 식당 id를 받아오고, 그 id를 props로 전달.
 // axios로 id를 기반으로 식당 정보를 받아오는 API를 호출.
 // 해당 데이터 활용해 완성.
+
+/** pageType 의 종류는 "Map" 혹은 "Detail" 이다. Map같은 경우는 지도에서 표시되는 경우 이고
+    Detail은 식당 상세페이지에서 표시되는 경우이다. */
 const MapInfo= ({id, pageType}) => {
     const [data, setData] = useState({
         title : "기본 식당 이름", 
@@ -118,8 +121,7 @@ const MapInfo= ({id, pageType}) => {
         })
     },[id]);
 
-    // pageType 의 종류는 아래와 같다.
-    // pageType = "Map" or "Detail"
+
     
     if (!id) {
         return null;
@@ -137,7 +139,6 @@ const MapInfo= ({id, pageType}) => {
                         <S.TimeText>{data.businessHours}</S.TimeText>
                         {/* <S.TimeText>{data.businessHours}</S.TimeText> */}
                     </S.TimeWrapper>
-                    {console.log(pageType)}
                     {
                         (pageType === "Map"
                         ?   <S.Button>

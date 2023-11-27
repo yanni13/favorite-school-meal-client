@@ -1,26 +1,45 @@
 import styles from "../../styles/Main/MiniMap.module.css";
-import styled from "styled-components";
 import MapLogo from "../../media/Main/MapLogo.svg";
+import marker_logo from "../../media/Map/marker_logo.svg"
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const { kakao } = window;
-
-const S = {
-    DetailButton: styled.button`
-        color: #A1A1A1;
-        font-family: Noto Sans KR;
-        font-size: 10px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        margin: 0 0 0 160px;
-        white-space: nowrap;
-        border: none;
-    `
-}
+import { Map, MapMarker } from "react-kakao-maps-sdk";
+import axios from "axios";
+import { useState } from "react";
 
 export default function MiniMap() {
+
+    const GetData = () => {
+        const [data, setData] = useState({});
+        useEffect(() => {
+           axios.get('/restaurants').then((res) => {
+              const formattedData = res.data.data.map(restaurant => ({
+                  id: restaurant.id,
+                  location: {
+                      lng: restaurant.location.longitude,
+                      lat: restaurant.location.latitude
+                  },
+              }));
+              console.log(formattedData);
+              setData(formattedData);
+           })
+        },[]);
+  
+        const item = Object.values(data).map((item) => (
+           <MapMarker
+              key= {item.id}
+              clickable={true}
+              position={item.location}
+              image={{
+                 src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+                 size: { width: 24, height: 35 },
+              }}
+              title={item.title}
+           />
+        ));
+        return item;
+     }
+
     const MapTitle = () => {
         return(
             <div className={styles.title}>
@@ -35,32 +54,16 @@ export default function MiniMap() {
                     margin: '18.72, 0, 18.72, 0',
                     whiteSpace: 'nowrap'
                 }}>학교지도</span>
-                <Link to='/MapPage' style={{ textDecoration: "none", marginTop: '20px'}}>
-                <S.DetailButton>자세히 보기</S.DetailButton>
-                </Link>
-            </div>
-        );
-    }
-
-    const MapContent = () => {
-        useEffect(()=>{
-            const container = document.getElementById('map');
-            const options = {
-                center: new kakao.maps.LatLng(35.8361601, 128.7528893),
-                level: 3
-            };
-            const map = new kakao.maps.Map(container, options);
-        }, [])
-
-        return(
-            <div className={styles.map_box}>
-                <div id="map" style={{
-                    width: '348px',
-                    height: '296px',
-                    borderRadius: '20px',
-                    border: '1px solid #D9D9D9'
+                <Link to='/MapPage' style={{ 
+                    textDecoration: "none",
+                    marginTop: '10px',
+                    marginLeft: '160px',
+                    color: '#A1A1A1',
+                    fontFamily: "Noto Sans KR",
+                    fontSize: "10px"
                 }}>
-                </div>
+                자세히 보기
+                </Link>
             </div>
         );
     }
@@ -68,7 +71,19 @@ export default function MiniMap() {
     return(
         <>
             <MapTitle/>
-            <MapContent/>
+            <Map
+            center={{lat : 35.8361601, lng : 128.7528893}}
+            style={{
+                width: '348px',
+                height: '296px',
+                borderRadius: '20px',
+                border: '1px solid #D9D9D9',
+                marginLeft : '21px'
+            }}
+            level={3}
+            >
+                {GetData()}
+            </Map>
         </>
 
     );
