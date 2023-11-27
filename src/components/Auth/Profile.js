@@ -7,6 +7,7 @@ import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
 import { SignInBox } from "../../styles/Login/Login.styled";
 import PostTable from "../Post/PostTable";
+import MiniBoard from "../Main/MiniBoard";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -20,8 +21,8 @@ const Profile = () => {
     const [users, setUsers] = useState();
     const [isRequesting, setIsRequseting] = useState(false);
 
-    useEffect(()=>{
-        axios.get('', //프로필 정보 가져오는 axios
+    useEffect((memberId)=>{
+        axios.get('/members/' + memberId, //프로필 정보 가져오는 axios
             {
                 headers: {
                 Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
@@ -58,22 +59,40 @@ const Profile = () => {
     const handleMemberReport = (e) => { //회원신고 axios
         e.preventDefault();
 
-        axios.post('http://49.50.173.247:8080/api/v1/reports', {
+        const confirmed = window.confirm('정말로 신고하시겠습니까?');
 
+        if(confirmed) { //사용자가 확인을 눌렀을 때 로직
+
+        axios.post('/reports', {
+
+            "reportedMemberId": users.username,
+            "content": "염동스님이 나를 두번번 짜증나게함.",
+            "reportType": "PROFILE"
+
+            .then(res => {
+                console.log("회원이 신고되었습니다.", res.data);
+                alert("회원신고가 성공적으로 진행되었습니다.");
+            })
+            .catch(err => {
+                console.err("회원신고 중 오류 발생", err.data)
+            })
         })
     }
+    }
 
-    const SelfPR = (e) => {
-        axios.put('http://49.50.173.247:8080/api/v1/reports', {
-            "introduction": data.introduction
+    const SelfPR = (e) => { //자기소개 가져오는 부분
+        
+        axios.get('', {
+
         })
+          
         .then(res => {
 
         })
         .catch(err => {
             
         })
-    }
+    } 
 
     return (
         <SignInBox>
@@ -86,9 +105,10 @@ const Profile = () => {
                     )}
                 </ProfilePicture>
                 <ProfileDetails>
-                        <h3>{users?.id}</h3>
+                        <h3>{users?.fullname}</h3>
                         <p>{users?.age}</p>
-                        <p>{users?.gen}</p>
+                        <p>{users?.gender}</p>
+
                         <p>친구:{users?.friend}</p>
                         <p>매칭횟수:{users?.count}</p>
                 </ProfileDetails>
@@ -105,7 +125,7 @@ const Profile = () => {
                 <h3 className="subtitle">최근에 작성한 게시글</h3>
 
                 <PostBox>
-                    <PostTable/>
+                    <MiniBoard/>
                 </PostBox>
         </SignInBox>
     )

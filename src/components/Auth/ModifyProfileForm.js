@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { SelfIntroductionBox } from "../../styles/Login/MyPage.styled";
 import { SignInForm } from "../../styles/Login/Login.styled";
 import axios from "axios";
+import { getCookie } from "../../Cookies";
 
 
 const ModifyProfileForm = () => {
@@ -28,12 +29,19 @@ const ModifyProfileForm = () => {
         })
     }
 
-    const saveDB = () => {
-        axios.post("", {
+    const saveDB = (memberId) => {
 
+        axios.put(`/members/${memberId}`, {
+            "introduction": data.selfIntroduce
+        }, {
+            headers: {
+                Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
+                'Content-Type': 'application/json'
+            }
         })
         .then(res => { //요청 성공했을 경우
-
+            console.log("저장 성공", res.data);
+            return res;
         })
         .catch(err => { //요청 실패했을 경우
             console.log(err);

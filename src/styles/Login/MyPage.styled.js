@@ -66,13 +66,10 @@ const PRBox = styled.div`
 `;
 const PostBox = styled.div`
     display: inline-flex;
-    height: 50px;
-    padding: 0px 5px 100px;
     flex-shrink: 0;
     float: left;
     border-radius: 7px;
     background: #FFF;
-    margin-top: -20px;
     flex-direction: column;
     justify-content: flex-start;  
     align-items: center;

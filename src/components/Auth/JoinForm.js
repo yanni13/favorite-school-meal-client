@@ -21,15 +21,14 @@ const JoinForm = () => {
     const [data, updateData] = useState(initData);
     const [num, setNum] = useState("");
     const [checkPswd, setCheckPswd] = useState(initData.setCheckPswd);
-    const [registrationNumber, setRegistrationNumber] = useState("");//주민등록번호 
     const [checkPswdMessage, setCheckPswdMessage] = useState("");//비밀번호오류메세지 상태
     const [isCheckPswd, setIsCheckPswd] = useState(false);//비밀번호 유효성 검사
     const [color, updateColor] = useState("#b8e8ff")
 
     useEffect(() => {
         if( data.id.length > 0 && data.name.length > 0 &&
-            data.nickname.length > 0 &&
-            data.num.length > 0 && data.email.length > 0 &&
+            data.nickname.length > 0 && data.num.length > 0
+            && data.email.length > 0 &&
             data.pswd.length > 0 && data.checkPswd.length > 0) {
             updateColor("#609966");
         } else {
@@ -38,26 +37,21 @@ const JoinForm = () => {
     }, [data]);
 
     const SignUpDB = (e) => {//회원가입 api 호출
+        console.log(data);
         e.preventDefault();
 
-        axios.post("http://49.50.173.247:8080/api/v1/auth/sign-up", {
-            
+        axios.post("/auth/sign-up", {
             "username": data.id, //아이디
             "fullname": data.name, //실명
-            "nickname" :data.num, //닉네임
+            "nickname" :data.nickname, //닉네임
             "personalNumber": data.num, //주민등록번호
             "email": data.email,
             "password": data.pswd
-              
         })
         .then((res) => { //요청 성공했을 때
             console.log(res.data)
-            if(res.status === 201) {
-                alert("환영합니다!");
-                navigate("/LoginPage");
-            } else if(res.status === 500) {
-                alert("해당하는 정보의 사용자가 이미 존재합니다.")
-            }
+            alert("환영합니다!");
+            navigate("/LoginPage");
         })
 
         .catch((error) => { // 에러 핸들링 부분 수정
@@ -96,30 +90,30 @@ const JoinForm = () => {
     
     const handleChange = (e) => {
         
-        console.log(e.target.value);
-        
         updateData({
             ...data, [e.target.name] : e.target.value
         })
     }
 
     const maskingNum = (e) => { //주민등록번호 마스킹 처리
-        
+        e.preventDefault();
+
         const input = e.target.value.replace(/[^0-9]/g, '');
-        
-        if (input.length > 6) {
-            //setRegistrationNumber(input);
-            updateData({
-                ...data, [e.target.name] : input
-            })
-        } else {
+
+        if (input.length === 7) {
             const maskedNumber = input.substring(0, 6) + '-' + input.substring(6, 7) + '******';
-               // setRegistrationNumber(maskedNumber);
-                updateData({
-                    ...data, [e.target.name] : maskedNumber
-                })
+            setNum(maskedNumber);
+            updateData({
+                ...data,
+                [e.target.name]: maskedNumber.substring(0, 6) + maskedNumber.substring(7, 8)
+            });
+        } else {
+            setNum(input);
         }
-        console.log(data.num)
+
+        console.log(data);
+        console.log(num);
+
     };
 
     return (
@@ -145,14 +139,16 @@ const JoinForm = () => {
              value={data.nickname}
              required 
              onChange={handleChange}/>
+
              <input
              type="text" 
              name="num" 
              placeholder="주민등록번호" 
-             value={data.num}
+             value={num}
              maxLength={14}
              required 
              onChange={maskingNum}/>
+
             <input
              type="email" 
              name="email" 
@@ -177,7 +173,6 @@ const JoinForm = () => {
              onChange={onChangePwConfirm}
              required/>
              <p>{checkPswdMessage}</p>
-             <p>비밀번호는 8~16자 길이여야 하며 대소문자, 숫자, 특수문자 모두 포함해서 입력해주세요. </p>
 
             <button className="submitBtn" type="submit" onClick={(SignUpDB)}>회원가입</button>
             {/* handleSubmit => navigate("/") */}
