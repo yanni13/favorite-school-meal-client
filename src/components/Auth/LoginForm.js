@@ -25,26 +25,16 @@ const LoginForm = () => {
     const loginDB = (e) => { //로그인 api 호출
         e.preventDefault();
 
-        axios.post("http://49.50.173.247:8080/api/v1/auth/sign-in", {
+        axios.post("/auth/sign-in", {
             "username": data.id,
             "password": data.password 
         })      
         .then(res => {//요청 성공했을 경우
-            const accessToken = res.data.access
-            console.log(accessToken);
-
+            const accessToken = res.data.data.access_token
             setCookie("ACCESS_TOKEN", `${accessToken}`); 
-            console.log(res.data.access);
-            console.log(res.data.refresh);
             
             alert("로그인 되었습니다.");
-            return navigate("/", {
-                state: {
-                    check: true,
-                    id: "aaa",
-                    name: "aaa",
-                }
-            });
+            return navigate("/");
         })
         .catch(err => {//요청 실패했을 경우
             console.log(err);

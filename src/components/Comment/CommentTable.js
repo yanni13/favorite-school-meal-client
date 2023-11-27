@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import report_logo from '../../media/Post/report_logo.svg';
 import Divider from '../Divider';
+import axios from 'axios';
 
 
 const S = {
@@ -50,18 +51,28 @@ const S = {
     `,
 }
 
-const CommentTable = () => {
-    const [data, setData] = useState({
-        title : "글제목 입니다.",
-        content : "글내용 입니다. 하지만 글내용을 이렇게 많이넣었을때는  ellipsis를 통해  점점점 처리를 해버릴겁니다."
-    });
+const CommentTable = ({ id }) => {
+    const [data, setData] = useState();
+    const url = '/posts/' + id + '/comments';
+
+    useEffect(() => {
+        axios.get(url).then((res) => {
+            console.log(res.data.data);
+            setData(res.data.data);
+        }).catch((err) => {
+            console.log(err);
+        })
+    },[id]);
 
     return (
         <>
+        {data && data.map((comment) => (
             <S.Wrapper>
                 <S.UpperWrapper>
-                    <S.ProfileImage/>
-                    <S.ProfileName>사용자</S.ProfileName>
+                    <S.ProfileImage>
+                        <img src=''/>
+                    </S.ProfileImage>
+                    <S.ProfileName>{comment.username}</S.ProfileName>
                     <S.ReportBox>
                         <Link to="/">
                             <img src={report_logo}/>
@@ -69,9 +80,10 @@ const CommentTable = () => {
                     </S.ReportBox>
                 </S.UpperWrapper>
                 
-                <S.ContentText>내용 입니다.내용 입니다.내용 입니다.내용 입니다.내용 입니다.내용 입니다.내용 입니다.</S.ContentText>
+                <S.ContentText>{comment.content}</S.ContentText>
                 <Divider/>
             </S.Wrapper>
+        ))}
         </>
     )
 }

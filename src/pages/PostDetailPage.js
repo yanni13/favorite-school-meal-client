@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { DefaultParentWrapper, DefaultContentWrapper } from '../styles/DefaultWrapper';
 import TitledHeader from '../components/Header/TitledHeader';
-import PostDetail from '../components/Post/PostDetail';
+import { PostDetail } from '../components/Post/PostDetail';
 
 
 const PostDetailPage = () => {

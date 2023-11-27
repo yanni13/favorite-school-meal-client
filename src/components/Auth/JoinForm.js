@@ -106,9 +106,8 @@ const JoinForm = () => {
     const maskingNum = (e) => { //주민등록번호 마스킹 처리
         
         const input = e.target.value.replace(/[^0-9]/g, '');
-    
         
-        if (input.length <= 6) {
+        if (input.length > 6) {
             //setRegistrationNumber(input);
             updateData({
                 ...data, [e.target.name] : input
