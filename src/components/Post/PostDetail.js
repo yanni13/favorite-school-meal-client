@@ -149,7 +149,9 @@ const PostDetail= () => {
                 <S.ProfileWrapper>
                     <S.ProfileImage/>
                     <S.ProfileMiddleWrapper>
-                        {userData && <S.ProfileName>{userData.nickname}</S.ProfileName>}
+                        {userData && 
+                            <S.ProfileName>{userData.nickname}</S.ProfileName>
+                        }
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
                     <S.RequestButton>요청</S.RequestButton>

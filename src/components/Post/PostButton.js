@@ -12,7 +12,8 @@ const S = {
         height: 40px;
         border-radius: 30px;
         border: 1px solid #D7D7D7;
-        background: #FFF;    
+        background: #FFF;
+        cursor : pointer;
     `,
     WriteText : styled.div`
         color: #000;
@@ -40,10 +41,10 @@ const PostButton = ( {type, restaurantId} ) => {
 
     return (
         <>
-                <S.Wrapper onClick={handleClick}>
-                    <img src={pencil_logo}/>
-                    <S.WriteText>글 쓰기</S.WriteText>
-                </S.Wrapper>
+            <S.Wrapper onClick={handleClick}>
+                <img src={pencil_logo}/>
+                <S.WriteText>글 쓰기</S.WriteText>
+            </S.Wrapper>
         </>
     )
 }
