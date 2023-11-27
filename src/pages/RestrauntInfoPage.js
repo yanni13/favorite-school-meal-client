@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TitledHeader from "../components/Header/TitledHeader";
 import MapInfo from "../components/Map/MapInfo";
-import PostTable from "../components/Post/PostTable"
+import PostTable from "../components/Post/PostTable";
+import PostButton from "../components/Post/PostButton";
 import axios from "axios";
 
 const S = {
@@ -33,6 +34,12 @@ const S = {
         font-weight: 700;
         line-height: normal;
         margin: 12px 0 12px 20px;
+    `,
+    WriteButton : styled.div`
+        position : absolute;
+        bottom : 30px;
+        left: 50%;
+        transform : translateX(-50%);
     `
 }
 
@@ -41,7 +48,7 @@ const RestrauntInfoPage = () => {
     const [data, setData] = useState();
     
     useEffect(() => {
-        axios.get('/restaurants/' + routerParams.RestrauntId + '/posts').then((res) => {
+        axios.get('/restaurants/' + routerParams.RestaurantId + '/posts').then((res) => {
             const formattedData = (res.data.data.content).map(post => ({
                 PostId: post.postId,
                 WriterId: post.writerId,
@@ -66,7 +73,7 @@ const RestrauntInfoPage = () => {
             <S.Wrapper>
                 <div style={{height : "19px"}}></div>
                 <MapInfo 
-                    id={routerParams.RestrauntId}
+                    id={routerParams.RestaurantId}
                     pageType={""}
                     />
                 <div style={{height : "19px"}}></div>
@@ -87,6 +94,9 @@ const RestrauntInfoPage = () => {
                         ))}
                 </S.PostWrapper>
             </S.Wrapper>
+            <S.WriteButton>
+                <PostButton type="Restaurant" restaurantId={routerParams.RestaurantId}/>
+            </S.WriteButton>
         </>
     )
 }
