@@ -4,7 +4,7 @@ import styled from "styled-components";
 import clock_logo from '../../media/Map/clock_logo.svg';
 import { Link } from 'react-router-dom';
 
-const ButtonTextStyles = styled.a`
+const ButtonTextStyles = styled.div`
     font-family: Noto Sans KR;
     font-size: 12px;
     font-style: normal;
