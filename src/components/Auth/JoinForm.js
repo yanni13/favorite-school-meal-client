@@ -104,18 +104,23 @@ const JoinForm = () => {
     }
 
     const maskingNum = (e) => { //주민등록번호 마스킹 처리
-        console.log(data.num)
+        
         const input = e.target.value.replace(/[^0-9]/g, '');
-        //console.log(data.num) 
-        updateData({
-            ...data, [e.target.name] : e.target.value
-        })
+    
+        
         if (input.length <= 6) {
-            setRegistrationNumber(input);
+            //setRegistrationNumber(input);
+            updateData({
+                ...data, [e.target.name] : input
+            })
         } else {
             const maskedNumber = input.substring(0, 6) + '-' + input.substring(6, 7) + '******';
-                setRegistrationNumber(maskedNumber);
+               // setRegistrationNumber(maskedNumber);
+                updateData({
+                    ...data, [e.target.name] : maskedNumber
+                })
         }
+        console.log(data.num)
     };
 
     return (
