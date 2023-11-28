@@ -62,8 +62,15 @@ const ModifyInfoForm = () => {
         })
     }
 
+
     const deleteMember = (e) => {
-        
+        const confirmed = window.confirm('정말 탈퇴하시겠습니까?');
+
+        if(confirmed) { //'네'를 눌렀을 경우 진행되는 동작
+            axios.post('', { //백엔드에 회원탈퇴정보를 넘겨주는 동작
+
+            })
+        }
     }
 
     return (

@@ -12,14 +12,13 @@ const NaverLoginForm = () => {
     
     const [data, updataData] = useState(initData);
 
-    const link = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=xQ6XMGVRxbFRU3GgqKaW&state=1234&redirect_uri=http://localhost:3000/NaverLoginPage`;
+    const link = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=xQ6XMGVRxbFRU3GgqKaW&redirect_uri=http://localhost:3000/NaverLoginPage&state=1234';
 
     let params = new URL(document.location).searchParams;
     let code = params.get("code");
     let state = params.get("state");
 
     const naverloginHandler = (e) => {
-        const {naver} = window
 
         window.location.href = link;
 

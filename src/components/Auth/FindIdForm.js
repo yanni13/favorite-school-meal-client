@@ -6,6 +6,7 @@ import { getCookie } from "../../Cookies";
 
 const FindIdForm = () => {
     const navigate = useNavigate();
+    const token = getCookie("ACCESS_TOKEN");
 
     const initData = Object.freeze({
         nickname: '',
@@ -15,11 +16,10 @@ const FindIdForm = () => {
     const [users, setUsers] = useState();
 
     useEffect(()=>{
-        axios.get('/users/login/auth/',
-            {
-                headers: {
-                Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
-                }
+        axios.get('/members', {
+            headers: {
+                Authorization:  `Bearer ${token}`,
+            }
             })
             .then((response) => {
                 console.log(response.data);
@@ -27,10 +27,9 @@ const FindIdForm = () => {
                 
             })
             .catch((error)=>{
-            console.log(error);
-            alert("일치하는 정보가 없습니다.");
+                console.log(error);
+                alert("일치하는 정보가 없습니다.");
         })
-
     }, []);
 
     useEffect(() => {
