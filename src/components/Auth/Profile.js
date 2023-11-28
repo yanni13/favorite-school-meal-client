@@ -1,52 +1,141 @@
 //마이페이지(남)
 import React, {useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
-import { PRBox, PostBox, ButtonSection, ProfileDetails, ProfilePicture } from "../../styles/Login/MyPage.styled";
+import { useNavigate, useParams } from "react-router-dom";
+import { PostBox, ProfileDetails, ProfilePicture } from "../../styles/Login/MyPage.styled";
 import axios from "axios";
 import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
 import { SignInBox } from "../../styles/Login/Login.styled";
 import PostTable from "../Post/PostTable";
-import MiniBoard from "../Main/MiniBoard";
+import styled from "styled-components";
+
+const S = {
+    InfoWrapper: styled.div`
+        margin : 25px 0 25px 0;
+        display : flex;
+        gap: 15px;
+    `,
+    NickNameText : styled.a`
+        color: #000;
+        font-family: Noto Sans KR;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    `,
+    GenderAgeText : styled.a`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+        font-family: Noto Sans KR;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    `,
+    ButtonWrapper : styled.div`
+        width: 350px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 13px;
+    `,
+    CustomButton : styled.button`
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 144px;
+        height: 39px;
+        border-radius: 3px;
+        border: none;
+        text-decoration: none;
+        background: #A4D0A9;
+        color: #000;
+        font-family: sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    `,
+    IntroduceBox : styled.div`
+        width: 320px;
+        height: 211px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        padding: 10px;
+    `,
+    RecentPostTitle : styled.div`
+        width: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin : 14px 0 8px 0;
+        color: #000;
+        font-family: sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    `,
+    PostBox : styled.div`
+        width: 340px;
+        height: 170px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+    `
+}
 
 const Profile = () => {
     const navigate = useNavigate();
+    const userId = useParams();
 
-    const initData = Object.freeze({
-        introduction: '',
-    });
-
-    const [data, updataData] = useState(initData);
-
-    const [users, setUsers] = useState();
+    const [userData, setUserData] = useState();
     const [isRequesting, setIsRequseting] = useState(false);
 
-    useEffect((memberId)=>{
-        axios.get('/members/' + memberId, //프로필 정보 가져오는 axios
-            {
-                headers: {
-                Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
-                }
-            })
-            .then((response) => {
-                console.log(response.data);
-                setUsers(response.data); //받아온 데이터 저장
-                
+    const [postData, setPostData] = useState();
+    const size = 3;
+        useEffect(() => {
+            axios.get(`/posts?size=${size}`).then((res) => {
+                const formattedData = (res.data.data.content).map(post => ({
+                    PostId: post.postId,
+                    WriterId: post.writerId,
+                    Title : post.title,
+                    Content : post.content,
+                    MatchingState : post.matching.matchingStatus,
+                    CreatedTime : post.createdAt,
+                    CommentCount : post.commentCount
+                }));
+                setPostData(formattedData);
+            }).catch((err) => {
+                console.log("MiniBoard 에러 발생")
+                console.log(err);
+            });
+        },[]);
+
+
+    const userInfoFormat = (gender, age) => {
+        const formattedGender = gender === "FEMALE" ? "여" : "남";
+        return `${formattedGender}(${age})`;
+    }
+
+    useEffect(()=>{
+        axios.get('/members/' + `${userId.UserId}`).then((res) => {
+                console.log(res.data.data);
+                setUserData(res.data.data); //받아온 데이터 저장                
             })
             .catch((error)=>{
             console.log(error);
-        })
+        });
 
     }, []);
 
     const handleFriendRequest = async () => { //친구신청 정보 백엔드에 넘겨줌
         try {
             setIsRequseting(true);
-
             const requestData = {
-
             };
-
             //const responseData = await sendFriendRequest(requestData);
             alert('친구 신청이 성공적으로 완료되었습니다.');
         }  catch(err) {
@@ -65,7 +154,7 @@ const Profile = () => {
 
         axios.post('/reports', {
 
-            "reportedMemberId": users.username,
+            "reportedMemberId": userData.username,
             "content": "염동스님이 나를 두번번 짜증나게함.",
             "reportType": "PROFILE"
 
@@ -80,54 +169,55 @@ const Profile = () => {
     }
     }
 
-    const SelfPR = (e) => { //자기소개 가져오는 부분
-        
-        axios.get('', {
-
-        })
-          
-        .then(res => {
-
-        })
-        .catch(err => {
-            
-        })
-    } 
-
     return (
-        <SignInBox>
-        
-            <ProfilePicture imageUrl={users?.profileImage}>
-                    {users?.profileImage ? (
-                        <img className="profile-image" src={users.profileImage} alt="프로필 사진" />
+        <>
+
+        {userData &&
+            <>
+                <div style={{ height: "50px" }}></div>
+                <ProfilePicture imageUrl={userData?.profileImage}>
+                    {userData?.profileImage ? (
+                        <img className="profile     -image" src={userData.profileImage} alt="프로필 사진" />
                     ) : (
                         <FaUserCircle className="profile-icon" />
                     )}
                 </ProfilePicture>
                 <ProfileDetails>
-                        <h3>{users?.fullname}</h3>
-                        <p>{users?.age}</p>
-                        <p>{users?.gender}</p>
-
-                        <p>친구:{users?.friend}</p>
-                        <p>매칭횟수:{users?.count}</p>
+                    <S.InfoWrapper>
+                        <S.NickNameText>{userData.nickname}</S.NickNameText>
+                        <S.GenderAgeText>{userInfoFormat(userData.gender, userData.age)}</S.GenderAgeText>
+                    </S.InfoWrapper>
                 </ProfileDetails>
+            
+                <S.ButtonWrapper> 
+                    {/* 여기 친구신청 여부 또 확인할라면... 내가 현재 얘한테 친구신청 넣었는지? 를 확인해야한다 API 개발중 */}
+                    <S.CustomButton className="block" type="submit" onClick={handleFriendRequest} disabled={isRequesting}>{isRequesting ? '신청 취소' : '친구 신청'}</S.CustomButton>
+                    <S.CustomButton className="block" type="submit" onClick={handleMemberReport}>회원신고</S.CustomButton>
+                </S.ButtonWrapper>
+                <S.IntroduceBox>
+                    {}
+                </S.IntroduceBox>
 
-                <ButtonSection> 
-                    <button className="block" type="submit" onClick={handleFriendRequest} disabled={isRequesting}>{isRequesting ? '신청 중...' : '친구 신청'}</button>
-                    <button className="block" type="submit" onClick={handleMemberReport}>회원신고</button>
-                </ButtonSection>
+                <S.RecentPostTitle>최근에 작성한 게시글</S.RecentPostTitle>
 
-                <PRBox>
-                    {/*닉네임, 자기소개, 나이, 성별 */}
-                </PRBox>
+                <S.PostBox>
+                    {postData && postData.map((item) => (
+                    <PostTable
+                        key={item.PostId} // Add a unique key when rendering lists
+                        PostId={item.PostId}
+                        WriterId={item.WriterId}
+                        Title={item.Title}
+                        Content={item.Content}
+                        MatchingState={item.MatchingState}
+                        CreatedTime={item.CreatedTime}
+                        CommentCount={item.CommentCount}
+                    />
+                ))}
+                </S.PostBox>
+            </>
+        }
+    </>
 
-                <h3 className="subtitle">최근에 작성한 게시글</h3>
-
-                <PostBox>
-                    <MiniBoard/>
-                </PostBox>
-        </SignInBox>
     )
 
 }
