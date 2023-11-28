@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import close_button from '../../media/Menu/close_button.svg';
+import { useNavigate } from 'react-router-dom';
 
 let UpperHeaderWrapper = styled.div`
 display: flex;
@@ -24,18 +25,40 @@ margin-top: 12px;
 let CloseButton = styled.img`
 margin-right: 14px;
 margin-top: 12px;
+cursor: pointer;
 `
 
-function UpperHeader() {   
+const GuestUpperHeaderWrapper = styled(UpperHeaderWrapper)`
+    justify-content: flex-end;
+    align-items: start;
+`
+
+const GuestCloseButton = styled(CloseButton)`
+    margin-left: 30px;
+`
+
+function UpperHeader({ isLogin }) {   
+    const navigate = useNavigate();
+
     return (
         <>
-            <UpperHeaderWrapper>
-                <UpperheaderTitle>바로가기</UpperheaderTitle>
-                <Link to='/'>
-                    <CloseButton src={close_button}/>
-                </Link>
-            
-            </UpperHeaderWrapper>
+        {isLogin !== null &&
+            <>
+            { isLogin ? 
+                <UpperHeaderWrapper>
+                    <UpperheaderTitle>바로가기</UpperheaderTitle>
+                    <Link to='/'>
+                        <CloseButton src={close_button}/>
+                    </Link>
+                </UpperHeaderWrapper> 
+                :
+                <GuestUpperHeaderWrapper>
+                    <UpperheaderTitle>로그인 후, 최애의 학식을</UpperheaderTitle>
+                        <GuestCloseButton src={close_button} onClick={() => {navigate('/')}}/>
+                </GuestUpperHeaderWrapper> 
+            }
+            </>
+        }
         </>
     );
 }
