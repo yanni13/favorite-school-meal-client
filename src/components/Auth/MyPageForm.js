@@ -59,16 +59,14 @@ const MyPageForm = () => {
                         <FaUserCircle className="profile-icon" />
                     )}
                 </ProfilePicture>
-
-                    <ProfileDetails>
-                        <h3>{users?.fullname}</h3>
-                    </ProfileDetails>
+                
                 </ProfileSection>
-
+                <h3 className="UserName">{users?.fullname}</h3>
                 <ButtonSection>
                         <button className="block" type="submit" onClick={() => navigate("/ModifyProfile")}>프로필 수정</button>
                         <button className="block" type="submit" onClick={deleteMember}>회원 탈퇴하기</button>
                 </ButtonSection>
+                
                 </MyPageContainer>
     )
 }

@@ -21,6 +21,8 @@ const ModifyProfileForm = () => {
     const [imgFile, setImgFile] = useState("");
     //const imgRef = useRef(null);
 
+    
+
     useEffect(() => {
         if(data.nickname.length > 0 && data.selfIntroduce.length > 0 ) {
             updataColor("#609966");
