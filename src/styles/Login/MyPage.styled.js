@@ -85,6 +85,7 @@ const ProfileDetails = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 `;
 
 const ProfilePicture = styled.div`

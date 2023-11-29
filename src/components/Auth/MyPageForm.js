@@ -22,7 +22,7 @@ const MyPageForm = () => {
             })
             .then((response) => {
                 console.log(response.data);
-                setUsers(response.data); //받아온 데이터 저장
+                setUsers(response.data.data); //받아온 데이터 저장
                 setName("");
             })
             .catch((error)=>{

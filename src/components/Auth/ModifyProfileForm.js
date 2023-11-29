@@ -15,9 +15,11 @@ const ModifyProfileForm = () => {
 
     const [data, updataData] = useState(initData);
     const [users, setUsers] = useState();
+    const [currentUsers, setCurrentUsers] = useState();
+
     const [color, updataColor] = useState("#609966");
     const [imgFile, setImgFile] = useState("");
-    //const imgRef = useRef();
+    //const imgRef = useRef(null);
 
     useEffect(() => {
         if(data.nickname.length > 0 && data.selfIntroduce.length > 0 ) {
@@ -26,6 +28,23 @@ const ModifyProfileForm = () => {
             updataColor("#A4D0A9");
         }
     }, [data])
+
+    useEffect(()=>{
+        axios.get('/members', //회원정보 불러오는 api
+            {
+                headers: {
+                Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
+                }
+            })
+            .then((response) => {
+                console.log(response.data);
+                setCurrentUsers(response.data.data); //받아온 데이터 저장
+                //setName("");
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+    }, []);
 
     const handleChange = e => {
         console.log(e.target.value);
@@ -37,7 +56,8 @@ const ModifyProfileForm = () => {
     const saveDB = () => { //자기소개 프로필 수정
         const accesstoken = getCookie("ACCESS_TOKEN");
 
-        axios.put(`/members`, {
+        axios.put(`/members/${currentUsers.id}`, {
+            "nickname" : data.nickname,
             "introduction": data.selfIntroduce
         }, {
             headers: {
@@ -45,10 +65,12 @@ const ModifyProfileForm = () => {
                 //'Content-Type': 'application/json'
             }
         })
-        .then(res => { //요청 성공했을 경우
-            alert("저장 되었습니다!");
-            console.log("저장 성공", res.data);
-            return res;
+        .then((res) => { //요청 성공했을 경우
+            console.log(res.data.data);
+            alert(`${res.data.data.message}`);
+            //alert("저장 되었습니다!");
+            //console.log("저장 성공", res.data);
+            navigator("/MyPage");
         })
         .catch(err => { //요청 실패했을 경우
             if(err.response && err.response.status == 401) {
@@ -126,23 +148,28 @@ const refreshToken = () => {
 
         
         <SignInForm color={color}>
-        <input
-             type="text" 
-             name="nickname" 
-             placeholder="닉네임" 
-             value={data.nickname}
-             required 
-             onChange={handleChange}/>
-        <SelfIntroductionBox >
-            <textarea
-             type="text" 
-             name="selfIntroduce" 
-             placeholder="자기소개" 
-             value={data.selfIntroduce}
-             required 
-             onChange={handleChange}
-            />
-        </SelfIntroductionBox>
+        { currentUsers &&
+        <>
+            <input
+                type="text" 
+                name="nickname" 
+                placeholder="닉네임" 
+                value={currentUsers.nickname}
+                required 
+                onChange={handleChange}/>
+            <SelfIntroductionBox >
+                <textarea
+                type="text" 
+                name="selfIntroduce" 
+                placeholder="자기소개" 
+                value={currentUsers.selfIntroduce}
+                required 
+                onChange={handleChange}
+                />
+            </SelfIntroductionBox>
+        </>
+        }
+        
         
             <button className="submitBtn" type="submit" onClick={saveDB}>저장</button>
         </SignInForm>
