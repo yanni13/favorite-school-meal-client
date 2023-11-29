@@ -30,20 +30,21 @@ const LoginForm = () => {
             "password": data.password 
         })      
         .then(res => {//요청 성공했을 경우
+            console.log(res.data.data);
             const accessToken = res.data.data.access_token
-            setCookie("ACCESS_TOKEN", `${accessToken}`); 
-            
-            alert("로그인 되었습니다.");
-            return navigate("/");
+            if(accessToken !== undefined) {
+                setCookie("ACCESS_TOKEN", `${accessToken}`);
+                alert("로그인 되었습니다.");
+                return navigate("/");
+            }
+            else {
+                alert(res.data.data.message);
+                window.location.reload();
+            }  
         })
-        .catch(err => {//요청 실패했을 경우
-            console.log(err);
-            alert("회원정보가 없습니다.");
-        })
-    }
+    };
 
     const handleChange = e => {
-        console.log(e.target.value);
         updataData({
             ...data, [e.target.name]: e.target.value.trim()
         })
