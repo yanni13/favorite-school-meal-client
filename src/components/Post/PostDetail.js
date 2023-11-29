@@ -7,6 +7,7 @@ import clock_logo from '../../media/Map/clock_logo.svg';
 import Divider from '../Divider';
 import CommentForm from '../Comment/CommentForm';
 import CommentTable from '../Comment/CommentTable';
+import { getCookie } from '../../Cookies';
 
 const S = {
     Wrapper : styled.div`
@@ -124,7 +125,10 @@ const CloseStatusBox = styled(OpenStatusBox)`
 const PostDetail= () => {
     const id = useParams();
     const [data, setData] = useState();
-    const [userData, setUserData] = useState();  
+    const [userData, setUserData] = useState(); 
+    const token = getCookie("ACCESS_TOKEN");
+    const [loggedInUser, setLoggedInUser] = useState();
+    const [isMine, setIsMine] = useState(false);
 
     useEffect(() => {
         axios.get('/posts/' + id.PostId).then((res) => {
@@ -139,8 +143,21 @@ const PostDetail= () => {
         }).catch((error) => {
             console.error(error);
         });
+
+        axios.get('/members',{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).then((res) => {
+            setLoggedInUser(res.data.data.memberId);
+        });
+
+        if (loggedInUser && loggedInUser === data.memberId) {
+            setIsMine(true);
+        }
     }, []);
 
+    
     return(
         <>
         {data && 
@@ -149,7 +166,9 @@ const PostDetail= () => {
                 <S.ProfileWrapper>
                     <S.ProfileImage/>
                     <S.ProfileMiddleWrapper>
-                        {userData && <S.ProfileName>{userData.nickname}</S.ProfileName>}
+                        {userData && 
+                            <S.ProfileName>{userData.nickname}</S.ProfileName>
+                        }
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
                     <S.RequestButton>요청</S.RequestButton>

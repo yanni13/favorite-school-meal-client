@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TitledHeader from "../components/Header/TitledHeader";
 import MapInfo from "../components/Map/MapInfo";
-import PostTable from "../components/Post/PostTable"
+import PostTable from "../components/Post/PostTable";
+import PostButton from "../components/Post/PostButton";
+import axios from "axios";
 
 const S = {
     Wrapper : styled.div`
@@ -32,14 +34,38 @@ const S = {
         font-weight: 700;
         line-height: normal;
         margin: 12px 0 12px 20px;
+    `,
+    WriteButton : styled.div`
+        position : absolute;
+        bottom : 30px;
+        left: 50%;
+        transform : translateX(-50%);
     `
 }
 
 const RestrauntInfoPage = () => {
     const routerParams = useParams();
-    console.log(routerParams.RestrauntId);
-    //axios 요청으로 데이터 들고오자
+    const [data, setData] = useState();
     
+    useEffect(() => {
+        axios.get('/restaurants/' + routerParams.RestaurantId + '/posts').then((res) => {
+            const formattedData = (res.data.data.content).map(post => ({
+                PostId: post.postId,
+                WriterId: post.writerId,
+                Title : post.title,
+                Content : post.content,
+                MatchingState : post.matching.matchingStatus,
+                CreatedTime : post.createdAt,
+                CommentCount : post.commentCount
+            }));
+            console.log(formattedData);
+            setData(formattedData);
+        }).catch((err) => {
+            console.log();
+            console.log(err);
+        });
+    },[]);
+
     // 여기 인라인 스타일 적용이 안됨...
     return(
         <>
@@ -47,23 +73,31 @@ const RestrauntInfoPage = () => {
             <S.Wrapper>
                 <div style={{height : "19px"}}></div>
                 <MapInfo 
-                    id={routerParams.RestrauntId}
+                    id={routerParams.RestaurantId}
                     pageType={""}
                     />
                 <div style={{height : "19px"}}></div>
                 {/* 이부분 컴포넌트로 분리할 필요 있어보임.*/}
                 <S.PostWrapper>
                     <S.SubtitleText>학식메이트  게시판</S.SubtitleText>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
-                    <PostTable/>
+                        {data && data.map((item) => (
+                            <PostTable
+                                key={item.PostId} // Add a unique key when rendering lists
+                                PostId={item.PostId}
+                                WriterId={item.WriterId}
+                                Title={item.Title}
+                                Content={item.Content}
+                                MatchingState={item.MatchingState}
+                                CreatedTime={item.CreatedTime}
+                                CommentCount={item.CommentCount}
+                            />
+                        ))}
                 </S.PostWrapper>
             </S.Wrapper>
+            <S.WriteButton>
+                <PostButton type="Restaurant" restaurantId={routerParams.RestaurantId}/>
+            </S.WriteButton>
         </>
-
     )
 }
 

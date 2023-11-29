@@ -97,7 +97,7 @@ const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTim
                 <S.ProfileImage/>
                 <S.MiddleWrapper>    
                 <S.TitleText>
-                    <Link to={url} style={{ textDecoration : "none"}}>{Title}</Link>
+                    <Link to={url} style={{ textDecoration : "none", color: "inherit" }}>{Title}</Link>
                 </S.TitleText>
                 <S.ContentText>{Content}</S.ContentText>
                     <S.TimeText>{CreatedTime}</S.TimeText>

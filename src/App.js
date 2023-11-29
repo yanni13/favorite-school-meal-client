@@ -41,10 +41,13 @@ function App() {
             <Route path = "/ResetPwPage" element={<ResetPwPage/>}></Route>
             <Route path = "/ModifyInfoPage" element={<ModifyInfoPage/>}></Route>
             <Route path = "/MyPage" element={<MyPage/>}></Route>
-            <Route path = "/MapPage/:RestrauntId" element={<RestrauntInfoPage/>}></Route>
+            <Route path = "/MapPage/:RestaurantId" element={<RestrauntInfoPage/>}></Route>
             <Route path = "/PostPage" element={<PostPage/>}></Route>
             <Route path = "/ModifyProfile" element={<ModifyProfile/>}></Route>
             <Route path = "/PostDetailPage/:PostId" element={<PostDetailPage/>}></Route>            
+            <Route path = "/ChatPage" element={<ChatPage/>}></Route>
+            <Route path = "/UserPage" element={<UserPage/>}></Route>
+            <Route path = "/PostAdd/:RestaurantId" element={<PostAddPage/>}></Route>
             <Route path = "/UserPage/:UserId" element={<UserPage/>}></Route>
             <Route path = "/PostAdd" element={<PostAddPage/>}></Route>
             <Route path = "/NaverLoginPage" element={<NaverLoginPage/>}></Route>
