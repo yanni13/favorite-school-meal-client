@@ -79,13 +79,13 @@ function AlarmBoard( {isLogin }) {
                 <S.AlarmHeader>
                     <S.AlarmLogo src={alarm_logo}/>
                     <S.AlarmTitle >알림</S.AlarmTitle>
-                    {notificationData &&
-                    // 노티피케이션 있으면 뿌려주자!
-                        notificationData.map((notification) => (
-                            <AlarmTable notification={notification}/> 
-                        )
-                    )}
                 </S.AlarmHeader>
+                    {notificationData &&
+                        // 노티피케이션 있으면 뿌려주자!
+                            notificationData.map((notification) => (
+                                <AlarmTable Notification={notification}/> 
+                            )
+                    )}
                 </S.Wrapper> 
             </>         
         );
