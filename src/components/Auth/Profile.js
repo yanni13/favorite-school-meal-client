@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostBox, ProfileDetails, ProfilePicture } from "../../styles/Login/MyPage.styled";
 import axios from "axios";
-import { getCookie } from "../../Cookies";
+import { getCookie, setCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
 import { SignInBox } from "../../styles/Login/Login.styled";
 import PostTable from "../Post/PostTable";
@@ -130,6 +130,7 @@ const Profile = () => {
         });
 
     }, []);
+    
 
     const handleFriendRequest = async () => { //친구신청 정보 백엔드에 넘겨줌
         try {
