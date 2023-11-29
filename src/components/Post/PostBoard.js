@@ -2,6 +2,7 @@ import PostTable from "./PostTable";
 import styled from "styled-components";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import PostButton from "./PostButton";
 
 const S = {
     Wrapper : styled.div`
@@ -26,6 +27,12 @@ const S = {
                 display: none;
         }
     `, 
+    WriteButton : styled.div`
+        position : absolute;
+        bottom : 30px;
+        left: 50%;
+        transform : translateX(-50%);
+    `
 }
 
 const PostBoard = () => {
@@ -68,6 +75,9 @@ const PostBoard = () => {
                     ))}
                 </S.PostWrapper>
             </S.Wrapper>
+            <S.WriteButton>
+                <PostButton/>
+            </S.WriteButton>
         </>
     )
 }

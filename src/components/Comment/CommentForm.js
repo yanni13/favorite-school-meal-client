@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import write_logo from '../../media/Post/write_logo.svg';
 import axios from 'axios';
@@ -25,6 +25,7 @@ const CommentForm = ({ id }) => {
     // id 기반 댓글 POST 요청하기
     const [content, setContent] = useState();
     const url = '/posts/' + id + '/comments';
+    const navigate = useNavigate();
 
     const handleCommentSubmit = () => {
         axios.post(url, {
@@ -34,6 +35,9 @@ const CommentForm = ({ id }) => {
                 Authorization: `bearer ${getCookie("ACCESS_TOKEN")}`,
             }
         }).then((res) => {
+            // 임시로 router로 댓글 업데이트 구현
+            // CommentTable 컴포넌트만 리렌더링 하도록 코드 변경 필요.
+            navigate(0);
             console.log(res.data.data);
         }).catch((err) => {
             alert(err);
@@ -57,7 +61,6 @@ const CommentForm = ({ id }) => {
                     <img src={write_logo}/>
                 </button> 
             </S.Wrapper>
-            
         </>
     )
 }

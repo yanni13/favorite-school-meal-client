@@ -4,7 +4,7 @@ import styled from "styled-components";
 import clock_logo from '../../media/Map/clock_logo.svg';
 import { Link } from 'react-router-dom';
 
-const ButtonTextStyles = styled.a`
+const ButtonTextStyles = styled.div`
     font-family: Noto Sans KR;
     font-size: 12px;
     font-style: normal;
@@ -49,6 +49,12 @@ const S = {
         height: 80px;
         background-color: #C4C4C4;
         border-radius: 20px;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     `,
     LowerWrapper : styled.div`
         display: flex;

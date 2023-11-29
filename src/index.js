@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-axios.defaults.baseURL = "http://49.50.173.247:8080/api/v1"
+axios.defaults.baseURL = "https://api.favorite-school.me/api/v1"
 axios.defaults.withCredentials = true; //refreshToken cookie를 주고받기 위함
 root.render(
   <App/>
