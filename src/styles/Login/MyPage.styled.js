@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 const MyPageContainer = styled.div`
     justify-content: flex-start;
+    text-align: center;
 `;
+
+
 const MyPageBox = styled.div`
     flex-direction: column;
     justify-content: flex-start;
@@ -35,6 +38,7 @@ const ProfileSection = styled.div`
     width: 122.664px;
     height: 125px;
     justify-content: center;
+    margin: 50px 138px 30px
 `;
 
 const RecentPostForm = styled.div`
@@ -66,13 +70,10 @@ const PRBox = styled.div`
 `;
 const PostBox = styled.div`
     display: inline-flex;
-    height: 50px;
-    padding: 0px 5px 100px;
     flex-shrink: 0;
     float: left;
     border-radius: 7px;
     background: #FFF;
-    margin-top: -20px;
     flex-direction: column;
     justify-content: flex-start;  
     align-items: center;
@@ -84,6 +85,7 @@ const ProfileDetails = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 `;
 
 const ProfilePicture = styled.div`
@@ -131,4 +133,17 @@ const ButtonSection = styled.div`
     }
 `;
 
-export {MyPageContainer,MyPageBox, SelfIntroductionBox, ProfileSection,PRBox,PostBox,ProfileDetails, ProfilePicture, ButtonSection, RecentPostForm};
+const ImageUploadLabel = styled.div`
+    margin: 5px 0 20px 0;
+    font-weight: bold;
+    font-size: 13px;
+    color: #0095f6;
+    display: inline-block;
+    cursor: pointer;
+
+    .form-signup input[type="file"] {
+        display: none;
+      }
+`;
+
+export {MyPageContainer,MyPageBox, SelfIntroductionBox, ProfileSection,PRBox,PostBox,ProfileDetails, ProfilePicture, ButtonSection, RecentPostForm, ImageUploadLabel};

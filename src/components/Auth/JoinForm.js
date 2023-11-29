@@ -18,45 +18,40 @@ const JoinForm = () => {
         checkPswd: '',
     });
     
-    const [data, updataData] = useState(initData);
+    const [data, updateData] = useState(initData);
+    const [num, setNum] = useState("");
     const [checkPswd, setCheckPswd] = useState(initData.setCheckPswd);
-    const [registrationNumber, setRegistrationNumber] = useState("");//주민등록번호 
     const [checkPswdMessage, setCheckPswdMessage] = useState("");//비밀번호오류메세지 상태
     const [isCheckPswd, setIsCheckPswd] = useState(false);//비밀번호 유효성 검사
-    const [color, updataColor] = useState("#b8e8ff")
+    const [color, updateColor] = useState("#b8e8ff")
 
     useEffect(() => {
         if( data.id.length > 0 && data.name.length > 0 &&
-            data.nickname.length > 0 &&
-            data.num.length > 0 && data.email.length > 0 &&
+            data.nickname.length > 0 && data.num.length > 0
+            && data.email.length > 0 &&
             data.pswd.length > 0 && data.checkPswd.length > 0) {
-            updataColor("#609966");
+            updateColor("#609966");
         } else {
-            updataColor("#A4D0A9");
+            updateColor("#A4D0A9");
         }
     }, [data]);
 
     const SignUpDB = (e) => {//회원가입 api 호출
+        console.log(data);
         e.preventDefault();
 
-        axios.post("https://f684-58-126-218-174.ngrok-free.app/api/v1/auth/sign-up", {
-            
+        axios.post("/auth/sign-up", {
             "username": data.id, //아이디
             "fullname": data.name, //실명
-            "nickname" :data.nickname,
+            "nickname" :data.nickname, //닉네임
             "personalNumber": data.num, //주민등록번호
             "email": data.email,
             "password": data.pswd
-              
         })
         .then((res) => { //요청 성공했을 때
             console.log(res.data)
-            if(res.status === 201) {
-                alert("환영합니다!");
-                navigate("/LoginPage");
-            } else if(res.status === 500) {
-                alert("해당하는 정보의 사용자가 이미 존재합니다.")
-            }
+            alert("환영합니다!");
+            navigate("/LoginPage");
         })
 
         .catch((error) => { // 에러 핸들링 부분 수정
@@ -75,7 +70,7 @@ const JoinForm = () => {
         setCheckPswd(currentPw);
 
         //checkPswd에 값 넣어주기
-        updataData({
+        updateData({
             ...data, "checkPswd" : e.target.value
         })
         
@@ -92,27 +87,34 @@ const JoinForm = () => {
             }
         }       
     }
-
     
     const handleChange = (e) => {
-        console.log(e.target.value);
         
-        updataData({
+        updateData({
             ...data, [e.target.name] : e.target.value
         })
     }
 
-    const maskingNum = (e) => {
-        const input = e.target.value.replace(/[^0-9]/g, ''); 
+    const maskingNum = (e) => { //주민등록번호 마스킹 처리
+        e.preventDefault();
 
-        if (input.length <= 6) {
-            setRegistrationNumber(input);
+        const input = e.target.value.replace(/[^0-9]/g, '');
+
+        if (input.length === 7) {
+            const maskedNumber = input.substring(0, 6) + '-' + input.substring(6, 7) + '******';
+            setNum(maskedNumber);
+            updateData({
+                ...data,
+                [e.target.name]: maskedNumber.substring(0, 6) + maskedNumber.substring(7, 8)
+            });
         } else {
-            const maskedNumber = input.substring(0, 6) + '-' + input.substring(6, 7) + '*******';
-                setRegistrationNumber(maskedNumber);
+            setNum(input);
         }
+
+        console.log(data);
+        console.log(num);
+
     };
-    
 
     return (
         <SignInForm color={color}>
@@ -137,14 +139,16 @@ const JoinForm = () => {
              value={data.nickname}
              required 
              onChange={handleChange}/>
+
              <input
              type="text" 
              name="num" 
              placeholder="주민등록번호" 
-             value={registrationNumber}
+             value={num}
              maxLength={14}
              required 
              onChange={maskingNum}/>
+
             <input
              type="email" 
              name="email" 
@@ -169,7 +173,6 @@ const JoinForm = () => {
              onChange={onChangePwConfirm}
              required/>
              <p>{checkPswdMessage}</p>
-             {/*비밀번호확인 입력안됨*/}
 
             <button className="submitBtn" type="submit" onClick={(SignUpDB)}>회원가입</button>
             {/* handleSubmit => navigate("/") */}

@@ -51,9 +51,6 @@ const ModifyInfoPage = () => {
         </FindPage>
             <ModifyInfoForm/>
 
-            
-        
-        
         </>
     )
 }
