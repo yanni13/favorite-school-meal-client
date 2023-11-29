@@ -30,36 +30,6 @@ const ModifyInfoForm = () => {
         }
     }, [data])
 
-    /*const SignUpDB = (e) => {//회원가입 api 호출
-        e.preventDefault();
-
-        axios.post("/users/", {
-            "user_name": data.name,
-            "email": data.email,
-            "id": data.id,
-            "password": data.pswd
-              
-        })
-        .then((res) => { //요청 성공했을 때
-            console.log(res.data)
-            if(res.status === 201) {
-                alert("환영합니다!");
-                navigate("/LoginPage");
-            } else if(res.status === 500) {
-                alert("해당하는 정보의 사용자가 이미 존재합니다.")
-            }
-        })
-
-        .catch((error) => { // 에러 핸들링 부분 수정
-            if (error.response) {
-                console.log("Error status:", error.response.status);
-                console.log("Error data:", error.response.data);
-                alert("다시 입력해주세요");
-            } else {
-                console.log("Error:", error.message);
-            }
-        });
-    }*/
 
     const onChangePwConfirm = (e) => {
         const currentPw = e.target.value;
@@ -92,8 +62,15 @@ const ModifyInfoForm = () => {
         })
     }
 
+
     const deleteMember = (e) => {
-        
+        const confirmed = window.confirm('정말 탈퇴하시겠습니까?');
+
+        if(confirmed) { //'네'를 눌렀을 경우 진행되는 동작
+            axios.post('', { //백엔드에 회원탈퇴정보를 넘겨주는 동작
+
+            })
+        }
     }
 
     return (

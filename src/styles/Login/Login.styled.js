@@ -29,7 +29,7 @@ const SignInBox = styled.div`
 `;
 
 const SignInForm = styled.form`
-    background-color: ##F1F1F1; 
+    background-color: #F1F1F1; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,8 +85,8 @@ const FindPage = styled.form`
 
     .LoginBtn {
         display: flex;
-        backgroundcolor: #94dbf8;
-        fontcolor: black;
+        background-color: #94dbf8;
+        color: black;
     }
 
     .textBtn {

@@ -11,10 +11,7 @@ const ModifyProfile = () => {
 
     return(
         <>
-        <TitledHeader title="회원정보"/>
-        <FindPage>
-            <h2 className="modify-font">프로필 수정</h2>
-        </FindPage>
+        <TitledHeader title="프로필 수정"/>
         <ModifyProfileForm/>
         </>
         
