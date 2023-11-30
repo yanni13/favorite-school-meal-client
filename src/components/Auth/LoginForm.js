@@ -23,7 +23,6 @@ const LoginForm = () => {
     }, [data])
 
     const loginDB = (e) => { //로그인 api 호출
-        e.preventDefault();
 
         axios.post("/auth/sign-in", {
             "username": data.id,
@@ -67,9 +66,9 @@ const LoginForm = () => {
              required 
              onChange={handleChange}/>
              
-            <button className="submitBtn" type="submit" onClick={loginDB}>
-                로그인</button> {/*비밀번호 일치할 경우 메인페이지로 이동하도록 수정*/}
-            
+            <button className="submitBtn" type="button" onClick={loginDB}>
+                로그인
+                </button> {/*비밀번호 일치할 경우 메인페이지로 이동하도록 수정*/}
         </SignInForm>
         
     );

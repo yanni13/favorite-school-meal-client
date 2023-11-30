@@ -196,7 +196,7 @@ const Profile = () => {
                     <S.CustomButton className="block" type="submit" onClick={handleMemberReport}>회원신고</S.CustomButton>
                 </S.ButtonWrapper>
                 <S.IntroduceBox>
-                    {}
+                    {userData.introduction}
                 </S.IntroduceBox>
 
                 <S.RecentPostTitle>최근에 작성한 게시글</S.RecentPostTitle>

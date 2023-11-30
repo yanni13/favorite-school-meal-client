@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import { SignInForm } from "../../styles/Login/Login.styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { getCookie } from "../../Cookies";
 
 const ResetPwForm = () => {
     const navigate = useNavigate();
+    const userId = useParams();
 
     const initData = Object.freeze({// freeze-객체를 동결하기 위해서
         password1: '',
@@ -28,7 +29,7 @@ const ResetPwForm = () => {
         }
     }, [data])
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         axios.get('',
             {
                 headers: {
@@ -43,7 +44,7 @@ const ResetPwForm = () => {
             console.log(error);
         })
 
-    }, []);
+    }, []);*/
 
     const handleChange = e => {
         console.log("[Info] : handleChange : " + e.target.value);
@@ -74,19 +75,25 @@ const ResetPwForm = () => {
     }
 
     const ResetPw = (e) => {
-        e.preventDefault();
+        const token = getCookie("ACCESS_TOKEN");
 
-        axios.post("/users/recover/password/modifications/", {
-            "user_id" : users.user_id,
+        e.preventDefault();
+       
+        axios.put(`/members/${userId.UserId}/modify-password`, 
+        {
             "password" : data.password2
-        })
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }) 
         .then(res => {
+            console.log("[Info] : ResetPw data : " + res.data.data)
             alert("비밀번호가 성공적으로 변경되었습니다.")
-            console.log("[Info] : ResetPw data : " + res.data)
-            return navigate("/LoginPage")
+            navigate("/LoginPage")
         })
         .catch(err => {
-            console.log("[Error] : ResetPw : " + err.response.data);
+            console.log("[Error] : ResetPw : ", err.response ?  err.response.data : err.message);
             console.log(err.message)
             alert("err")
         })
@@ -104,12 +111,13 @@ const ResetPwForm = () => {
             <input
              type="password" 
              name="password2" 
-             placeholder="비밀번호" 
+             placeholder="새 비밀번호 확인" 
              value={data.password2}
              required 
              onChange={onChangePwConfirm}/>
              <p>{checkPswdMessage}</p>
-            <button className="submitBtn" type="submit" onClick={ResetPw}>다음</button>
+             <p>비밀번호의 길이는 8 ~ 16자이며, 영문 대소문자, 숫자, 특수문자를 모두 포함해야 합니다.</p>
+            <button className="submitBtn" type="button" onClick={ResetPw}>다음</button>
         </SignInForm>
     );
 }

@@ -1,6 +1,6 @@
 //마이페이지(나) - 피그마 6번
 import React, {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";
@@ -9,9 +9,12 @@ import { MyPageContainer } from "../../styles/Login/MyPage.styled";
 
 const MyPageForm = () => {
     const navigate = useNavigate();
+    //const userId = useParams();
     const token = getCookie("ACCESS_TOKEN");
     const [users, setUsers] = useState();
     const [name, setName] = useState("");
+    const [currentUsers, setCurrentUsers] = useState();
+
     
     useEffect(()=>{
         axios.get('/members', //회원정보 불러오는 api
@@ -22,8 +25,8 @@ const MyPageForm = () => {
             })
             .then((response) => {
                 console.log(response.data);
-                setUsers(response.data.data); //받아온 데이터 저장
-                setName("");
+                setCurrentUsers(response.data.data); //받아온 데이터 저장
+                //setName("");
             })
             .catch((error)=>{
                 console.log(error);
@@ -34,8 +37,7 @@ const MyPageForm = () => {
         const confirmed = window.confirm('정말로 탈퇴하시겠습니까?');
 
         if(confirmed) { //네를 눌렀음
-            axios.post('', { //회원신고 api 연결 
-            
+            axios.delete(`/api/v1/members/`, { //회원신고 api 연결 
             })
             .then(res => {
                 console.log(res.data);
@@ -52,23 +54,21 @@ const MyPageForm = () => {
     return (
         <MyPageContainer>
             <ProfileSection>
-                <ProfilePicture imageUrl={users?.profileImage}>
-                    {users?.profileImage ? (
-                        <img className="profile-image" src={users.profileImage} alt="프로필 사진" />
+                <ProfilePicture imageUrl={currentUsers?.profileImage}>
+                    {currentUsers?.profileImage ? (
+                        <img className="profile-image" src={currentUsers.profileImage} alt="프로필 사진" />
                     ) : (
                         <FaUserCircle className="profile-icon" />
                     )}
                 </ProfilePicture>
-
-                    <ProfileDetails>
-                        <h3>{users?.fullname}</h3>
-                    </ProfileDetails>
+                
                 </ProfileSection>
-
+                <h3 className="UserName">{currentUsers?.fullname}</h3>
                 <ButtonSection>
                         <button className="block" type="submit" onClick={() => navigate("/ModifyProfile")}>프로필 수정</button>
                         <button className="block" type="submit" onClick={deleteMember}>회원 탈퇴하기</button>
                 </ButtonSection>
+                
                 </MyPageContainer>
     )
 }

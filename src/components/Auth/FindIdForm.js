@@ -51,7 +51,8 @@ const FindIdForm = () => {
         <SignInForm color={color}>
             {users ? (
                 <>
-                    <p>{users.id.slice(0,4) + "*".repeat(users.id.length-4)}</p>
+                <p>{users.nickname}</p>
+                    {/*<p>{users.nickname.slice(0,4) + "*".repeat(users.nickname.length-4)}</p>*/}
                 </>
             ) : (
                 <p>Loading...</p>

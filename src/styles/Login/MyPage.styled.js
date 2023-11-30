@@ -4,6 +4,10 @@ import styled from "styled-components";
 const MyPageContainer = styled.div`
     justify-content: flex-start;
     text-align: center;
+    .UserName {
+        font-size: 30px;
+        font-style: bold;
+    }
 `;
 
 
@@ -38,7 +42,7 @@ const ProfileSection = styled.div`
     width: 122.664px;
     height: 125px;
     justify-content: center;
-    margin: 50px 138px 30px
+    margin: 50px 138px 50px
 `;
 
 const RecentPostForm = styled.div`
@@ -113,6 +117,10 @@ const ButtonSection = styled.div`
     align-items: center;
     justify-content: center;
     margin: 20px;
+    color: #000;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    
 
     button + button {
         margin-left:31px;
