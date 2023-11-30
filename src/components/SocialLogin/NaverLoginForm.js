@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { SignInBox } from "../../styles/Login/Login.styled";
 import axios from "axios";
+import NaverButton from "./NaverButton";
 
 
 const NaverLoginForm = () => {
@@ -56,7 +57,8 @@ const NaverLoginForm = () => {
 
     return (
         <SignInBox>
-            <button type = 'button' onClick={() => naverloginHandler(code)}>네이버로그인</button>
+            <NaverButton onClick={() => naverloginHandler(code)}>네이버로그인</NaverButton>
+            {/*<button type = 'button' onClick={() => naverloginHandler(code)}>네이버로그인</button>*/}
         </SignInBox>
     );
 };

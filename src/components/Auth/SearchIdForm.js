@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { SignInForm } from "../../styles/Login/Login.styled";
+import axios from "axios";
 
 const SearchIdForm = () => {
     const navigate = useNavigate();
 
     const initData = Object.freeze({
-        name:'',
+        fullname:'',
         email: ''
     });
 
@@ -14,12 +15,14 @@ const SearchIdForm = () => {
     const [color, updataColor] = useState("#b8e8ff")
 
     useEffect(() => {
-        if( data.name.length && data.email.length > 0) {
+        if( data.fullname.length > 0 && data.email.length > 0) {
             updataColor("#609966");
         } else {
             updataColor("#A4D0A9");
         }
     }, [data])
+
+
 
     const handleChange = e => {
         console.log(e.target.value);
@@ -28,13 +31,38 @@ const SearchIdForm = () => {
         })
     }
 
+    const FindId = (e) => {
+
+        axios.get('/members/find-username', { 
+            params: {
+            "fullname": data.fullname,
+            "email": data.email,
+            }
+        })
+        .then((res) => {
+            console.log(res);
+            console.log(res.data.data.username);
+            alert("회원님의 아이디는 다음과 같습니다.");
+            navigate("/FindIdPage");
+        })
+        .catch((error) => {
+            if (error.response) {
+                console.log("Error status:", error.response.status);
+                console.log("Error data:", error.response.data);
+                alert("다시 입력해주세요");
+            } else {
+                console.log("Error:", error.message);
+            }
+        });
+    };
+
     return (
         <SignInForm color={color}>
             <input
              type="text" 
-             name="name" 
+             name="fullname" 
              placeholder="이름" 
-             value={data.name}
+             value={data.fullname}
              required 
              onChange={handleChange}/>
              <input
@@ -44,7 +72,7 @@ const SearchIdForm = () => {
              value={data.email}
              required 
              onChange={handleChange}/>
-            <button className="submitBtn" type="submit" onClick={() => navigate("/FindIdPage")}>로그인하기</button>
+            <button className="submitBtn" type="button" onClick={() => FindId()}>다음</button>
         </SignInForm>
     );
 }

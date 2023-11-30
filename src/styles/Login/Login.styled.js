@@ -124,6 +124,7 @@ const FindPage = styled.form`
 
 const SocialLoginContainer = styled.div`
     height: 50px;
+    justify-content: flex-start;
 `;
 
 export {SignInBox, SignInForm, FindPage, SocialLoginContainer};

@@ -3,6 +3,7 @@ import axios from "axios";
 import { MyPageBox } from "../../styles/Login/MyPage.styled";
 import PostTable from "../Post/PostTable";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
 const S = {
     InfoWrapper: styled.div`
@@ -83,27 +84,45 @@ const S = {
 }
 
 const RecentPostForm = () => {
+    const userId = useParams();
 
+    const [currentUsers, setCurrentUsers] = useState();
     const [postData, setPostData] = useState();
+
     const size = 6;
         useEffect(() => {
-            axios.get(`/posts?size=${size}`).then((res) => {
+            // axios.get(`/posts?size=${size}`).then((res) => {
+            //     const formattedData = (res.data.data.content).map(post => ({
+            //         PostId: post.postId,
+            //         WriterId: post.writerId,
+            //         Title : post.title,
+            //         Content : post.content,
+            //         MatchingState : post.matching.matchingStatus,
+            //         CreatedTime : post.createdAt,
+            //         CommentCount : post.commentCount
+            //     }));
+            //     setPostData(formattedData);
+            // }).catch((err) => {
+            //     console.log("MiniBoard 에러 발생")
+            //     console.log(err);
+            // });
+            axios.get(`/members/${userId.UserId}/posts`).then((res) => {
                 const formattedData = (res.data.data.content).map(post => ({
-                    PostId: post.postId,
-                    WriterId: post.writerId,
-                    Title : post.title,
-                    Content : post.content,
-                    MatchingState : post.matching.matchingStatus,
-                    CreatedTime : post.createdAt,
-                    CommentCount : post.commentCount
-                }));
-                setPostData(formattedData);
-            }).catch((err) => {
-                console.log("MiniBoard 에러 발생")
-                console.log(err);
-            });
+                            PostId: post.postId,
+                            WriterId: post.writerId,
+                            Title : post.title,
+                            Content : post.content,
+                            MatchingState : post.matching.matchingStatus,
+                            CreatedTime : post.createdAt,
+                            CommentCount : post.commentCount
+                        }));
+                        setPostData(formattedData);
+                }). catch((err) => {
+                    console.log(err);
+                })
         },[]);
 
+        
 
     return(
         <>

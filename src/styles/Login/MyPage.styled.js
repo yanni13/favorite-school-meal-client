@@ -117,6 +117,10 @@ const ButtonSection = styled.div`
     align-items: center;
     justify-content: center;
     margin: 20px;
+    color: #000;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    
 
     button + button {
         margin-left:31px;

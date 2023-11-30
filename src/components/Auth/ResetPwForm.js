@@ -117,7 +117,7 @@ const ResetPwForm = () => {
              onChange={onChangePwConfirm}/>
              <p>{checkPswdMessage}</p>
              <p>비밀번호의 길이는 8 ~ 16자이며, 영문 대소문자, 숫자, 특수문자를 모두 포함해야 합니다.</p>
-            <button className="submitBtn" type="submit" onClick={ResetPw}>다음</button>
+            <button className="submitBtn" type="button" onClick={ResetPw}>다음</button>
         </SignInForm>
     );
 }
