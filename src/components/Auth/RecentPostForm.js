@@ -4,6 +4,7 @@ import { MyPageBox } from "../../styles/Login/MyPage.styled";
 import PostTable from "../Post/PostTable";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { getCookie } from "../../Cookies";
 
 const S = {
     InfoWrapper: styled.div`
@@ -86,47 +87,44 @@ const S = {
 const RecentPostForm = () => {
     const userId = useParams();
 
-    const [currentUsers, setCurrentUsers] = useState();
+    const [currentUsers, setCurrentUsers] = useState('');
     const [postData, setPostData] = useState();
 
-    const size = 6;
-        useEffect(() => {
-            // axios.get(`/posts?size=${size}`).then((res) => {
-            //     const formattedData = (res.data.data.content).map(post => ({
-            //         PostId: post.postId,
-            //         WriterId: post.writerId,
-            //         Title : post.title,
-            //         Content : post.content,
-            //         MatchingState : post.matching.matchingStatus,
-            //         CreatedTime : post.createdAt,
-            //         CommentCount : post.commentCount
-            //     }));
-            //     setPostData(formattedData);
-            // }).catch((err) => {
-            //     console.log("MiniBoard 에러 발생")
-            //     console.log(err);
-            // });
-            axios.get(`/members/${userId.UserId}/posts`).then((res) => {
-                const formattedData = (res.data.data.content).map(post => ({
-                            PostId: post.postId,
-                            WriterId: post.writerId,
-                            Title : post.title,
-                            Content : post.content,
-                            MatchingState : post.matching.matchingStatus,
-                            CreatedTime : post.createdAt,
-                            CommentCount : post.commentCount
-                        }));
-                        setPostData(formattedData);
-                }). catch((err) => {
-                    console.log(err);
-                })
-        },[]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/members', {
+                    headers: {
+                        Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
+                    }
+                });
+                const receivedUserId = response.data.data.memberId;
 
-        
+                const size = 6;
+                const res = await axios.get(`/members/${receivedUserId}/posts?size=${size}`);
+
+                const contentArray = res.data?.data?.content || [];
+                const formattedData = contentArray.map(post => ({
+                    PostId: post.postId,
+                    WriterId: post.writerId,
+                    Title: post.title,
+                    Content: post.content,
+                    MatchingState: post.matching.matchingStatus,
+                    CreatedTime: post.createdAt,
+                    CommentCount: post.commentCount
+                }));
+                setPostData(formattedData);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return(
         <>
-        
+
         <MyPageBox>
             <S.PostBox>
                     {postData && postData.map((item) => (
@@ -142,8 +140,8 @@ const RecentPostForm = () => {
                     />
                 ))}
                 </S.PostBox>
-        </MyPageBox>
-        </>
+            </MyPageBox>
+            </>
     )
 }
 

@@ -155,10 +155,13 @@ const Profile = () => {
 
         axios.post('/reports', {
 
-            "reportedMemberId": userData.username,
-            "content": "염동스님이 나를 두번번 짜증나게함.",
-            "reportType": "PROFILE"
-
+            "reportedMemberId": 0,
+            "content": 1,
+            "reportType": "PROFILE",
+            "postId": 0,
+            "commentId": 0,
+            "chatId": 0
+           
             .then(res => {
                 console.log("회원이 신고되었습니다.", res.data);
                 alert("회원신고가 성공적으로 진행되었습니다.");
