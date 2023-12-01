@@ -134,6 +134,7 @@ const PostDetail= () => {
     const [data, setData] = useState();
     const [userData, setUserData] = useState(); 
     const token = getCookie("ACCESS_TOKEN");
+    const [commentData, setCommentData] = useState();
     const [loggedInUser, setLoggedInUser] = useState();
     const [isMine, setIsMine] = useState(false);
 
@@ -150,6 +151,13 @@ const PostDetail= () => {
         }).catch((error) => {
             console.error(error);
         });
+
+        axios.get(`/posts/${id.PostId}/comments`).then((res) => {
+            console.log(res.data.data);
+            setCommentData(res.data.data);
+        }).catch((err) => {
+            console.log(err);
+        })
 
         // axios.get('/members',{
         //     headers: {
@@ -222,7 +230,9 @@ const PostDetail= () => {
                         <S.TimeText>{data.matching.meetingDateTime}</S.TimeText>
                 </S.UnderBarWrapper>
                 <Divider/>
-                <CommentTable id={data.postId}/>
+                {commentData && commentData.map((comment) => (
+                    <CommentTable comment={comment}/>
+                ))}
             
             </S.Wrapper>
             <S.CommentFormWrapper>
