@@ -96,6 +96,7 @@ const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTim
     const [userImg, setUserImg] = useState();
 
     useEffect(() => {
+        console.log(WriterId)
         const responseData = axios.get(`/members/${WriterId}`).then((res) => {
             console.log(res.data.data);
             setUserImg(res.data.data.profileImageEndpoint);
