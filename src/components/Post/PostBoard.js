@@ -40,7 +40,6 @@ const PostBoard = () => {
     const [data, setData] = useState();
         useEffect(() => {
             axios.get(`/posts`).then((res) => {
-                console.log(res.data.data);
                 const formattedData = (res.data.data.content).map(post => ({
                     PostId: post.postId,
                     WriterId: post.writerId,
@@ -52,7 +51,6 @@ const PostBoard = () => {
                 }));
                 setData(formattedData);
             }).catch((err) => {
-                console.log("MiniBoard 에러 발생")
                 console.log(err);
             });
         },[]);

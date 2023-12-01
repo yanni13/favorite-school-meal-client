@@ -40,7 +40,6 @@ const MainMap = () => {
 					lat: restaurant.location.latitude
 				},
 			}));
-			console.log(formattedData);
 			setData(formattedData);
          })
       },[]);

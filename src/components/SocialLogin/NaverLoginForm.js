@@ -32,7 +32,6 @@ const NaverLoginForm = () => {
         if(code) {
             naverloginHandler(code);
         } else {
-            console.log("인가코드를 찾을 수 없습니다.");
         }
     };
     

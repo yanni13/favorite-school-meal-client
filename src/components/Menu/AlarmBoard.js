@@ -64,7 +64,6 @@ function AlarmBoard( {isLogin }) {
                 Authorization: `Bearer ${token}`,
             }
         }).then((res) => {
-            console.log(res.data.data);
             setNotificationData(res.data.data.notificationList);
         })
         .catch((e)=> {
