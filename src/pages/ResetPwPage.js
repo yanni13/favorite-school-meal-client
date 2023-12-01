@@ -5,7 +5,6 @@ import ResetPwForm from "../components/Auth/ResetPwForm";
 import TitledHeader from "../components/Header/TitledHeader";
 
 const ResetPwPage = () => {
-    const navigate = useNavigate();
 
     return (
         <>

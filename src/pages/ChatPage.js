@@ -46,7 +46,6 @@ function ChatPage() {
     <TitledHeader title="채팅"/>
     <div className="App">
       <SendbirdApp appId={APP_ID} userId={USER_ID} />
-      {/* Your chat components go here */}
     </div>
     </>
   );

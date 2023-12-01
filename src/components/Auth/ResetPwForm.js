@@ -29,23 +29,6 @@ const ResetPwForm = () => {
         }
     }, [data])
 
-    /*useEffect(()=>{
-        axios.get('',
-            {
-                headers: {
-                Authorization: `Bearer ${getCookie("ACCESS_TOKEN")}`,
-                }
-            })
-            .then((response) => {
-                console.log(response.data);
-                setUsers(response.data); //받아온 데이터 저장
-            })
-            .catch((error)=>{
-            console.log(error);
-        })
-
-    }, []);*/
-
     const handleChange = e => {
         console.log("[Info] : handleChange : " + e.target.value);
         updataData({
