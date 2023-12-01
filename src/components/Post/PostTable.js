@@ -76,7 +76,6 @@ const OpenStatusBox = styled.div`
     width: 30px;
     height: 10px;
     border-radius: 5px;
-    border: 0.5px solid #609966;
     background-color: #609966;
     color: #FFF;
     font-family: Noto Sans KR;
@@ -86,7 +85,7 @@ const OpenStatusBox = styled.div`
     line-height: normal;
 `
 
-const CloseStatusBox = styled.div`
+const CloseStatusBox = styled(OpenStatusBox)`
     background-color: #FF0000;
 `
 
