@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import comment_logo from '../../media/Post/comment_logo.svg';
 import clock_logo from '../../media/Map/clock_logo.svg';
@@ -13,7 +13,7 @@ const S = {
     Wrapper : styled.div`
         display: flex;
         flex-direction: column;
-        width: 89%;
+        width: 100%;
         justify-content: flex-start;
         align-items: flex-start;
         overflow: scroll;
@@ -123,6 +123,7 @@ const CloseStatusBox = styled(OpenStatusBox)`
 `;
 
 const PostDetail= () => {
+    const navigate = useNavigate();
     const id = useParams();
     const [data, setData] = useState();
     const [userData, setUserData] = useState(); 
@@ -144,19 +145,39 @@ const PostDetail= () => {
             console.error(error);
         });
 
-        axios.get('/members',{
+        // axios.get('/members',{
+        //     headers: {
+        //         Authorization: `Bearer ${token}`,
+        //     }
+        // }).then((res) => {
+        //     setLoggedInUser(res.data.data.memberId);
+        // });
+
+        // if (loggedInUser && loggedInUser === data.memberId) {
+        //     setIsMine(true);
+        // }
+    }, []);
+
+    const apply = () => {
+        axios.post(`/posts/${id.PostId}/apply-matching`,null,{
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         }).then((res) => {
-            setLoggedInUser(res.data.data.memberId);
-        });
-
-        if (loggedInUser && loggedInUser === data.memberId) {
-            setIsMine(true);
-        }
-    }, []);
-
+            console.log(res);
+            switch (res.data.data.code){
+                case 403:
+                    alert("이미 신청한 글입니다.");
+                    break;
+                default:
+                    alert("신청 완료되었습니다.");
+            }
+            
+        }).catch((err) => {
+            alert("로그인이 필요합니다.");
+            navigate("/LoginPage");
+        })
+    }
     
     return(
         <>
@@ -171,7 +192,10 @@ const PostDetail= () => {
                         }
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
-                    <S.RequestButton>요청</S.RequestButton>
+                    {
+                        <S.RequestButton onClick={apply}>요청</S.RequestButton>
+                    }
+                    
                 </S.ProfileWrapper>
                 <S.TitleText>{data.title}</S.TitleText>
                 <S.ContentText>{data.content}</S.ContentText>
@@ -202,4 +226,4 @@ const PostDetail= () => {
     )
 }
 
-export { PostDetail, OpenStatusBox, CloseStatusBox };
+export default PostDetail;

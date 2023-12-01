@@ -4,7 +4,7 @@ import { SignInBox } from "../../styles/Login/Login.styled";
 
 const KakaoLoginForm = () => {
     const REST_API_KEY = '95f91aebaf3512beb7de682e5bf7c291'
-    const REDIRECT_URI = 'http://localhost:8080/api/v1/oauth/kakao/callback'
+    const REDIRECT_URI = 'https://api.favorite-school.me/api/v1/oauth/kakao/callback'
     const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     
 
