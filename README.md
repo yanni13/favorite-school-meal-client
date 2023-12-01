@@ -1,5 +1,9 @@
 # 최애의 학식
 
+## 1. 실행방법
+1. **npm install** → 프로젝트에 필요한 라이브러리나 패키지를 모두 다운로드하여 프로젝트를 초기화 하거나 새로운 의존성을 추가할 때 꼭 필요한 명령어 이므로 npm start 과정 전에 반드시 진행하여야 한다.
+
+2. **npm start** → start 명령어 안에 실행할 수 있는 기본적인 서버 혹은 파일의 주소를 넣으면 그 주소로 실행된다. (package.json의 scripts에 있는 start 명령어를 실행)
 ## 2.Design
 <img width="250" alt="스크린샷 2023-12-01 오후 6 40 05" src="https://github.com/Favorite-School-Meal/favorite-school-meal-client/assets/122153297/1c924a87-635d-4baa-ab18-0de9249c0018">
 
