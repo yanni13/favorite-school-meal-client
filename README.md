@@ -32,6 +32,21 @@ https://favorite-school.me
   
 4. 소셜로그인을 통해 로그인을 진행 할 수 있으며, 아이디 찾기, 비밀번호 찾기, 비밀번호 재설정 기능을 이용할 수 있고, 비밀번호 찾기에서 이메일을 통한 임시비밀번호 발급을 통해 로그인을 진행할 수 있다.
   <img width="240" alt="스크린샷 2023-12-01 오전 1 28 10" src="https://github.com/yanni13/favorite-school-meal-client/assets/122153297/54409681-c5c4-4ca6-ae60-87780a77df53">
+  
+
+
+  **비밀번호 찾기**
+  비밀번호 찾기에서 아이디와 이메일을 입력하면 임시 비밀번호를 가입한 이메일로 발송해준다. 발급받은 임시비밀번호를 통해 로그인을 할 수 있고, 비밀번호 재설정 기능까지 이용할 수 있다.
+  
+ <img width="240" alt="스크린샷 2023-12-02 오전 1 08 52" src="https://github.com/Favorite-School-Meal/favorite-school-meal-client/assets/122153297/9850d3b0-5742-44a4-bfb7-ca45203578ed">
+  <img width="440" alt="스크린샷 2023-12-02 오전 1 14 42" src="https://github.com/Favorite-School-Meal/favorite-school-meal-client/assets/122153297/f763c0c9-c092-4c32-b931-5c540b38ee3e">
+ <img width="240" alt="스크린샷 2023-12-02 오전 1 04 43" src="https://github.com/Favorite-School-Meal/favorite-school-meal-client/assets/122153297/da4449c1-a8cf-4e70-b7c5-91f245d633f8">
+
+<img width="440" alt="스크린샷 2023-12-02 오전 1 15 25" src="https://github.com/Favorite-School-Meal/favorite-school-meal-client/assets/122153297/f929f3f6-a931-4607-96ae-9b944f7f03c9">
+
+
+ 
+  
 
 5. ‘최애의 학식’사용자는 게시판에 글을 작성할 수 있고 수정, 삭제 할 수 있다.
 <img width="240" alt="스크린샷 2023-12-01 오후 11 20 30" src="https://github.com/yanni13/favorite-school-meal-client/assets/122153297/e5b93f4a-57b2-4ff5-8415-cde7202f1b93">
