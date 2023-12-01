@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import logout_button from '../../media/Menu/logout_button.svg';
 import { useNavigate } from 'react-router-dom';
+import { removeCookie } from '../../Cookies';
 
 let LowerHeaderWrapper = styled.div`
 display: flex;
@@ -90,6 +91,12 @@ function LowerHeader({ isLogin, userInfo }) {
         navigate("/MyPage");
     }
 
+    const LogoutClickHandler = () => {
+        removeCookie("ACCESS_TOKEN");
+        alert("로그아웃 되었습니다.")
+        navigate("/");
+    }
+
     return (
         <>
         { isLogin ? 
@@ -99,7 +106,7 @@ function LowerHeader({ isLogin, userInfo }) {
                 </ProfileImg>
                 <LowerheaderTitle onClick={ProfileCilck}>{userInfo.nickname} 님,</LowerheaderTitle>
                 <LowerHeaderSubtitle>환영합니다!</LowerHeaderSubtitle>
-                    <LogoutButton src={logout_button} onClick={() => navigate('/')}/>
+                    <LogoutButton src={logout_button} onClick={() => LogoutClickHandler()}/>
             </LowerHeaderWrapper>
             :
             <GuestLowerHeaderWrapper>
