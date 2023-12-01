@@ -58,7 +58,8 @@ const S = {
 }
 
 const CommentTable = ({ comment }) => {
-    const [profileImg, setProfileImg] = useState();
+    const [userData, setUserData] = useState();
+
     // const url = '/posts/' + id + '/comments';
 
     // useEffect(() => {
@@ -70,9 +71,9 @@ const CommentTable = ({ comment }) => {
     //     })
     // },[id]);
     useEffect(() => {
-        console.log(comment.memberId);
+        console.log(comment);
         axios.get(`/members/${comment.memberId}`).then((res) => {
-            setProfileImg(res.data.data.profileImageEndpoint);
+            setUserData(res.data.data);
         }).catch((err) => {
             console.log(err);
         });
@@ -83,9 +84,9 @@ const CommentTable = ({ comment }) => {
             <S.Wrapper>
                 <S.UpperWrapper>
                     <S.ProfileImage>
-                    {profileImg && <img src={`https://api.favorite-school.me/api/v1${profileImg}`}/>}
+                    {userData && <img src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>}
                     </S.ProfileImage>
-                    <S.ProfileName>{comment.username}</S.ProfileName>
+                    <S.ProfileName>{userData.nickname}</S.ProfileName>
                     <S.ReportBox>
                         <Link to="/">
                             <img src={report_logo}/>
