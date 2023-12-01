@@ -186,6 +186,8 @@ const PostDetail= () => {
         }).then((res) => {
             console.log(res.data.data);
             setLoggedInUser(res.data.data.memberId);
+        }).catch((err) => {
+            console.log(err);
         });
 
     }, []);
@@ -197,6 +199,7 @@ const PostDetail= () => {
             }
         }
     },[data, loggedInUser]);
+    
 
     const ApplyMatching = () => {
         if (loggedInUser) {
@@ -231,12 +234,12 @@ const PostDetail= () => {
     
     return(
         <>
-        {data && 
+        {(userData && data) && 
             <>
             <S.Wrapper>
                 <S.ProfileWrapper>
                     <S.ProfileImage>
-                    <img src={userData && `https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>
+                    {userData && <img src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>}
                     </S.ProfileImage>
                     <S.ProfileMiddleWrapper>
                         {userData && 
@@ -261,7 +264,7 @@ const PostDetail= () => {
                 </S.ProfileWrapper>
                 <S.TitleText>{data.title}</S.TitleText>
                 <S.ContentText>{data.content}</S.ContentText>
-                
+
                 <S.UnderBarWrapper> 
                     <img src={comment_logo} alt="comment_logo" style={{width: "20px", height: "20px", marginRight : "5px"}}/>
                     <S.TimeText>{data.commentCount}</S.TimeText>
