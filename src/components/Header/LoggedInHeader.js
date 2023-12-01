@@ -1,9 +1,28 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Header/Header.module.css'
+import styled from 'styled-components';
 import Logo from '../Logo';
 import menu_button from '../../media/Header/menu_button.svg'
 
-function LoggedInHeader(){
+const S = {
+    ProfileImg : styled.div`
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        margin-right: 13px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    `
+}
+
+function LoggedInHeader({ userInfo }){
+
+
+
     return (
         <>
             <div className={styles.container}>
@@ -15,7 +34,9 @@ function LoggedInHeader(){
                 </Link>
                 
                 <Logo/>
-                <div className={styles.profile_img}>hi</div>
+                <S.ProfileImg>
+                    <img src={`https://api.favorite-school.me/api/v1${userInfo.profileImageEndpoint}`}/>
+                </S.ProfileImg>
             </div>
         </>
     );

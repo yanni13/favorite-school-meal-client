@@ -34,6 +34,12 @@ const S = {
         height : 50px;
         border-radius: 50%;
         background-color: grey;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
     `,
     ProfileMiddleWrapper : styled.div`
         display : flex;
@@ -185,7 +191,9 @@ const PostDetail= () => {
             <>
             <S.Wrapper>
                 <S.ProfileWrapper>
-                    <S.ProfileImage/>
+                    <S.ProfileImage>
+                    <img src={userData && `https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>
+                    </S.ProfileImage>
                     <S.ProfileMiddleWrapper>
                         {userData && 
                             <S.ProfileName>{userData.nickname}</S.ProfileName>
