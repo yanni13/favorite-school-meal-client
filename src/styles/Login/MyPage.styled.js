@@ -8,6 +8,8 @@ const MyPageContainer = styled.div`
         font-size: 30px;
         font-style: bold;
     }
+
+
 `;
 
 
@@ -153,17 +155,6 @@ const ButtonSection = styled.div`
     }
 `;
 
-const ImageUploadLabel = styled.div`
-    margin: 5px 0 20px 0;
-    font-weight: bold;
-    font-size: 13px;
-    color: #0095f6;
-    display: inline-block;
-    cursor: pointer;
 
-    .form-signup input[type="file"] {
-        display: none;
-      }
-`;
 
-export {MyPageContainer,MyPageBox, SelfIntroductionBox, ProfileSection,PRBox,PostBox,ProfileDetails, ProfilePicture, ButtonSection, RecentPostForm, ImageUploadLabel};
+export {MyPageContainer,MyPageBox, SelfIntroductionBox, ProfileSection,PRBox,PostBox,ProfileDetails, ProfilePicture, ButtonSection, RecentPostForm};

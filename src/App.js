@@ -10,7 +10,6 @@ import SearchIdPage from './pages/SearchIdPage';
 import SearchPwPage from './pages/SearchPwPage';
 import FindIdPage from './pages/FindIdPage';
 import ResetPwPage from './pages/ResetPwPage';
-import ModifyInfoPage from './pages/ModifyInfoPage';
 import MyPage from './pages/MyPage';
 import RestrauntInfoPage from './pages/RestrauntInfoPage';
 import PostPage from './pages/PostPage';
@@ -40,7 +39,6 @@ function App() {
             <Route path = "/FindIdPage" element={<FindIdPage/>}></Route>
             <Route path = "/SearchPwPage" element={<SearchPwPage/>}></Route>
             <Route path = "/ResetPwPage" element={<ResetPwPage/>}></Route>
-            <Route path = "/ModifyInfoPage" element={<ModifyInfoPage/>}></Route>
             <Route path = "/MyPage" element={<MyPage/>}></Route>
             <Route path = "/MapPage/:RestaurantId" element={<RestrauntInfoPage/>}></Route>
             <Route path = "/PostPage" element={<PostPage/>}></Route>

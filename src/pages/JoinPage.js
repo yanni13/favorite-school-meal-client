@@ -1,11 +1,9 @@
 import React from "react";
-import {useNavigate} from 'react-router-dom';
-import { SignInBox, SignInForm } from "../styles/Login/Login.styled";
+import { SignInBox} from "../styles/Login/Login.styled";
 import JoinForm from "../components/Auth/JoinForm";
 import TitledHeader from "../components/Header/TitledHeader";
 
 const JoinPage = () => {
-    const navigate = useNavigate();
 
     return (
         <>

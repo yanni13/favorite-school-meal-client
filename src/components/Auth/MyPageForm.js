@@ -1,6 +1,6 @@
 //마이페이지(나) - 피그마 6번
 import React, {useState, useEffect} from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getCookie } from "../../Cookies";
 import { FaUserCircle } from "react-icons/fa";

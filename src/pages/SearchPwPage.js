@@ -1,11 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { SignInBox } from "../styles/Login/Login.styled";
 import SearchPwForm from "../components/Auth/SearchPwForm";
 import TitledHeader from "../components/Header/TitledHeader";
 
 const SearchPwPage = () => {
-    const navigate = useNavigate();
 
     return (
         <>
