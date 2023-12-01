@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import comment_logo from '../../media/Post/comment_logo.svg';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 
 const S = {
     Wrapper : styled.div`
@@ -16,6 +18,12 @@ const S = {
         background-color: grey;
         border-radius: 50%;
         margin-left : 13px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
     `,
     MiddleWrapper : styled.div`
         display : flex;
@@ -68,7 +76,6 @@ const OpenStatusBox = styled.div`
     width: 30px;
     height: 10px;
     border-radius: 5px;
-    border: 0.5px solid #609966;
     background-color: #609966;
     color: #FFF;
     font-family: Noto Sans KR;
@@ -78,7 +85,7 @@ const OpenStatusBox = styled.div`
     line-height: normal;
 `
 
-const CloseStatusBox = styled.div`
+const CloseStatusBox = styled(OpenStatusBox)`
     background-color: #FF0000;
 `
 
@@ -86,6 +93,17 @@ const CloseStatusBox = styled.div`
 const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTime, CommentCount}) => {
     // 유저 프로필사진
     const url = '/PostDetailPage/' + PostId;
+    const [userImg, setUserImg] = useState();
+
+    useEffect(() => {
+        const responseData = axios.get(`/members/${WriterId}`).then((res) => {
+            setUserImg(res.data.data.profileImageEndpoint);
+        })
+        .catch((e)=> {
+            console.log(e);
+        })
+    },[]);
+
     return (
         <div style={{
             display : 'flex',
@@ -94,7 +112,10 @@ const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTim
             marginTop : '5px'
         }}>
             <S.Wrapper>
-                <S.ProfileImage/>
+                <S.ProfileImage>
+                <img src={`https://api.favorite-school.me/api/v1${userImg}`}/>
+                </S.ProfileImage>
+
                 <S.MiddleWrapper>    
                 <S.TitleText>
                     <Link to={url} style={{ textDecoration : "none", color: "inherit" }}>{Title}</Link>

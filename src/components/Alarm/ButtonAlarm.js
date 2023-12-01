@@ -123,14 +123,11 @@ const ButtonAlarm = ({ Notification }) => {
 
     useEffect(() => {
         const responseData = axios.get(`/posts/${noticeProps.postId}`).then((res) => {
-            console.log(res.data.data);
             setPostData(res.data.data);
         });
         const userRes = axios.get(`/members/${noticeProps.senderId}`).then((res) => {
-            console.log(res.data.data);
             setUserData(res.data.data);
         });
-        console.log(data);
     },[]);
 
     const FormattedTitle = (s) => {

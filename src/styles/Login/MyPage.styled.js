@@ -44,7 +44,19 @@ const ProfileSection = styled.div`
     width: 122.664px;
     height: 125px;
     justify-content: center;
-    margin: 50px 138px 50px
+    margin: 50px 138px 50px;
+    border-radius: 50%;
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    };
+    svg{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    };
 `;
 
 const RecentPostForm = styled.div`

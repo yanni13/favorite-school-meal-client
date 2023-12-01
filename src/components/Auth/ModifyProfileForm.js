@@ -7,6 +7,23 @@ import { getCookie, setCookie } from "../../Cookies";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+const CustomProfileImage = styled.div`
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    svg{
+        width: 100%;
+        height: 100%;
+    }
+
+`
 const Button = styled.div` 
     border-radius: 7px;
     background: #A4D0A9;
@@ -22,26 +39,53 @@ const Button = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
+    margin-bottom : 20px;
 `;
 
+const ProfileInput = styled.input`
+    width: 150px;
+    font-family: Noto Sans KR;
+    font-size: 10px;
+    font-weight: 400;
+`;
 
-const ModifyProfileForm = props => {
+const ProfileInputText = styled.div`
+    border-radius: 7px;
+    background: #A4D0A9;
+    width: 199px;
+    height: 50px;
+    flex-shrink: 0;
+    margin: 0 auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content : center;
+    align-items: center;
+    color: #000;
+    font-family: Noto Sans KR;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+    margin-bottom : 20px;
+`
+
+
+
+const ModifyProfileForm = (props) => {
     const navigate = useNavigate();
     const accesstoken = getCookie("ACCESS_TOKEN");
     const formData = new FormData();
-    const fileInput = React.useRef(null);
 
     const initData = Object.freeze({
-        file:'',
         nickname: '',
         introduction : ''
     });
 
     const [data, updataData] = useState(initData);
-    const [users, setUsers] = useState();
     const [currentUsers, setCurrentUsers] = useState();
-    const [file, setFile] = useState(null);
-    const [isFile, setIsFile] = useState(true);
+    const [isFile, setIsFile] = useState(false);
     const [color, updataColor] = useState("#609966");
 
     useEffect(() => {
@@ -60,7 +104,6 @@ const ModifyProfileForm = props => {
                 }
             })
             .then((response) => {
-                console.log(response.data);
                 setCurrentUsers(response.data.data); //받아온 데이터 저장
             })
             .catch((error)=>{
@@ -87,8 +130,6 @@ const ModifyProfileForm = props => {
         .then((res) => { //요청 성공했을 경우
             console.log(res.data.data);
             alert(`${res.data.data.message}`);
-            //alert("저장 되었습니다!");
-            //console.log("저장 성공", res.data);
             navigate("/MyPage");
         })
         .catch(err => { //요청 실패했을 경우
@@ -99,53 +140,72 @@ const ModifyProfileForm = props => {
     );
     }
 
-    const handleButtonClick = e => {
-        fileInput.current.click();
+    const handleImageChange = e => {
+        const selectedImage = e.target.files[0];
+        formData.append('image', selectedImage);
+        setIsFile(true);
+        // 아래는 사용자 이미ㅣㅈ state 변경
+        const tempUser = currentUsers;
+        tempUser.profileImage = URL.createObjectURL(selectedImage);
+        setCurrentUsers(tempUser);
     }
 
-    const handleImage = e => {
-        console.log(e.target.files[0]);
+    const handleImageSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post(`members/${currentUsers.memberId}/profile-image`, formData, {
+                headers: {
+                  Authorization: `Bearer ${accesstoken}` // 액세스 토큰을 헤더에 추가
+                }
+            }).then((res) => {
+                console.log(res.data.data);
+                alert(`${res.data.data.message}`);
+                //alert("저장 되었습니다!");
+                //console.log("저장 성공", res.data);
+                //navigate("/MyPage"); 
+            }).catch((err) => {
+                console.log("서버에서 에러응답");
+                console.log(err);
+                alert("프로필 저장에 실패했습니다.");
+            });
+        } catch (err) {
+            console.log(err);
+            alert("프로필 저장에 실패했습니다.");
+        }
     }
 
     return (
         <>
         <MyPageContainer>
             <ProfileSection>
-            
-        <ProfilePicture imageUrl={users?.profileImage}>
-                    {users?.profileImage ? (
-                        <img className="profile-image" src="" alt="프로필 사진"/>
-                    ) : (
-                        <FaUserCircle className="profile-icon" />
-                    )}
-        </ProfilePicture>
-        </ProfileSection>
+                {currentUsers?.profileImage ? (
+                    <img src={currentUsers.profileImage}/>
+                ) : (
+                    <FaUserCircle className="profile-icon" />
+                )}
+            </ProfileSection>      
 
-        {isFile ? (
-            <div>
-            <Button onClick={handleButtonClick}>프로필 사진 업로드</Button>
-            <input type = "file" 
-                    style={{display: "none"}} 
-                    onChange={handleImage}
-                    ref={fileInput}
-                    />
-            </div>
-
-        ) : (
-            <div>
-            <Button onClick={handleButtonClick}>프로필 사진 저장
-            </Button>
-            <input type = "file" 
-                    style={{display: "none"}} 
-                    onChange={handleImage}
-                    ref={fileInput} />
-            </div>
-        )}
-        
-        <br/>
-        <br/>
+        {isFile ? 
+        (
+            <>
+                <Button onClick={handleImageSubmit}>프로필 사진 저장</Button>
+            </>
+        ) :
+        (
+            <>
+                <ProfileInputText>변경할 프로필 사진 선택
+                    <ProfileInput type="file" accept="image/*" onChange={handleImageChange}/>
+                </ProfileInputText>
+                
+            </>                
+        ) 
+        }
         </MyPageContainer>
 
+
+
+        
         <SignInForm color={color}>
         { currentUsers &&
         <>
@@ -168,12 +228,12 @@ const ModifyProfileForm = props => {
             </SelfIntroductionBox>
         </>
         }
-        
+
             <button className="submitBtn" type="button" onClick={saveDB}>저장</button>
         </SignInForm>
         </>
     )
-}
 
+}
 
 export default ModifyProfileForm;

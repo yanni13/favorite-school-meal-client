@@ -29,7 +29,6 @@ const LoginForm = () => {
             "password": data.password 
         })      
         .then(res => {//요청 성공했을 경우
-            console.log(res.data.data);
             const accessToken = res.data.data.access_token
             if(accessToken !== undefined) {
                 setCookie("ACCESS_TOKEN", `${accessToken}`);

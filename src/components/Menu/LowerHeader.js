@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import logout_button from '../../media/Menu/logout_button.svg';
 import { useNavigate } from 'react-router-dom';
+import { removeCookie } from '../../Cookies';
 
 let LowerHeaderWrapper = styled.div`
 display: flex;
@@ -41,6 +42,13 @@ height: 60px;
 border-radius: 60px;
 margin-left: 27px;
 background-color: grey;
+overflow : hidden;
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
 `
 
 let GuestLowerHeaderWrapper = styled(LowerHeaderWrapper)`
@@ -79,14 +87,26 @@ let GuestLoginButton = styled.div`
 function LowerHeader({ isLogin, userInfo }) {
     const navigate = useNavigate();
 
+    const ProfileCilck = () => {
+        navigate("/MyPage");
+    }
+
+    const LogoutClickHandler = () => {
+        removeCookie("ACCESS_TOKEN");
+        alert("로그아웃 되었습니다.")
+        navigate("/");
+    }
+
     return (
         <>
         { isLogin ? 
             <LowerHeaderWrapper>
-                <ProfileImg/>
-                <LowerheaderTitle>{userInfo.nickname} 님,</LowerheaderTitle>
+                <ProfileImg>
+                    <img src={`https://api.favorite-school.me/api/v1${userInfo.profileImageEndpoint}`}/>
+                </ProfileImg>
+                <LowerheaderTitle onClick={ProfileCilck}>{userInfo.nickname} 님,</LowerheaderTitle>
                 <LowerHeaderSubtitle>환영합니다!</LowerHeaderSubtitle>
-                    <LogoutButton src={logout_button} onClick={() => navigate('/')}/>
+                    <LogoutButton src={logout_button} onClick={() => LogoutClickHandler()}/>
             </LowerHeaderWrapper>
             :
             <GuestLowerHeaderWrapper>

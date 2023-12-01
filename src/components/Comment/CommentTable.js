@@ -23,6 +23,12 @@ const S = {
         height : 40px;
         background-color: grey;
         border-radius: 50%;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
     `,
     ProfileName : styled.div`
         color: #000;
@@ -51,28 +57,41 @@ const S = {
     `,
 }
 
-const CommentTable = ({ id }) => {
-    const [data, setData] = useState();
-    const url = '/posts/' + id + '/comments';
+const CommentTable = ({ comment }) => {
+    const [userData, setUserData] = useState();
 
+    // const url = '/posts/' + id + '/comments';
+
+    // useEffect(() => {
+    //     axios.get(url).then((res) => {
+    //         console.log(res.data.data);
+    //         setData(res.data.data);
+    //     }).catch((err) => {
+    //         console.log(err);
+    //     })
+    // },[id]);
     useEffect(() => {
-        axios.get(url).then((res) => {
-            console.log(res.data.data);
-            setData(res.data.data);
+        console.log(comment);
+        axios.get(`/members/${comment.memberId}`).then((res) => {
+            console.log(res.data.data)
+            setUserData(res.data.data);
         }).catch((err) => {
             console.log(err);
-        })
-    },[id]);
+        });
+        },[])
 
     return (
         <>
-        {data && data.map((comment) => (
             <S.Wrapper>
                 <S.UpperWrapper>
-                    <S.ProfileImage>
-                        <img src=''/>
-                    </S.ProfileImage>
-                    <S.ProfileName>{comment.username}</S.ProfileName>
+                    {
+                        <>
+                            <S.ProfileImage>
+                                <img src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>
+                            </S.ProfileImage>
+                            <S.ProfileName>{userData.nickname}</S.ProfileName>
+                        </>
+                    }
                     <S.ReportBox>
                         <Link to="/">
                             <img src={report_logo}/>
@@ -83,7 +102,6 @@ const CommentTable = ({ id }) => {
                 <S.ContentText>{comment.content}</S.ContentText>
                 <Divider/>
             </S.Wrapper>
-        ))}
         </>
     )
 }
