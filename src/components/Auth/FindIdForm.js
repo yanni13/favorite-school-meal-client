@@ -22,8 +22,8 @@ const FindIdForm = () => {
             }
             })
             .then((response) => {
-                console.log(response.data);
-                setUsers(response.data); //받아온 데이터 저장
+                console.log(response.data.data);
+                setUsers(response.data.data); //받아온 데이터 저장
                 
             })
             .catch((error)=>{
@@ -51,13 +51,14 @@ const FindIdForm = () => {
         <SignInForm color={color}>
             {users ? (
                 <>
-                <p>{users.nickname}</p>
-                    {/*<p>{users.nickname.slice(0,4) + "*".repeat(users.nickname.length-4)}</p>*/}
+                <br/>
+                <h2 className="subtitle">{users.username}</h2>
+                <br/>
                 </>
             ) : (
                 <p>Loading...</p>
             )}
-             
+             <br/>
             <button className="submitBtn" type="submit" onClick={handleSubmit => navigate("/LoginPage")}>로그인하기</button> 
         </SignInForm>
     );

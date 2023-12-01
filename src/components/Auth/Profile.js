@@ -88,7 +88,6 @@ const S = {
 }
 
 const Profile = () => {
-    const navigate = useNavigate();
     const userId = useParams();
 
     const [userData, setUserData] = useState();

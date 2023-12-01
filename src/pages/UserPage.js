@@ -1,5 +1,4 @@
 import React from "react";
-import MyPage from "./MyPage";
 import TitledHeader from "../components/Header/TitledHeader";
 import Profile from "../components/Auth/Profile";
 import styled from "styled-components";

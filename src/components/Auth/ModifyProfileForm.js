@@ -7,31 +7,29 @@ import { getCookie, setCookie } from "../../Cookies";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const S = styled.div`
-    .file {
-        border-radius: 7px;
-        background: #A4D0A9;
-        width: 199px;
-        height: 39px;
-        flex-shrink: 0;
-    }
-    input[type="file"] {
-        position: absolute;
-        width: 0;
-        height: 0;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-      }
+const Button = styled.div` 
+    border-radius: 7px;
+    background: #A4D0A9;
+    width: 199px;
+    height: 39px;
+    flex-shrink: 0;
+    display: center;
+    margin: auto;
+    padding: 4px;
+    color: #000;
+    font-family: Noto Sans KR;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 `;
 
 
-const ModifyProfileForm = () => {
+const ModifyProfileForm = props => {
     const navigate = useNavigate();
     const accesstoken = getCookie("ACCESS_TOKEN");
     const formData = new FormData();
+    const fileInput = React.useRef(null);
 
     const initData = Object.freeze({
         file:'',
@@ -43,8 +41,8 @@ const ModifyProfileForm = () => {
     const [users, setUsers] = useState();
     const [currentUsers, setCurrentUsers] = useState();
     const [file, setFile] = useState(null);
+    const [isFile, setIsFile] = useState(true);
     const [color, updataColor] = useState("#609966");
-    //const imgRef = useRef(null);
 
     useEffect(() => {
         if(data.nickname.length > 0 && data.introduction.length > 0 ) {
@@ -99,10 +97,18 @@ const ModifyProfileForm = () => {
             alert("정보 저장에 실패했습니다.");
         }
     );
-}
+    }
+
+    const handleButtonClick = e => {
+        fileInput.current.click();
+    }
+
+    const handleImage = e => {
+        console.log(e.target.files[0]);
+    }
 
     return (
-        <S>
+        <>
         <MyPageContainer>
             <ProfileSection>
             
@@ -114,12 +120,32 @@ const ModifyProfileForm = () => {
                     )}
         </ProfilePicture>
         </ProfileSection>
-        <input className= "file" type = "file" onChange={() => ''}></input>
+
+        {isFile ? (
+            <div>
+            <Button onClick={handleButtonClick}>프로필 사진 업로드</Button>
+            <input type = "file" 
+                    style={{display: "none"}} 
+                    onChange={handleImage}
+                    ref={fileInput}
+                    />
+            </div>
+
+        ) : (
+            <div>
+            <Button onClick={handleButtonClick}>프로필 사진 저장
+            </Button>
+            <input type = "file" 
+                    style={{display: "none"}} 
+                    onChange={handleImage}
+                    ref={fileInput} />
+            </div>
+        )}
+        
+        <br/>
+        <br/>
         </MyPageContainer>
 
-
-
-        
         <SignInForm color={color}>
         { currentUsers &&
         <>
@@ -143,10 +169,9 @@ const ModifyProfileForm = () => {
         </>
         }
         
-        
             <button className="submitBtn" type="button" onClick={saveDB}>저장</button>
         </SignInForm>
-        </S>
+        </>
     )
 }
 
