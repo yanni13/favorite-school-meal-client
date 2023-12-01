@@ -9,7 +9,7 @@ import axios from 'axios';
 const S = {
     Wrapper : styled.div`
         display : block;
-        width: 315px;
+        width: 300px;
         margin-top : 5px;
 
     `,

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -18,6 +18,7 @@ const S = {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     `,
     ButtonBox : styled.div`
         display: flex;
@@ -44,6 +45,8 @@ const S = {
 }
 
 function MenuButton() {
+    const navigate = useNavigate();
+
     return(
         <>
             <S.Wrapper>
@@ -53,17 +56,17 @@ function MenuButton() {
                     </S.ButtonBox>
                     <S.ButtonTitle>친구</S.ButtonTitle>
                 </S.ButtonWrapper>
-                <S.ButtonWrapper>
+                <S.ButtonWrapper onClick={() => navigate("/PostPage")}>
                     <S.ButtonBox>
                         <S.ButtonImg src={post_logo}/>
                     </S.ButtonBox>
-                    <S.ButtonTitle>친구</S.ButtonTitle>
+                    <S.ButtonTitle>게시판</S.ButtonTitle>
                 </S.ButtonWrapper>
                 <S.ButtonWrapper style={{ marginRight: "44px"}}>
                     <S.ButtonBox>
                         <S.ButtonImg src={chat_logo}/>
                     </S.ButtonBox>
-                    <S.ButtonTitle>친구</S.ButtonTitle>
+                    <S.ButtonTitle>채팅</S.ButtonTitle>
                 </S.ButtonWrapper>
                 
             
