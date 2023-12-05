@@ -54,12 +54,8 @@ const MyPageForm = () => {
     return (
         <MyPageContainer>
             <ProfileSection>
-                <ProfilePicture imageUrl={currentUsers?.profileImage}>
-                    {currentUsers?.profileImage ? (
-                        <img className="profile-image" src={currentUsers.profileImage} alt="프로필 사진" />
-                    ) : (
-                        <FaUserCircle className="profile-icon" />
-                    )}
+                <ProfilePicture>
+                    {currentUsers && <img className="profile-image" src={`https://api.favorite-school.me/api/v1${currentUsers.profileImageEndpoint}`} alt="프로필 사진" />}
                 </ProfilePicture>
                 
                 </ProfileSection>
@@ -68,8 +64,7 @@ const MyPageForm = () => {
                         <button className="block" type="submit" onClick={() => navigate("/ModifyProfile")}>프로필 수정</button>
                         <button className="block" type="submit" onClick={deleteMember}>회원 탈퇴하기</button>
                 </ButtonSection>
-                
-                </MyPageContainer>
+        </MyPageContainer>
     )
 }
 
