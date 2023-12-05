@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import report_logo from '../../media/Post/report_logo.svg';
 import Divider from '../Divider';
 import axios from 'axios';
@@ -38,6 +38,7 @@ const S = {
         font-weight: 700;
         line-height: normal;
         margin-left : 10px;
+        cursor : pointer;
     `,
     ReportBox : styled.div`
         margin-left : auto;
@@ -59,6 +60,7 @@ const S = {
 
 const CommentTable = ({ comment }) => {
     const [userData, setUserData] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log(comment);
@@ -70,6 +72,10 @@ const CommentTable = ({ comment }) => {
         });
         },[])
 
+    const navigateToUserProf = () => {
+        navigate(`/UserPage/${comment.memberId}`)
+    }
+
     return (
         <>
             <S.Wrapper>
@@ -79,7 +85,7 @@ const CommentTable = ({ comment }) => {
                             <S.ProfileImage>
                                 {userData && <img src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>}
                             </S.ProfileImage>
-                            {userData && <S.ProfileName>{userData.nickname}</S.ProfileName>}
+                            {userData && <S.ProfileName onClick={navigateToUserProf}>{userData.nickname}</S.ProfileName>}
                         </>
                     }
                     <S.ReportBox>

@@ -55,6 +55,7 @@ const S = {
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        cursor : pointer;
     `,
     TimeText : styled.div`
         color: #A1A1A1;
@@ -231,6 +232,10 @@ const PostDetail= () => {
             console.log(res.data)
         })
     };
+
+    const navigateToUserProf = () => {
+        navigate(`/UserPage/${userData.memberId}`)
+    }
     
     return(
         <>
@@ -243,7 +248,7 @@ const PostDetail= () => {
                     </S.ProfileImage>
                     <S.ProfileMiddleWrapper>
                         {userData && 
-                            <S.ProfileName>{userData.nickname}</S.ProfileName>
+                            <S.ProfileName onClick={navigateToUserProf}>{userData.nickname}</S.ProfileName>
                         }
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
