@@ -96,8 +96,11 @@ const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTim
     const [userImg, setUserImg] = useState();
 
     useEffect(() => {
+        console.log(WriterId)
         const responseData = axios.get(`/members/${WriterId}`).then((res) => {
+            console.log(res.data.data);
             setUserImg(res.data.data.profileImageEndpoint);
+            console.log(userImg);
         })
         .catch((e)=> {
             console.log(e);
@@ -113,7 +116,7 @@ const PostTable = ({ PostId, WriterId, Title, Content, MatchingState, CreatedTim
         }}>
             <S.Wrapper>
                 <S.ProfileImage>
-                <img src={`https://api.favorite-school.me/api/v1${userImg}`}/>
+                {userImg && <img src={`https://api.favorite-school.me/api/v1${userImg}`}/>}
                 </S.ProfileImage>
 
                 <S.MiddleWrapper>    

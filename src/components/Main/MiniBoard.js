@@ -56,7 +56,7 @@ export default function MiniBoard() {
                 // console.log(res.data.data);
                 const formattedData = (res.data.data.content).map(post => ({
                     PostId: post.postId,
-                    WriterId: post.writerId,
+                    WriterId: post.memberId,
                     Title : post.title,
                     Content : post.content,
                     MatchingState : post.matching.matchingStatus,
@@ -64,6 +64,7 @@ export default function MiniBoard() {
                     CommentCount : post.commentCount
                 }));
                 setData(formattedData);
+
             }).catch((err) => {
                 console.log("MiniBoard 에러 발생")
                 console.log(err);

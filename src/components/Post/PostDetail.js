@@ -55,6 +55,7 @@ const S = {
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        cursor : pointer;
     `,
     TimeText : styled.div`
         color: #A1A1A1;
@@ -130,6 +131,11 @@ const CompleteButton = styled(RequestButton)`
     background: #FF0000;
 `
 
+const ClosedButton = styled(RequestButton)`
+    background: #DDDDDD;
+    cursor: default;
+`
+
 const OpenStatusBox = styled.div`
     width: 45px;
     height: 15px;
@@ -186,6 +192,8 @@ const PostDetail= () => {
         }).then((res) => {
             console.log(res.data.data);
             setLoggedInUser(res.data.data.memberId);
+        }).catch((err) => {
+            console.log(err);
         });
 
     }, []);
@@ -197,6 +205,7 @@ const PostDetail= () => {
             }
         }
     },[data, loggedInUser]);
+    
 
     const ApplyMatching = () => {
         if (loggedInUser) {
@@ -228,40 +237,50 @@ const PostDetail= () => {
             console.log(res.data)
         })
     };
+
+    const navigateToUserProf = () => {
+        navigate(`/UserPage/${userData.memberId}`)
+    }
     
     return(
         <>
-        {data && 
+        {(userData && data) && 
             <>
             <S.Wrapper>
                 <S.ProfileWrapper>
                     <S.ProfileImage>
-                    <img src={userData && `https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>
+                    {userData && <img src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>}
                     </S.ProfileImage>
                     <S.ProfileMiddleWrapper>
                         {userData && 
-                            <S.ProfileName>{userData.nickname}</S.ProfileName>
+                            <S.ProfileName onClick={navigateToUserProf}>{userData.nickname}</S.ProfileName>
                         }
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
-                    {isMine && data.matching.matchingStatus !== "CLOSED" ?
-                        <>
+
+
+                    {
+                        data.matching.matchingStatus === "CLOSED" ?
+                        <ClosedButton>
+                            <RequestButtonText>마감됨</RequestButtonText>
+                        </ClosedButton> :
+                        (
+                            isMine ?
                             <CompleteButton onClick={CompleteMatching}>
                                 <RequestButtonText>마감하기</RequestButtonText>
                                 <RequestButtonText>{data.matching.approvedParticipant}/{data.matching.maxParticipant}</RequestButtonText>
-                            </CompleteButton>
-                        </> :
-                        <>
+                            </CompleteButton> :
                             <RequestButton onClick={ApplyMatching}>
                                 <RequestButtonText>요청하기</RequestButtonText>
                                 <RequestButtonText>{data.matching.approvedParticipant}/{data.matching.maxParticipant}</RequestButtonText>
                             </RequestButton>
-                        </>
+                        )
                     }
+
                 </S.ProfileWrapper>
                 <S.TitleText>{data.title}</S.TitleText>
                 <S.ContentText>{data.content}</S.ContentText>
-                
+
                 <S.UnderBarWrapper> 
                     <img src={comment_logo} alt="comment_logo" style={{width: "20px", height: "20px", marginRight : "5px"}}/>
                     <S.TimeText>{data.commentCount}</S.TimeText>
