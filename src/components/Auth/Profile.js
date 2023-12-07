@@ -94,9 +94,11 @@ const Profile = () => {
     const [isRequesting, setIsRequseting] = useState(false);
 
     const [postData, setPostData] = useState();
+
+    // 이부분 MyPage거랑 겹치는 부분이라 따로 컴포넌트 분리해서 리팩토링 해야함.
     const size = 3;
         useEffect(() => {
-            axios.get(`/posts?size=${size}`).then((res) => {
+            axios.get(`/members/${userId.UserId}/posts?size=${size}`).then((res) => {
                 const formattedData = (res.data.data.content).map(post => ({
                     PostId: post.postId,
                     WriterId: post.writerId,
@@ -108,7 +110,6 @@ const Profile = () => {
                 }));
                 setPostData(formattedData);
             }).catch((err) => {
-                console.log("MiniBoard 에러 발생")
                 console.log(err);
             });
         },[]);
@@ -121,7 +122,6 @@ const Profile = () => {
 
     useEffect(()=>{
         axios.get('/members/' + `${userId.UserId}`).then((res) => {
-                console.log(res.data.data);
                 setUserData(res.data.data); //받아온 데이터 저장                
             })
             .catch((error)=>{

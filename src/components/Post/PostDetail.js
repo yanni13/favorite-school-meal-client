@@ -131,6 +131,11 @@ const CompleteButton = styled(RequestButton)`
     background: #FF0000;
 `
 
+const ClosedButton = styled(RequestButton)`
+    background: #DDDDDD;
+    cursor: default;
+`
+
 const OpenStatusBox = styled.div`
     width: 45px;
     height: 15px;
@@ -252,20 +257,26 @@ const PostDetail= () => {
                         }
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
-                    {isMine && data.matching.matchingStatus !== "CLOSED" ?
-                        <>
+
+
+                    {
+                        data.matching.matchingStatus === "CLOSED" ?
+                        <ClosedButton>
+                            <RequestButtonText>마감됨</RequestButtonText>
+                        </ClosedButton> :
+                        (
+                            isMine ?
                             <CompleteButton onClick={CompleteMatching}>
                                 <RequestButtonText>마감하기</RequestButtonText>
                                 <RequestButtonText>{data.matching.approvedParticipant}/{data.matching.maxParticipant}</RequestButtonText>
-                            </CompleteButton>
-                        </> :
-                        <>
+                            </CompleteButton> :
                             <RequestButton onClick={ApplyMatching}>
                                 <RequestButtonText>요청하기</RequestButtonText>
                                 <RequestButtonText>{data.matching.approvedParticipant}/{data.matching.maxParticipant}</RequestButtonText>
                             </RequestButton>
-                        </>
+                        )
                     }
+
                 </S.ProfileWrapper>
                 <S.TitleText>{data.title}</S.TitleText>
                 <S.ContentText>{data.content}</S.ContentText>
