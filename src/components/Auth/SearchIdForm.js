@@ -10,7 +10,7 @@ const SearchIdForm = () => {
         fullname:'',
         email: ''
     });
-
+    const [users, setUsers] = useState();
     const [data, updataData] = useState(initData);
     const [color, updataColor] = useState("#b8e8ff")
 
@@ -42,8 +42,19 @@ const SearchIdForm = () => {
         .then((res) => {
             console.log(res);
             console.log(res.data.data.username);
+            setUsers(res.data.data.username); //받아온 데이터 저장
             alert("회원님의 아이디는 다음과 같습니다.");
-            navigate("/FindIdPage");
+            <h2 className="subtitle">{users.username}</h2>
+
+            // {users ? (
+            //     <>
+            //     <br/>
+            //     <h2 className="subtitle">{users.username}</h2>
+            //     <br/>
+            //     </>
+            // ) : (
+            //     <p>Loading...</p>
+            // )}
         })
         .catch((error) => {
             if (error.response) {
@@ -72,7 +83,9 @@ const SearchIdForm = () => {
              value={data.email}
              required 
              onChange={handleChange}/>
-            <button className="submitBtn" type="button" onClick={() => FindId()}>다음</button>
+            
+
+            <button className="submitBtn" type="button" onClick={(FindId)}>다음</button> 
         </SignInForm>
     );
 }

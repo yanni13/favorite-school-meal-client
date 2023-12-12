@@ -7,7 +7,10 @@ const MyPageContainer = styled.div`
     .UserName {
         font-size: 30px;
         font-style: bold;
+        font-family: Noto Sans KR;
+        font-weight: 700;
     }
+    
 
 
 `;
@@ -44,7 +47,20 @@ const ProfileSection = styled.div`
     width: 122.664px;
     height: 125px;
     justify-content: center;
-    margin: 50px 138px 50px
+    margin: 50px 138px 50px;
+    border-radius: 50%;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    };
+    svg{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    };
 `;
 
 const RecentPostForm = styled.div`
@@ -100,6 +116,7 @@ const ProfilePicture = styled.div`
     border-radius: 50%;
     overflow: hidden;
     display: flex;
+    
 
     .profile-image {
         width: 100%;
@@ -133,8 +150,8 @@ const ButtonSection = styled.div`
         height: 39px;
         flex-shrink: 0;
         border-radius: 10px;
-        background: #EDF1D6;
-        border: 1px solid gray;
+        background: #A4D0A9;
+        border : none;
         font-family: Noto Sans KR;
         font-size: 20px;
         font-style: normal;

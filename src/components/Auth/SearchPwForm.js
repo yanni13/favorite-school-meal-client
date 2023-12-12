@@ -45,14 +45,7 @@ const SearchPwForm = () => {
             console.log(res);
             console.log(res.data.data);
             alert("이메일로 임시 비밀번호를 발급해 드렸습니다!");
-            const confirmed = window.confirm('비밀번호를 재설정하시겠습니까?');
-
-            if(confirmed) {
-                navigate("/ResetPwPage");
-            } else {
-                alert("메인 페이지로 돌아가겠습니다.");
-                navigate("/");
-            }
+            navigate("/");
 
         })
         .catch((err) => {

@@ -20,6 +20,7 @@ import UserPage from './pages/UserPage';
 import ChatPage from './pages/ChatPage';
 import NaverLoginPage from './pages/NaverLoginPage';
 import ReportModal from './components/Modal/ReportModal';
+import KakaoLoginPage from './pages/KakaoLoginPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Route path = "/NaverLoginPage" element={<NaverLoginPage/>}></Route>
             <Route path = "/Test" element={<ReportModal/>}></Route>
             <Route path = "/ChatPage" element={<ChatPage/>}></Route>
+            <Route path = "/KakaoLoginPage" element={<KakaoLoginPage/>}></Route>
           </Routes>
         </BrowserRouter>
       </div>

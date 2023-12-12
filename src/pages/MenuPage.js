@@ -29,7 +29,6 @@ const MenuPage = () => {
                 Authorization: `Bearer ${token}`,
             }
         }).then((res) => {
-            console.log(res.data.data);
             setIsLogin(true);
             setUserInfo(res.data.data);
         })

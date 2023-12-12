@@ -1,6 +1,7 @@
 import pencil_logo from "../../media/Post/pencil_logo.svg";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../Cookies';
 
 const S = {
     Wrapper : styled.button`
@@ -36,7 +37,12 @@ const PostButton = ( {type, restaurantId} ) => {
         '/postAdd/' + 0;
 
     const handleClick = () => {
-        navigate(url);
+        if (getCookie("ACCESS_TOKEN") === undefined){
+            alert("글 작성은 로그인한 사용자만 할 수 있습니다.");
+            navigate("/LoginPage");
+        } else{
+            navigate(url);
+        }
     }
 
     return (

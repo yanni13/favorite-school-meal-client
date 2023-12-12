@@ -2,7 +2,6 @@
   "name": "fsm",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
   "dependencies": {
     "@sendbird/uikit-react": "^3.8.2",
     "@testing-library/jest-dom": "^5.17.0",

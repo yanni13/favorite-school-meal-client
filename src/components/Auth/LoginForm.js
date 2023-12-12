@@ -29,7 +29,6 @@ const LoginForm = () => {
             "password": data.password 
         })      
         .then(res => {//요청 성공했을 경우
-            console.log(res.data.data);
             const accessToken = res.data.data.access_token
             if(accessToken !== undefined) {
                 setCookie("ACCESS_TOKEN", `${accessToken}`);
@@ -66,8 +65,16 @@ const LoginForm = () => {
              required 
              onChange={handleChange}/>
              
-            <button className="submitBtn" type="button" onClick={loginDB}>
-                로그인
+            <button 
+                className="submitBtn"
+                type="button"
+                onClick={loginDB}
+                disabled = {
+                    !(data.id.length > 0 &&
+                    data.password.length > 0)
+                }
+                >
+                    로그인
                 </button> {/*비밀번호 일치할 경우 메인페이지로 이동하도록 수정*/}
         </SignInForm>
         

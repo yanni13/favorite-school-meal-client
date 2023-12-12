@@ -20,7 +20,6 @@ export default function MiniMap() {
                       lat: restaurant.location.latitude
                   },
               }));
-              console.log(formattedData);
               setData(formattedData);
            })
         },[]);

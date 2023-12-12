@@ -69,7 +69,6 @@ const DefaultAlarm = ( {Notification} ) => {
             setPostData(res.data.data);
         });
         const userRes = axios.get(`/members/${noticeProps.senderId}`).then((res) => {
-            console.log(res.data.data);
             setUserData(res.data.data);
         });
     },[]);

@@ -104,7 +104,7 @@ const PostForm = ({ url }) => {
     const navigate = useNavigate();
     const [title, setTitle] = useState();
     const [content, setContent] = useState();
-    const [headCount, setHeadCount] = useState(0);
+    const [headCount, setHeadCount] = useState(2);
     const [meetingDateTime, setMeetingDateTime] = useState(["","",""]);
     const [currentDay, setCurrentDay] = useState('');
     const [dayVal, setDayVal] = useState('');
@@ -169,12 +169,18 @@ const PostForm = ({ url }) => {
       };
     
       const decrement = () => {
-        if (headCount > 0) {
+        if (headCount > 2) {
           setHeadCount(headCount - 1);
         }
       };
 
     const handleClick = () => {
+        if (getCookie('ACCESS_TOKEN') === undefined) {
+            alert("로그인이 필요합니다.");
+            navigate("/LoginPage");
+            return;
+        }
+
         const formattedDateTime = meetingDateTime[0] + " " + meetingDateTime[1] + " ~ " + meetingDateTime[2];
         const formattedData = {
             title: title,
@@ -182,7 +188,6 @@ const PostForm = ({ url }) => {
             meetingDateTime: formattedDateTime,
             maxParticipant: headCount
         }
-        console.log(formattedData);
         axios.post(url, formattedData, 
         {
             headers: {
@@ -197,9 +202,7 @@ const PostForm = ({ url }) => {
                 switch(res.data.data.code) {
                     case 400:
                         console.log("잘못된 요청");
-                        break;
-                    case 401:
-                        console.log("권한 없음 로그인하셈");
+                        alert("게시글 내용을 다시 확인해 주세요.")
                         break;
                     case 500:
                         console.log("서버 오류");

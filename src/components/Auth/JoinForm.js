@@ -174,7 +174,19 @@ const JoinForm = () => {
              required/>
              <p>{checkPswdMessage}</p>
 
-            <button className="submitBtn" type="submit" onClick={(SignUpDB)}>회원가입</button>
+            <button 
+                className="submitBtn"
+                type="submit"
+                onClick={(SignUpDB)}
+                disabled = {
+                    !(data.id.length > 0 && data.name.length > 0 &&
+                    data.nickname.length > 0 && data.num.length > 0
+                    && data.email.length > 0 &&
+                    data.pswd.length > 0 && data.checkPswd.length > 0)
+                }
+            >
+                회원가입
+            </button>
             {/* handleSubmit => navigate("/") */}
         </SignInForm>
     );

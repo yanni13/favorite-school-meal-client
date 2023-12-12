@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import report_logo from '../../media/Post/report_logo.svg';
 import Divider from '../Divider';
 import axios from 'axios';
@@ -23,6 +23,12 @@ const S = {
         height : 40px;
         background-color: grey;
         border-radius: 50%;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
     `,
     ProfileName : styled.div`
         color: #000;
@@ -32,6 +38,7 @@ const S = {
         font-weight: 700;
         line-height: normal;
         margin-left : 10px;
+        cursor : pointer;
     `,
     ReportBox : styled.div`
         margin-left : auto;
@@ -51,28 +58,36 @@ const S = {
     `,
 }
 
-const CommentTable = ({ id }) => {
-    const [data, setData] = useState();
-    const url = '/posts/' + id + '/comments';
+const CommentTable = ({ comment }) => {
+    const [userData, setUserData] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(url).then((res) => {
-            console.log(res.data.data);
-            setData(res.data.data);
+        console.log(comment);
+        axios.get(`/members/${comment.memberId}`).then((res) => {
+            console.log(res.data.data)
+            setUserData(res.data.data);
         }).catch((err) => {
             console.log(err);
-        })
-    },[id]);
+        });
+        },[])
+
+    const navigateToUserProf = () => {
+        navigate(`/UserPage/${comment.memberId}`)
+    }
 
     return (
         <>
-        {data && data.map((comment) => (
             <S.Wrapper>
                 <S.UpperWrapper>
-                    <S.ProfileImage>
-                        <img src=''/>
-                    </S.ProfileImage>
-                    <S.ProfileName>{comment.username}</S.ProfileName>
+                    {
+                        <>
+                            <S.ProfileImage>
+                                {userData && <img src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>}
+                            </S.ProfileImage>
+                            {userData && <S.ProfileName onClick={navigateToUserProf}>{userData.nickname}</S.ProfileName>}
+                        </>
+                    }
                     <S.ReportBox>
                         <Link to="/">
                             <img src={report_logo}/>
@@ -83,7 +98,6 @@ const CommentTable = ({ id }) => {
                 <S.ContentText>{comment.content}</S.ContentText>
                 <Divider/>
             </S.Wrapper>
-        ))}
         </>
     )
 }

@@ -9,17 +9,17 @@ const FindIdForm = () => {
     const token = getCookie("ACCESS_TOKEN");
 
     const initData = Object.freeze({
-        nickname: '',
+        fullname: '',
+        email:'',
     });
     const [data, updataData] = useState(initData);
     const [color, updataColor] = useState("#b8e8ff")
     const [users, setUsers] = useState();
 
     useEffect(()=>{
-        axios.get('/members', {
-            headers: {
-                Authorization:  `Bearer ${token}`,
-            }
+        axios.get('/members/find-username', {
+            "fullname":data.fullname,
+            "email":data.email,
             })
             .then((response) => {
                 console.log(response.data.data);
@@ -33,7 +33,7 @@ const FindIdForm = () => {
     }, []);
 
     useEffect(() => {
-        if(data.nickname.length > 0) {
+        if(data.fullname.length > 0) {
             updataColor("#609966");
         } else {
             updataColor("#A4D0A9");
@@ -59,7 +59,7 @@ const FindIdForm = () => {
                 <p>Loading...</p>
             )}
              <br/>
-            <button className="submitBtn" type="submit" onClick={handleSubmit => navigate("/LoginPage")}>로그인하기</button> 
+            <button className="submitBtn" type="button" onClick={() => navigate("/LoginPage")}>로그인하기</button> 
         </SignInForm>
     );
 }

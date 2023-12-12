@@ -34,6 +34,12 @@ const S = {
         height : 50px;
         border-radius: 50%;
         background-color: grey;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
     `,
     ProfileMiddleWrapper : styled.div`
         display : flex;
@@ -49,6 +55,7 @@ const S = {
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        cursor : pointer;
     `,
     TimeText : styled.div`
         color: #A1A1A1;
@@ -57,14 +64,6 @@ const S = {
         font-style: normal;
         font-weight: 400;
         line-height: normal;
-    `,
-    RequestButton : styled.button`
-        width: 70px;
-        height: 44px;
-        border-radius: 20px;
-        background: #609966;
-        border : none;
-        margin-left : auto;
     `,
     TitleText : styled.a`
         display : flex;
@@ -104,6 +103,39 @@ const S = {
     `
 }
 
+const RequestButton = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 44px;
+    border-radius: 20px;
+    background: #609966;
+    border : none;
+    margin-left : auto;
+    cursor : pointer;
+`;
+
+const RequestButtonText = styled.a`
+    color: #fff;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+`;
+
+const CompleteButton = styled(RequestButton)`
+    background: #FF0000;
+`
+
+const ClosedButton = styled(RequestButton)`
+    background: #DDDDDD;
+    cursor: default;
+`
+
 const OpenStatusBox = styled.div`
     width: 45px;
     height: 15px;
@@ -128,8 +160,9 @@ const PostDetail= () => {
     const [data, setData] = useState();
     const [userData, setUserData] = useState(); 
     const token = getCookie("ACCESS_TOKEN");
+    const [commentData, setCommentData] = useState();
     const [loggedInUser, setLoggedInUser] = useState();
-    const [isMine, setIsMine] = useState(false);
+    const [isMine, setIsMine] = useState();
 
     useEffect(() => {
         axios.get('/posts/' + id.PostId).then((res) => {
@@ -145,61 +178,109 @@ const PostDetail= () => {
             console.error(error);
         });
 
-        // axios.get('/members',{
-        //     headers: {
-        //         Authorization: `Bearer ${token}`,
-        //     }
-        // }).then((res) => {
-        //     setLoggedInUser(res.data.data.memberId);
-        // });
+        axios.get(`/posts/${id.PostId}/comments`).then((res) => {
+            console.log(res.data.data);
+            setCommentData(res.data.data);
+        }).catch((err) => {
+            console.log(err);
+        })
 
-        // if (loggedInUser && loggedInUser === data.memberId) {
-        //     setIsMine(true);
-        // }
-    }, []);
-
-    const apply = () => {
-        axios.post(`/posts/${id.PostId}/apply-matching`,null,{
+        axios.get('/members',{
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         }).then((res) => {
-            console.log(res);
-            switch (res.data.data.code){
-                case 403:
-                    alert("이미 신청한 글입니다.");
-                    break;
-                default:
-                    alert("신청 완료되었습니다.");
-            }
-            
+            console.log(res.data.data);
+            setLoggedInUser(res.data.data.memberId);
         }).catch((err) => {
+            console.log(err);
+        });
+
+    }, []);
+
+    useEffect(() => {
+        if (loggedInUser && data){
+            if (loggedInUser === data.memberId) {
+                setIsMine(true);
+            }
+        }
+    },[data, loggedInUser]);
+    
+
+    const ApplyMatching = () => {
+        if (loggedInUser) {
+            axios.post(`/posts/${id.PostId}/apply-matching`,null,{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }).then((res) => {
+                console.log(res);
+                switch (res.data.data.code){
+                    case 403:
+                        alert("이미 신청한 글입니다.");
+                        break;
+                    default:
+                        alert("신청 완료되었습니다.");
+                }
+            })
+        } else {
             alert("로그인이 필요합니다.");
-            navigate("/LoginPage");
+        }  
+    };
+
+    const CompleteMatching = () => {
+        axios.patch(`/posts/${id.PostId}/complete-matching`,null,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).then((res) => {
+            console.log(res.data)
         })
+    };
+
+    const navigateToUserProf = () => {
+        navigate(`/UserPage/${userData.memberId}`)
     }
     
     return(
         <>
-        {data && 
+        {(userData && data) && 
             <>
             <S.Wrapper>
                 <S.ProfileWrapper>
-                    <S.ProfileImage/>
+                    <S.ProfileImage>
+                    {userData && <img src={`https://api.favorite-school.me/api/v1${userData.profileImageEndpoint}`}/>}
+                    </S.ProfileImage>
                     <S.ProfileMiddleWrapper>
                         {userData && 
-                            <S.ProfileName>{userData.nickname}</S.ProfileName>
+                            <S.ProfileName onClick={navigateToUserProf}>{userData.nickname}</S.ProfileName>
                         }
                         <S.TimeText>{data.createdAt}</S.TimeText>
                     </S.ProfileMiddleWrapper>
+
+
                     {
-                        <S.RequestButton onClick={apply}>요청</S.RequestButton>
+                        data.matching.matchingStatus === "CLOSED" ?
+                        <ClosedButton>
+                            <RequestButtonText>마감됨</RequestButtonText>
+                        </ClosedButton> :
+                        (
+                            isMine ?
+                            <CompleteButton onClick={CompleteMatching}>
+                                <RequestButtonText>마감하기</RequestButtonText>
+                                <RequestButtonText>{data.matching.approvedParticipant}/{data.matching.maxParticipant}</RequestButtonText>
+                            </CompleteButton> :
+                            <RequestButton onClick={ApplyMatching}>
+                                <RequestButtonText>요청하기</RequestButtonText>
+                                <RequestButtonText>{data.matching.approvedParticipant}/{data.matching.maxParticipant}</RequestButtonText>
+                            </RequestButton>
+                        )
                     }
-                    
+
                 </S.ProfileWrapper>
                 <S.TitleText>{data.title}</S.TitleText>
                 <S.ContentText>{data.content}</S.ContentText>
-                
+
                 <S.UnderBarWrapper> 
                     <img src={comment_logo} alt="comment_logo" style={{width: "20px", height: "20px", marginRight : "5px"}}/>
                     <S.TimeText>{data.commentCount}</S.TimeText>
@@ -214,7 +295,9 @@ const PostDetail= () => {
                         <S.TimeText>{data.matching.meetingDateTime}</S.TimeText>
                 </S.UnderBarWrapper>
                 <Divider/>
-                <CommentTable id={data.postId}/>
+                {commentData && commentData.map((comment) => (
+                    <CommentTable comment={comment}/>
+                ))}
             
             </S.Wrapper>
             <S.CommentFormWrapper>
@@ -224,6 +307,6 @@ const PostDetail= () => {
         }
         </>
     )
-}
+};
 
 export default PostDetail;

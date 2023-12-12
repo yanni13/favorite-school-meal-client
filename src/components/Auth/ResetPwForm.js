@@ -7,8 +7,9 @@ import { getCookie } from "../../Cookies";
 const ResetPwForm = () => {
     const navigate = useNavigate();
     const userId = useParams();
+    const token = getCookie("ACCESS_TOKEN");
 
-    const initData = Object.freeze({// freeze-객체를 동결하기 위해서
+    const initData = Object.freeze({
         password1: '',
         password2: '',
     });
@@ -58,11 +59,9 @@ const ResetPwForm = () => {
     }
 
     const ResetPw = (e) => {
-        const token = getCookie("ACCESS_TOKEN");
-
         e.preventDefault();
        
-        axios.put(`/members/${userId.UserId}/modify-password`, 
+        axios.put(`/members/${data.memberId}/modify-password`, 
         {
             "password" : data.password2
         }, {
